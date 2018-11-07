@@ -1,6 +1,12 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container">
 		<%= link_to "ムアシス", root_path, id: "logo" %>
+		<div class="col-md-4 search-form">
+			<%= form_tag search_path, method: :get do %>
+				<%= search_field_tag :looking_for, nil, placeholder: 'Movie Title' %>
+				<%= submit_tag 'Search', class: 'btn' %>
+			<% end %>
+		</div>
 		<nav>
 			<ul class="nav navbar-nav navbar-right">
 				<li><%= link_to "Home", root_path %></li>

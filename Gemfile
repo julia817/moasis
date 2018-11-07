@@ -62,3 +62,6 @@ gem 'bcrypt', '3.1.12'
 
 # Simplify style-sheet
 gem 'bootstrap-sass', '3.3.7'
+
+# For using API
+gem 'httparty', '0.13.5'
