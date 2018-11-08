@@ -6,7 +6,7 @@ class SearchController < ApplicationController
 		else
 			@movies = Movie.search @search_term
 		end
-		save_to_db	
+		save_to_db
   	end
 
   	private

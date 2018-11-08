@@ -1,4 +1,4 @@
-<% provide(:title, '#{@search_term} - 検索') %>
+<% provide(:title, "#{@search_term} - 検索") %>
 
 <% if !@search_term.nil? %>
   <table border="1">
@@ -10,7 +10,7 @@
     </tr>
     <% @movies.each do |movie| %>
       <tr class=<%= cycle('even', 'odd') %>>
-        <td><%= image_tag("https://image.tmdb.org/t/p/w154#{movie["poster_path"]}", :alt => "poster") %></td>
+        <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", class:"img-responsive", :alt => "poster") %></td>
         <td><%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %></td>
         <td><%= movie["release_date"] %></td>
         <td><%= movie["overview"] %></td>

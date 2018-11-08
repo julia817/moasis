@@ -1,3 +1,26 @@
-<h1><%= @movie.title %></h1>
-<h3><%= @movie.date %></h3>
-<p><%= @movie.story %></p>
+<div class="row">
+	<div class="col-md-4">
+		<%= image_tag(@movie.posterpath, class:"img-responsive", :alt => "poster") %>
+	</div>
+
+	<div class="col-md-8">
+		<h1><%= @movie.title %></h1>
+		<h3 class="center">原題：<%= @movie.original_title %></h3>
+		<p>上映日：<%= @movie.date %></p>
+		<p>ストーリ：<br><%= @movie.story %></p>
+		<p>キャスト：<br>
+			<%= @movie_credits["cast"][0]["character"] %>: <%= @movie_credits["cast"][0]["name"] %><br>
+			<%= @movie_credits["cast"][1]["character"] %>: <%= @movie_credits["cast"][1]["name"] %><br>
+			<%= @movie_credits["cast"][2]["character"] %>: <%= @movie_credits["cast"][2]["name"] %><br>
+			<%= @movie_credits["cast"][3]["character"] %>: <%= @movie_credits["cast"][3]["name"] %><br>
+			<%= @movie_credits["cast"][4]["character"] %>: <%= @movie_credits["cast"][4]["name"] %>
+		</p>
+		<p>スタッフ：<br>
+			<% @movie_credits["crew"].each do |crew| %>
+				<% if crew["job"]=="Director" || crew["department"]=="Writing" %>
+					<%= crew["job"] %>: <%= crew["name"] %><br>
+				<% end %>
+			<% end %>
+		</p>
+	</div>
+</div>

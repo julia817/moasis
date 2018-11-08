@@ -11,22 +11,36 @@ class Movie < ApplicationRecord
 		get("", query: { query: term})["results"]
 	end
 
-	def show id
-		# base_uri 'https://api.themoviedb.org/3/movie/#{id}'
-		# get("", query: {})
-
+	def self.credits id
+		base_uri "https://api.themoviedb.org/3/movie/#{id}/credits"
+		get("", query: {})
 	end
 
 	def new
 	end
 
 	def self.create movie
-		@movie = Movie.new(title:"#{movie["title"]}", date: "#{movie["release_date"]}", story: "#{movie["overview"]}")
+		# ge = Array.new
+		# movie["genres"].each do |g|
+		# 	ge.push(g["name"])
+		# end
+		# genres = ge.join('、')
+		@movie = Movie.new(title:"#{movie["title"]}",
+						   date: "#{movie["release_date"]}",
+						   story: "#{movie["overview"]}",
+						   posterpath: "https://image.tmdb.org/t/p/original#{movie["poster_path"]}",
+						   pic_path: "https://image.tmdb.org/t/p/original#{movie["backdrop_path"]}",
+						   genre: movie["genre_ids"].join('、'),
+						   original_title: "#{movie["original_title"]}"
+						   )
 		@movie.id = movie["id"]
 		@movie.save
 	end
 
-	# private
+	private
+		
+
+
 	# 	def movie_params
 	# 		params.require(:movie).permit :title, :date, :story
 	# 	end
