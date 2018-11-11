@@ -67,3 +67,10 @@ gem 'bootstrap-sass', '3.3.7'
 
 # For using API
 gem 'httparty', '0.13.5'
+
+# Make sample users with semi-realistic names and email addresses
+gem 'faker', '1.7.3'
+
+# Configure will_paginate to use Bootstrap's pagination styles
+gem 'will_paginate', '3.1.6'
+gem 'bootstrap-will_paginate', '1.0.0'

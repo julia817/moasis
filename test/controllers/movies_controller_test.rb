@@ -1,8 +1,12 @@
 require 'test_helper'
 
 class MoviesControllerTest < ActionDispatch::IntegrationTest
-	test "should get show page" do
-		get show_path
-		assert_response :success
-	end
+	# def setup
+	# 	@movie = 
+	# end
+	
+	# test "should get show page" do
+	# 	get movie_path(@movie)
+	# 	assert_response :success
+	# end
 end
