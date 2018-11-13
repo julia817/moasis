@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+	has_many :movielists, dependent: :destroy
 
 	validates :username, presence: true, length: { maximum: 15 }
 

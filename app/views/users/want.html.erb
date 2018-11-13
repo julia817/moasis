@@ -1,0 +1,6 @@
+<% if @movielist.nil? %>
+	<h2>観たい映画のリスト（0本）</h2>
+<% else %>
+	<h2>観た映い画のリスト（<%= @watched.count %>本）</h2>
+<% end %>
+<%= render 'movielist' %>

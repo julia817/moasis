@@ -12,8 +12,20 @@ class MoviesController < ApplicationController
 	# end
 
 	def show
-		@movie = Movie.find params[:id]
+		@movie = Movie.find(params[:id])
 		@movie_credits = Movie.credits params[:id]
+		if logged_in?
+			user = current_user
+			unless user.movielists.find_by(listname: "watched").nil?
+				@watched_check = ListMovie.exists?(movie_id:params[:id])
+			end
+			unless user.movielists.find_by(listname: "want").nil?
+				@want_check = ListMovie.exists?(movie_id:params[:id])
+			end
+			unless user.movielists.find_by(listname: "recommend").nil?
+				@recommend_check = ListMovie.exists?(movie_id:params[:id])
+			end
+		end
 	end
 
 end

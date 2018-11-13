@@ -1,11 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  date: MyString
-  story: MyString
-
-two:
-  title: MyString
-  date: MyString
-  story: MyString
+avengers:
+  title: "avengers"
+  date: "2018-05-05"
+  story: "an SF/action movie about superheros based on MARVEL universe"

@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181111071413) do
+ActiveRecord::Schema.define(version: 20181113034318) do
+
+  create_table "list_movies", force: :cascade do |t|
+    t.integer  "movielist_id"
+    t.integer  "movie_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["movie_id"], name: "index_list_movies_on_movie_id"
+    t.index ["movielist_id", "movie_id", "created_at"], name: "index_list_movies_on_movielist_id_and_movie_id_and_created_at"
+    t.index ["movielist_id"], name: "index_list_movies_on_movielist_id"
+  end
+
+  create_table "movielists", force: :cascade do |t|
+    t.string   "listname"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "created_at"], name: "index_movielists_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_movielists_on_user_id"
+  end
 
   create_table "movies", force: :cascade do |t|
     t.string   "title"

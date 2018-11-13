@@ -1,16 +1,20 @@
 class Movie < ApplicationRecord
 	include HTTParty
 
+	has_many :list_movies
+	has_many :movielists, through: :list_movies
+
 	default_options.update(verify: false)
-	
 	default_params api_key: 'eb5a81372c8971c7a1dc86b855e863ed', language: 'ja-JP'
 	format :json
 
+	# search movies based on key words
 	def self.search term
 		base_uri 'https://api.themoviedb.org/3/search/movie'
 		get("", query: { query: term})["results"]
 	end
 
+	# get cast & staff list for a certain movie
 	def self.credits id
 		base_uri "https://api.themoviedb.org/3/movie/#{id}/credits"
 		get("", query: {})
@@ -20,11 +24,6 @@ class Movie < ApplicationRecord
 	end
 
 	def self.create movie
-		# ge = Array.new
-		# movie["genres"].each do |g|
-		# 	ge.push(g["name"])
-		# end
-		# genres = ge.join('、')
 		@movie = Movie.new(title:"#{movie["title"]}",
 						   date: "#{movie["release_date"]}",
 						   story: "#{movie["overview"]}",
