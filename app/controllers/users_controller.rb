@@ -50,34 +50,45 @@ class UsersController < ApplicationController
 	# movies related
 
 	def watched
-		@user = User.find(params[:id])
-		@movielist = @user.movielists.find_by(listname: "watched")
-		unless @movielist.nil?
-			@watched = ListMovie.where(movielist_id: @movielist.id)
-		end
+		# @user = User.find(params[:id])
+		# @movielist = @user.movielists.find_by(listname: "watched")
+		# unless @movielist.nil?
+		# 	@watched = ListMovie.where(movielist_id: @movielist.id)
+		# end
+		@watched = list("watched")
 	end
 
 	def want
-		@user = User.find(params[:id])
-		@movielist = @user.movielists.find_by(listname: "want")
-		unless @movielist.nil?
-			@want = ListMovie.where(movielist_id: @movielist.id)
-		end
+		# @user = User.find(params[:id])
+		# @movielist = @user.movielists.find_by(listname: "want")
+		# unless @movielist.nil?
+		# 	@want = ListMovie.where(movielist_id: @movielist.id)
+		# end
+		@want = list("want")
 	end
 
 	def recommend
-		@user = User.find(params[:id])
-		@movielist = @user.movielists.find_by(listname: "recommend")
-		unless @movielist.nil?
-			@recommend = ListMovie.where(movielist_id: @movielist.id)
-		end
+		# @user = User.find(params[:id])
+		# @movielist = @user.movielists.find_by(listname: "recommend")
+		# unless @movielist.nil?
+		# 	@recommend = ListMovie.where(movielist_id: @movielist.id)
+		# end
+		@recommend = list("recommend")
 	end	
 
 
 	private
 		# strong params to restrict actions
 		def user_params
-			params.require(:user).permit(:username, :email, :password, :password_confirmation)
+			params.require(:user).permit(:username, :email, :password, :password_confirmation, :picture)
+		end
+
+		def list name
+			@user = User.find(params[:id])
+			@movielist = @user.movielists.find_by(listname: "#{name}")
+			unless @movielist.nil?
+				ListMovie.where(movielist_id: @movielist.id)
+			end
 		end
 
 		# before filters
