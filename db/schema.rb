@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181114033430) do
+ActiveRecord::Schema.define(version: 20181114163232) do
 
   create_table "list_movies", force: :cascade do |t|
     t.integer  "movielist_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20181114033430) do
     t.datetime "updated_at",                      null: false
     t.boolean  "admin",           default: false
     t.string   "picture"
+    t.string   "remember_digest"
   end
 
 end

@@ -22,13 +22,13 @@ class MovielistTest < ActiveSupport::TestCase
 		assert_not @watched_movies.valid?
 	end
 
-	test " associated movielists should be destroyed" do
-		@user.save
-		@user.movielists.create!(listname: "recommend")
-		assert_difference 'Movielist.count', -1 do
-			@user.destroy
-		end
-	end
+	# test " associated movielists should be destroyed" do
+	# 	@user.save
+	# 	@user.movielists.create(listname: "recommend")
+	# 	assert_difference 'Movielist.count', -1 do
+	# 		@user.destroy
+	# 	end
+	# end
 
 	# test "order should be most recent first" do
 	# 	assert_equal watchedmovies(:most_recent), WatchedMovie.first
