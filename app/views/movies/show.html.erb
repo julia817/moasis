@@ -16,7 +16,7 @@
 			<% else %>
 				<%= button_to "観たい", "/list_movies/create_want?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
 			<% end %>
-			<% if @recommend_check %>
+			<% if @recommend_check || !@watched_check %>
 				<%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
 			<% else %>
 				<%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>

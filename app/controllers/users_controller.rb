@@ -55,7 +55,7 @@ class UsersController < ApplicationController
 		# unless @movielist.nil?
 		# 	@watched = ListMovie.where(movielist_id: @movielist.id)
 		# end
-		@watched = list("watched")
+		@watched = listup("watched")
 	end
 
 	def want
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 		# unless @movielist.nil?
 		# 	@want = ListMovie.where(movielist_id: @movielist.id)
 		# end
-		@want = list("want")
+		@want = listup("want")
 	end
 
 	def recommend
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
 		# unless @movielist.nil?
 		# 	@recommend = ListMovie.where(movielist_id: @movielist.id)
 		# end
-		@recommend = list("recommend")
+		@recommend = listup("recommend")
 	end	
 
 
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 			params.require(:user).permit(:username, :email, :password, :password_confirmation, :picture)
 		end
 
-		def list name
+		def listup name
 			@user = User.find(params[:id])
 			@movielist = @user.movielists.find_by(listname: "#{name}")
 			unless @movielist.nil?

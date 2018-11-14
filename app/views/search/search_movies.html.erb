@@ -7,13 +7,43 @@
       <th>Title</th>
       <th>Release Date</th>
       <th>Description</th>
+      <th>Action</th>
     </tr>
     <% @movies.each do |movie| %>
-      <tr class=<%= cycle('even', 'odd') %>>
+      <tr>
         <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", class:"img-responsive", :alt => "poster") %></td>
         <td><%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %></td>
         <td><%= movie["release_date"] %></td>
         <td><%= movie["overview"] %></td>
+        <td>
+          <% if !logged_in? %>
+            <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
+            <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
+            <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
+          <% else %>
+            <% if watched_check(movie["id"]) %>
+              <%= button_to "観た", "", :disabled => true, :class => "btn btn-info disabled" %>
+            <% else %>
+              <%= button_to "観た", 
+                  "/list_movies/create_watched_from_other?movie_id=#{movie["id"]}", 
+                  :class => "btn btn-info btn-md" %>
+            <% end %>
+            <% if watched_check(movie["id"]) || want_check(movie["id"]) %>
+              <%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
+            <% else %>
+              <%= button_to "観たい", 
+                  "/list_movies/create_want_from_other?movie_id=#{movie["id"]}", 
+                  :class => "btn btn-info btn-md" %>
+            <% end %>
+            <% if recommend_check(movie["id"]) || !watched_check(movie["id"]) %>
+              <%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
+            <% else %>
+              <%= button_to "おすすめ", 
+                  "/list_movies/create_recommend_from_other?movie_id=#{movie["id"]}", 
+                  :class => "btn btn-info btn-md" %>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>

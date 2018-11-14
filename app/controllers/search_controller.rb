@@ -15,4 +15,6 @@ class SearchController < ApplicationController
   				Movie.create movie unless Movie.exists?(id: movie["id"])
   			end
   		end
+
+
 end
