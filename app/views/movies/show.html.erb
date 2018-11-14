@@ -1,20 +1,26 @@
 <div class="row">
 	<div class="col-md-4">
 		<%= image_tag(@movie.posterpath, class:"img-responsive", :alt => "poster") %>
-		<% if @watched_check %>
-			<%= button_to "観た", "", :disabled => true, :class => "btn btn-info disabled" %>
+		<% if !logged_in? %>
+			<%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
+			<%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
+			<%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
 		<% else %>
-			<%= button_to "観た", "/list_movies/create_wanted?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
-		<% end %>
-		<% if @watched_check || @want_check %>
-			<%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
-		<% else %>
-			<%= button_to "観たい", "/list_movies/create_want?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
-		<% end %>
-		<% if @recommend_check || !@watched_check %>
-			<%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
-		<% else %>
-			<%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
+			<% if @watched_check %>
+				<%= button_to "観た", "", :disabled => true, :class => "btn btn-info disabled" %>
+			<% else %>
+				<%= button_to "観た", "/list_movies/create_watched?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
+			<% end %>
+			<% if @watched_check || @want_check %>
+				<%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
+			<% else %>
+				<%= button_to "観たい", "/list_movies/create_want?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
+			<% end %>
+			<% if @recommend_check %>
+				<%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
+			<% else %>
+				<%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{@movie.id}", :class => "btn btn-info btn-md" %>
+			<% end %>
 		<% end %>
 	</div>
 

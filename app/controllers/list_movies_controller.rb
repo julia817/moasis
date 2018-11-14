@@ -1,6 +1,10 @@
 class ListMoviesController < ApplicationController
-	before_action :logged_in_user, only: [:create]
+	before_action :logged_in_user, only: [:create, :create_watched, :create_want, :create_recommend]
 
+	# in order to show all three buttons on
+	def create
+	end
+	
 	# add watched movie to the database
 	def create_watched
 		@user = current_user

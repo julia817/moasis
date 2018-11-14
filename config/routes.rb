@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :movielists, only: [:create, :destroy]
     resources :list_movies
 
+    post 'list_movies/create', to: "list_movies#create"
     post 'list_movies/create_watched', to: "list_movies#create_watched"
     post 'list_movies/create_want', to: "list_movies#create_want"
     post 'list_movies/create_recommend', to: "list_movies#create_recommend"
