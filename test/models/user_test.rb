@@ -1,9 +1,6 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   def setup
   	@user = User.new(username: "foo bar", email: "user@example.com", 
   					 password: "123456", password_confirmation: "123456")
@@ -24,7 +21,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "name should not be too long" do
-  	@user.username = "a"*16
+  	@user.username = "a"*51
   	assert_not @user.valid?
   end
 
@@ -75,5 +72,16 @@ class UserTest < ActiveSupport::TestCase
 
   test "authenticated? should return false for a user with nil digest" do
     assert_not @user.authenticated?('')
+  end
+
+  test "should follow and unfollow a user" do
+    julia = users(:julia)
+    another = users(:another)
+    assert_not julia.following?(another)
+    julia.follow(another)
+    assert julia.following?(another)
+    assert another.followers.include?(julia)
+    julia.unfollow(another)
+    assert_not julia.following?(another)
   end
 end

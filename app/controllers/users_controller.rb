@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+	before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
 	before_action :correct_user, only: [:edit, :update]
 	before_action :admin_user, only: [:destroy]
 
@@ -47,32 +47,33 @@ class UsersController < ApplicationController
 		redirect_to users_url
 	end
 
+	# relationships
+
+	def following
+		@title = "Following"
+		@user = User.find(params[:id])
+		@users = @user.following.paginate(page: params[:page])
+		render 'show_follow'
+	end
+
+	def followers
+		@title = "Followers"
+		@user = User.find(params[:id])
+		@users = @user.followers.paginate(page: params[:page])
+		render 'show_follow'
+	end
+
 	# movies related
 
 	def watched
-		# @user = User.find(params[:id])
-		# @movielist = @user.movielists.find_by(listname: "watched")
-		# unless @movielist.nil?
-		# 	@watched = ListMovie.where(movielist_id: @movielist.id)
-		# end
 		@watched = listup("watched")
 	end
 
 	def want
-		# @user = User.find(params[:id])
-		# @movielist = @user.movielists.find_by(listname: "want")
-		# unless @movielist.nil?
-		# 	@want = ListMovie.where(movielist_id: @movielist.id)
-		# end
 		@want = listup("want")
 	end
 
 	def recommend
-		# @user = User.find(params[:id])
-		# @movielist = @user.movielists.find_by(listname: "recommend")
-		# unless @movielist.nil?
-		# 	@recommend = ListMovie.where(movielist_id: @movielist.id)
-		# end
 		@recommend = listup("recommend")
 	end	
 
@@ -83,9 +84,9 @@ class UsersController < ApplicationController
 			params.require(:user).permit(:username, :email, :password, :password_confirmation, :picture)
 		end
 
-		def listup name
+		def listup listname
 			@user = User.find(params[:id])
-			@movielist = @user.movielists.find_by(listname: "#{name}")
+			@movielist = @user.movielists.find_by(listname: "#{listname}")
 			unless @movielist.nil?
 				ListMovie.where(movielist_id: @movielist.id)
 			end

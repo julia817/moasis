@@ -5,18 +5,63 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Users
 User.create!(username: "julia",
 			 email: "julia@example.com",
 			 password: "password",
 			 password_confirmation: "password",
 			 admin: true)
 
-100.times do |n|
-	username = Faker::Pokemon.unique.name.downcase
-	email = "#{username}@pokemon.com"
+25.times do |n|
+	username = Faker::StarWars.unique.character.gsub(" ", "")
+	email = "#{username}@starwars.org"
 	password = "password"
+	picture = Faker::Avatar.image
 	User.create!(username: username,
 				 email: email,
 				 password: password,
-				 password_confirmation: password)
+				 password_confirmation: password,
+				 picture: picture)
 end
+25.times do |n|
+	username = Faker::HarryPotter.unique.character.gsub(" ", "")
+	email = "#{username}@harrypotter.org"
+	password = "password"
+	picture = Faker::Avatar.image
+	User.create!(username: username,
+				 email: email,
+				 password: password,
+				 password_confirmation: password,
+				 picture: picture)
+end
+25.times do |n|
+	username = Faker::Pokemon.unique.name.gsub(" ", "")
+	email = "#{username}@pokemon.org"
+	password = "password"
+	picture = Faker::Avatar.image
+	User.create!(username: username,
+				 email: email,
+				 password: password,
+				 password_confirmation: password,
+				 picture: picture)
+end
+25.times do |n|
+	username = Faker::Superhero.unique.name.gsub(" ", "")
+	email = "#{username}@superhero.org"
+	password = "password"
+	picture = Faker::Avatar.image
+	User.create!(username: username,
+				 email: email,
+				 password: password,
+				 password_confirmation: password,
+				 picture: picture)
+end
+
+# Following relationships
+users = User.all
+user = users.first
+following = users[2..50]
+followers = users[3..40]
+following.each { |followed| user.follow(followed) }
+followers.each { |follower| follower.follow(user) }

@@ -110,3 +110,27 @@ footer {
 }
 
 /* forms */
+
+/* profile */
+.stats {
+	margin-left: 240px;
+	margin-right: 240px;
+	// overflow: auto;
+	a {
+		float: left;
+		padding: 0 10px;
+		border-left: 1px solid $gray-medium-light;
+		&:first-child {
+			border: 0;
+		}
+	}
+	strong {
+		display: block;
+	}
+}
+
+.lists {
+	clear: both;
+	padding-top: 20px;
+	// overflow: auto;
+}
