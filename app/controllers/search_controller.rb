@@ -1,12 +1,13 @@
 class SearchController < ApplicationController
 	def search_movies
 		@search_term = params[:looking_for]
-		if @search_term.nil?
-			@movies = []
+		if @search_term.blank?
+			flash[:danger] = "検索キーワードが入力されていません"
+			redirect_to root_path
 		else
 			@movies = Movie.search @search_term
+			save_to_db unless @movies.blank?
 		end
-		save_to_db
   	end
 
   	private

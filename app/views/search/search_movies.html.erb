@@ -1,6 +1,8 @@
 <% provide(:title, "#{@search_term} - 検索") %>
 
-<% if !@search_term.nil? %>
+<% if @movies.blank? %>
+  <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
+<% else %>
   <table border="1">
     <tr>
       <th>Poster</th>
