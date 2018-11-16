@@ -33,36 +33,39 @@
             
           <% else %>
             <% if watched_check(movie["id"]) %>
-              <%= button_to "観た記録削除", 
-                  "/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}", 
-                  :method => "delete", :class => "btn btn-md btn-danger",
-                  :data => { :confirm => "本当に削除しますか？" } %>
+              <%= button_to "観た記録削除", list_movies_destroy_path,
+                            :method => "delete",
+                            :class => "btn btn-md btn-warning",
+                            :data => { :confirm => "本当に削除しますか？" },
+                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
             <% else %>
-              <%= button_to "観た", "/list_movies/create_watched?movie_id=#{movie["id"]}",
+              <%= button_to "観た", "/list_movies/create_watched_from_other?movie_id=#{movie["id"]}",
                   :class => "btn btn-info btn-md" %>
             <% end %>
 
             <% if watched_check(movie["id"]) %>
               <%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
             <% elsif want_check(movie["id"]) %>
-              <%= button_to "観たい記録削除", 
-                  "/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}", 
-                  :method => "delete", :class => "btn btn-md btn-danger",
-                  :data => { :confirm => "本当に削除しますか？" } %>
+              <%= button_to "観たい記録削除", list_movies_destroy_path,
+                            :method => "delete",
+                            :class => "btn btn-md btn-warning",
+                            :data => { :confirm => "本当に削除しますか？" },
+                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
             <% else %>
-              <%= button_to "観たい", "/list_movies/create_want?movie_id=#{movie["id"]}", 
+              <%= button_to "観たい", "/list_movies/create_want_from_other?movie_id=#{movie["id"]}", 
                   :class => "btn btn-info btn-md" %>
             <% end %>
 
             <% if !watched_check(movie["id"]) %>
               <%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
             <% elsif recommend_check(movie["id"]) %>
-              <%= button_to "おすすめ記録削除", 
-                  "/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}", 
-                  :method => "delete", :class => "btn btn-md btn-danger",
-                  :data => { :confirm => "本当に削除しますか？" } %>
+              <%= button_to "おすすめ記録削除", list_movies_destroy_path,
+                            :method => "delete",
+                            :class => "btn btn-md btn-warning",
+                            :data => { :confirm => "本当に削除しますか？" },
+                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
             <% else %>
-              <%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{movie["id"]}",
+              <%= button_to "おすすめ", "/list_movies/create_recommend_from_other?movie_id=#{movie["id"]}",
                   :class => "btn btn-info btn-md" %>
             <% end %>
           <% end %>

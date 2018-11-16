@@ -6,7 +6,7 @@
 	<h2>観たい作品のリスト（<%= @want.count %>本）</h2>
 <% end %>
 
-<% if !@movielist.nil? %>
+<% if !@want.blank? %>
 	<table border="1">
     <tr>
 		<th>Poster</th>
@@ -38,15 +38,15 @@
         	<% end %>
         </td>
         <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
-			<% if current_user?(User.find(@movielist.user_id)) %>
+				<% if current_user?(User.find(@movielist.user_id)) %>
         	<td><%= button_to "観た",
 								        		"/list_movies/create_watched_from_other?movie_id=#{movie["id"]}",
 								        		:class => "btn btn-info btn-md" %>
-        		<%= button_to "削除",
-        									"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}",
-        									:method => "delete",
-        									:class => "btn btn-md btn-danger",
-        									:data => { :confirm => "本当に削除しますか？" } %>
+	        		<%= button_to "削除", list_movies_destroy_path,
+	        									:method => "delete",
+	        									:class => "btn btn-md btn-danger",
+	        									:data => { :confirm => "本当に削除しますか？" },
+                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
         	</td>
         <% end %>
     	</tr>
