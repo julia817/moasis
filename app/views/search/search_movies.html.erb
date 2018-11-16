@@ -1,8 +1,10 @@
 <% provide(:title, "#{@search_term} - 検索") %>
 
-<% if @movies.blank? %>
+<% if @movie_results.blank? %>
   <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
 <% else %>
+  <p>[<%= @search_term %>]に関する映画は<%= @total_results %>本があります</p>
+  <%= paginate @movie_results %>
   <table border="1">
     <tr>
       <th>Poster</th>
@@ -11,12 +13,18 @@
       <th>Description</th>
       <th>Action</th>
     </tr>
-    <% @movies.each do |movie| %>
+    <% @movie_results.each do |movie| %>
       <tr>
-        <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", class:"img-responsive", :alt => "poster") %></td>
+        <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %></td>
         <td><%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %></td>
         <td><%= movie["release_date"] %></td>
-        <td><%= movie["overview"] %></td>
+        <td>
+          <% if movie["overview"].blank? %>
+            情報がありません
+          <% else %>
+            <%= movie["overview"] %>
+          <% end %>
+        </td>
         <td>       
           <% if !logged_in? %>
             <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
@@ -62,4 +70,5 @@
       </tr>
     <% end %>
   </table>
+  <%= paginate @movie_results %>
 <% end %>

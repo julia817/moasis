@@ -9,15 +9,14 @@ class Movie < ApplicationRecord
 	format :json
 
 	# search movies based on key words
-	def self.search term
+	def self.search (term, page=1)
 		base_uri 'https://api.themoviedb.org/3/search/movie'
-		get("", query: { query: term})["results"]
+		get("", query: { query: term, page: page })
 	end
 
-	# get cast & staff list for a certain movie
-	def self.credits id
-		base_uri "https://api.themoviedb.org/3/movie/#{id}/credits"
-		get("", query: {})
+	def self.details id
+		base_uri "https://api.themoviedb.org/3/movie/#{id}"
+		get("", query: { append_to_response: "credits" } )
 	end
 
 	def new

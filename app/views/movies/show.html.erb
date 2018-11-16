@@ -1,64 +1,122 @@
 <div class="row">
 	<div class="col-md-4">
-		<%= image_tag(@movie.posterpath, class:"img-responsive", :alt => "poster") %>
+		<%= image_tag("https://image.tmdb.org/t/p/original#{@movie["poster_path"]}",
+									:class => "img-responsive", :alt => "poster") %>
 		<% if !logged_in? %>
 			<%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
 			<%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
 			<%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
 			
 		<% else %>
-			<% if watched_check(@movie.id) %>
+			<% if watched_check(@movie["id"]) %>
 				<%= button_to "観た記録削除", 
-						"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{@movie.id}", 
+						"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{@movie["id"]}", 
 						:method => "delete", :class => "btn btn-md btn-danger",
 						:data => { :confirm => "本当に削除しますか？" } %>
 			<% else %>
-				<%= button_to "観た", "/list_movies/create_watched?movie_id=#{@movie.id}",
+				<%= button_to "観た", "/list_movies/create_watched?movie_id=#{@movie["id"]}",
 						:class => "btn btn-info btn-md" %>
 			<% end %>
 
-			<% if watched_check(@movie.id) %>
+			<% if watched_check(@movie["id"]) %>
 				<%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
-			<% elsif want_check(@movie.id) %>
+			<% elsif want_check(@movie["id"]) %>
 				<%= button_to "観たい記録削除", 
-						"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{@movie.id}", 
+						"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{@movie["id"]}", 
 						:method => "delete", :class => "btn btn-md btn-danger",
 						:data => { :confirm => "本当に削除しますか？" } %>
 			<% else %>
-				<%= button_to "観たい", "/list_movies/create_want?movie_id=#{@movie.id}", 
+				<%= button_to "観たい", "/list_movies/create_want?movie_id=#{@movie["id"]}", 
 						:class => "btn btn-info btn-md" %>
 			<% end %>
 
-			<% if !watched_check(@movie.id) %>
+			<% if !watched_check(@movie["id"]) %>
 				<%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
-			<% elsif recommend_check(@movie.id) %>
+			<% elsif recommend_check(@movie["id"]) %>
 				<%= button_to "おすすめ記録削除", 
-				  	"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{@movie.id}", 
+				  	"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{@movie["id"]}", 
 						:method => "delete", :class => "btn btn-md btn-danger",
 						:data => { :confirm => "本当に削除しますか？" } %>
 			<% else %>
-				<%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{@movie.id}",
+				<%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{@movie["id"]}",
 						:class => "btn btn-info btn-md" %>
 			<% end %>
 		<% end %>
 	</div>
 
 	<div class="col-md-8">
-		<h1><%= @movie.title %></h1>
-		<h3 class="center">原題：<%= @movie.original_title %></h3>
-		<p>上映日：<%= @movie.date %></p>
-		<p>ストーリ：<br><%= @movie.story %></p>
-		<p>キャスト：<br>
-			<%= @movie_credits["cast"][0]["character"] %>: <%= @movie_credits["cast"][0]["name"] %><br>
-			<%= @movie_credits["cast"][1]["character"] %>: <%= @movie_credits["cast"][1]["name"] %><br>
-			<%= @movie_credits["cast"][2]["character"] %>: <%= @movie_credits["cast"][2]["name"] %><br>
-			<%= @movie_credits["cast"][3]["character"] %>: <%= @movie_credits["cast"][3]["name"] %><br>
-			<%= @movie_credits["cast"][4]["character"] %>: <%= @movie_credits["cast"][4]["name"] %>
+		<h1><%= @movie["title"] %></h1>
+
+		<% if @movie["origianl_language"] != "ja" %>
+			<h3 class="center">原題：<%= @movie["original_title"] %></h3>
+		<% end %>
+
+		<p><strong>上映日：</strong><%= @movie["release_date"] %></p>
+
+		<p>
+			<strong>ジャンル：</strong>
+			<% @movie["genres"].each do |genre| %>
+				<% if genre == @movie["genres"].last %>
+					<span><%= genre["name"] %></span>
+				<% else %>
+					<span><%= genre["name"] %>、</span>
+				<% end %>
+			<% end %>
 		</p>
-		<p>スタッフ：<br>
-			<% @movie_credits["crew"].each do |crew| %>
+
+		<p>
+			<strong>制作国：</strong>
+			<% @movie["production_countries"].each do |country| %>
+				<% if country == @movie["production_countries"].last %>
+					<span><%= country["name"] %></span>
+				<% else %>
+					<span><%= country["name"] %>、</span>
+				<% end %>
+			<% end %>
+		</p>
+
+		<p>
+			<strong>言語：</strong>
+			<% @movie["spoken_languages"].each do |language| %>
+				<% if language == @movie["spoken_languages"].last %>
+					<span><%= language["name"] %></span>
+				<% else %>
+					<span><%= language["name"] %>、</span>
+				<% end %>
+			<% end %>
+		</p>
+
+		<p>
+			<strong>ストーリ：</strong>
+			<% if @movie["overview"].blank? %>
+				<span>申し訳ございませんが、情報がありません。</span>
+			<% else %>
+				<span><%= @movie["overview"] %></span>
+			<% end %>
+		</p>
+
+		<p>
+			<strong>キャスト：</strong><br>
+			<% (0...@cast_range).each do |i| %>
+				<% if @movie["credits"]["cast"][i]["character"].blank? %>
+					<% break %>
+				<% end %>
+				<% if @movie["credits"]["cast"][i]["profile_path"].nil? %>
+					<%= image_tag("default credit.png", :alt => "default profile") %>
+				<% else %>
+					<%= image_tag("https://image.tmdb.org/t/p/w200#{@movie["credits"]["cast"][i]["profile_path"]}",
+												:size => "80x107", :alt => "profile") %>
+				<% end %>
+				<strong><%= @movie["credits"]["cast"][i]["name"] %>:  </strong>
+				<%= @movie["credits"]["cast"][i]["character"] %> 役<br>
+			<% end %>
+		</p>
+
+		<p>
+			<strong>スタッフ：</strong><br>
+			<% @movie["credits"]["crew"].each do |crew| %>
 				<% if crew["job"]=="Director" || crew["department"]=="Writing" %>
-					<%= crew["job"] %>: <%= crew["name"] %><br>
+					<%= crew["job"] %>:  <%= crew["name"] %><br>
 				<% end %>
 			<% end %>
 		</p>

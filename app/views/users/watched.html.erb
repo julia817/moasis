@@ -8,35 +8,47 @@
 
 <% if !@movielist.nil? %>
 	<table border="1">
-	    <tr>
-			<th>Poster</th>
-			<th>Title</th>
-			<th>Release Date</th>
-			<th>Description</th>
-			<th>Add at</th>
-			<% if current_user?(User.find(@movielist.user_id)) %>
-				<th>Action</th>
-			<% end %>
-	    </tr>
-	    <% @watched.each do |m| %>
-	    	<% movie = Movie.find(m.movie_id) %>
-	    	<tr>
-		        <td><%= image_tag(movie["posterpath"],
-		        		:size => "200x300", :alt => "poster") %></td>
-		        <td><%= link_to movie["title"],
-		        		controller: "movies", action: "show", id: "#{movie["id"]}" %></td>
-		        <td><%= movie["date"] %></td>
-		        <td><%= movie["story"] %></td>
-		        <td><%= movie["created_at"].strftime('%Y/%m/%d') %></td>
+    <tr>
+		<th>Poster</th>
+		<th>Title</th>
+		<th>Release Date</th>
+		<th>Description</th>
+		<th>Add at</th>
+		<% if current_user?(User.find(@movielist.user_id)) %>
+			<th>Action</th>
+		<% end %>
+    </tr>
+    <% @watched.each do |m| %>
+    	<% movie = Movie.details(m.movie_id) %>
+    	<tr>
+        <td>
+        	<%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
+        								:alt => "poster") %>
+        </td>
+        <td>
+        	<%= link_to movie["title"],
+        							controller: "movies", action: "show", id: "#{movie["id"]}" %>
+        </td>
+        <td><%= movie["release_date"] %></td>
+        <td>
+        	<% if movie["overview"].blank? %>
+            情報がありません
+          <% else %>
+        		<%= movie["overview"] %>
+        	<% end %>
+        </td>
+        <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
 				<% if current_user?(User.find(@movielist.user_id)) %>
-		        	<td><%= button_to "おすすめ",
-		        			"/list_movies/create_recommend_from_other?movielist_id=#{@movielist.id}&movie_id=#{movie.id}", :class => "btn btn-info btn-md" %>
-		        		<%= button_to "削除",
-		        			"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{movie.id}", :method => "delete", :class => "btn btn-md btn-danger",
-		        			:data => { :confirm => "本当に削除しますか？" } %>
-		        	</td>
-		        <% end %>
-	    	</tr>
-	    <% end %>
+        	<td><%= button_to "おすすめ",
+        										"/list_movies/create_recommend_from_other?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}",
+        										:class => "btn btn-info btn-md" %>
+        		<%= button_to "削除",
+        									"/list_movies/destroy?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}",
+        									:method => "delete", :class => "btn btn-md btn-danger",
+        			:data => { :confirm => "本当に削除しますか？" } %>
+        	</td>
+        <% end %>
+    	</tr>
+    <% end %>
 	</table>
 <% end %>

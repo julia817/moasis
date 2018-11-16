@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'byebug'#, platform: :mri
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   # Clean up database
@@ -84,5 +84,8 @@ gem 'bootstrap-will_paginate', '1.0.0'
 # Upload images
 gem 'carrierwave', '1.2.2'
 gem 'mini_magick', '4.7.0'
+
+# Paginate on array
+gem 'kaminari'
 
 # gem 'json (~>2.0, ~>1.8)'
