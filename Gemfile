@@ -36,7 +36,7 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'#, platform: :mri
+  gem 'byebug', '~> 9.0', '>= 9.0.6', platform: [:mri, :mingw, :x64_mingw]
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
   # Clean up database
@@ -57,9 +57,9 @@ group :test do
 end
 
 group :production do
-  #gem 'pg', '0.20.0'
+  gem 'pg', '0.20.0'
   # Upload pictures
-  # gem 'fog', '1.42.0'
+  # gem 'fog', '1.42.0' #not compatible with 'httparty' gem
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
