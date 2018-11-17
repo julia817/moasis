@@ -1,4 +1,4 @@
-<%= provide(:title, "#{@user.username}") %>
+<%= provide(:title, "#{@user.username}のおすすめリスト") %>
 
 <% if @movielist.nil? %>
 	<h2>おすすめ作品のリスト（0本）</h2>
@@ -7,6 +7,7 @@
 <% end %>
 
 <% if !@recommend.blank? %>
+  <div class="addthis_inline_share_toolbox"></div>
 	<table border="1">
     <tr>
 			<th>Poster</th>
@@ -51,3 +52,5 @@
     <% end %>
 	</table>
 <% end %>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befb8322ae303d6"></script>

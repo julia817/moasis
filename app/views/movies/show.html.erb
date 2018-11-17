@@ -1,3 +1,5 @@
+<%= provide(:title, "#{@movie["title"]}") %>
+
 <div class="row">
 	<div class="col-md-4">
 		<%= image_tag("https://image.tmdb.org/t/p/original#{@movie["poster_path"]}",
@@ -13,7 +15,7 @@
                       :method => "delete",
                       :class => "btn btn-md btn-warning",
                       :data => { :confirm => "本当に削除しますか？" },
-                      :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
+                      :params => {:movielist_id => @movielist.id, :movie_id => @movie["id"]} %>
 			<% else %>
 				<%= button_to "観た", "/list_movies/create_watched?movie_id=#{@movie["id"]}",
 						:class => "btn btn-info btn-md" %>
@@ -26,7 +28,7 @@
                       :method => "delete",
                       :class => "btn btn-md btn-warning",
                       :data => { :confirm => "本当に削除しますか？" },
-                      :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
+                      :params => {:movielist_id => @movielist.id, :movie_id => @movie["id"]} %>
 			<% else %>
 				<%= button_to "観たい", "/list_movies/create_want?movie_id=#{@movie["id"]}", 
 						:class => "btn btn-info btn-md" %>
@@ -39,7 +41,7 @@
                       :method => "delete",
                       :class => "btn btn-md btn-warning",
                       :data => { :confirm => "本当に削除しますか？" },
-                      :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
+                      :params => {:movielist_id => @movielist.id, :movie_id => @movie["id"]} %>
 			<% else %>
 				<%= button_to "おすすめ", "/list_movies/create_recommend?movie_id=#{@movie["id"]}",
 						:class => "btn btn-info btn-md" %>

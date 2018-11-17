@@ -1,4 +1,4 @@
-<% provide(:title, @title) %>
+<% provide(:title, "#{@user}の#{@title}") %>
 <h1>
 	<% if @user.picture? == false %>
 		<%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
