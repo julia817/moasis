@@ -1,7 +1,12 @@
 <footer class="footer">
-	<small>
-		Copyright &copy; 2018 Julia Zhu. All rights reserved.
-	</small>
+	<div class="copyright">
+		<p>
+			<%= image_tag("api logo2.png",
+										style: "height:40px;width:auto;",
+										alt: "api logo",
+										id: "api-logo") %>
+			Copyright &copy; 2018 Julia Zhu. All rights reserved.</p>
+	</div>
 	<nav>
 		<ul>
 			<li><%= link_to "About", about_path %></li>

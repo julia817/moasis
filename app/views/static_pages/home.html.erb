@@ -1,6 +1,101 @@
-<div class="center jumbotron">
-	<h1>HOME</h1>
-	<h2>Welcome!</h2>>
-	<p>This is the homepage for the movie-list sharing website</p>
-	<%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+<div class="container-fluid center hm-bg1">
+	<div class="hm-bg1-mask">
+		<p>友達に映画をおすすめしたいあなた、観たい映画を探しているあなた</p>
+		<h3>～映画世界のオアシスへようこそ～</h3>
+		<div class="center">
+			<%= image_tag("logo.png", style: "width:55%;height:auto;", alt: "site logo") %>
+		</div>
+		<div class="hm-buttons">
+			<% unless logged_in? %>
+				<%= link_to "会員登録", signup_path, class: "btn btn-lg btn-default" %>
+				<%= link_to "ログイン", login_path, class: "btn btn-lg btn-default" %>
+			<% end %>
+		</div>
+	</div>
 </div>
+
+<div class="container-fluid info center">
+	<div class="col-md-4">
+		<h4 class="center"><%= image_tag("hm-info1.png", size: "50x50", alt: "icon") %> INFO</h4>
+		<p>キーワードで映画を検索、好きな役者を検索、ジャンルや年などのフィルターをかけて検索もできる。<br>
+			 情報詳細を確認、気になる映画の予告動画も見れる！<br>
+		</p>
+	</div>
+	<div class="col-md-4">
+		<h4 class="center"><%= image_tag("hm-info2.png", size: "50x50", alt: "icon") %> MARK</h4>
+		<p>観た映画、観たい映画、おすすみの映画をMARKする。<br>
+			 自分のリスト、他のユーザのリストを見れる。<br>
+			 自分のおすすめ映画をSNSでシェアしよう！
+		</p>
+	</div>
+	<div class="col-md-4">
+		<h4 class="center"><%= image_tag("hm-info3.png", size: "50x50", alt: "icon") %> FOLLOW</h4>
+		<p>自分の趣味と合うユーザを探してみて、フォローしよう。<br>
+			 フォローしているユーザの記録を見て、新たな発見ができるかも！
+		</p>
+	</div>
+</div>
+
+<div class="container-fluid now-playing">
+	<h2 class="center"><strong>上映中</strong></h2>
+	<div class="row">
+		<% @movies[0..3].each do |m| %>
+	    <div class="col-md-3">
+	      <div class="thumbnail">
+	        <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
+	        	<%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
+	        								class: "img-responsive",
+	        								alt: "movie pic" %>
+	          <div class="caption">
+	            <p><%= m["title"] %></p>
+	          </div>
+	        <% end %>
+	      </div>
+	    </div>
+	  <% end %>
+  </div>
+
+	<div class="row">
+		<% @movies[4..7].each do |m| %>
+	    <div class="col-md-3">
+	      <div class="thumbnail">
+	        <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
+	        	<%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
+	        								class: "img-responsive",
+	        								alt: "movie pic" %>
+	          <div class="caption">
+	            <p><%= m["title"] %></p>
+	          </div>
+	        <% end %>
+	      </div>
+	    </div>
+	  <% end %>
+  </div>
+
+  <div class="row">
+  	<% counter = 0 %>
+		<% @movies[8...@movies.count].each do |m| %>
+			<% if m["backdrop_path"].nil? %>
+				<% next %>
+			<% end %>
+			<% if counter==4 %>
+				<% break %>
+			<% end %>
+			<% counter+=1 %>
+	    <div class="col-md-3">
+	      <div class="thumbnail">
+	        <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
+	        	<%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
+	        								class: "img-responsive",
+	        								alt: "movie pic" %>
+	          <div class="caption">
+	            <p><%= m["title"] %></p>
+	          </div>
+	        <% end %>
+	      </div>
+	    </div>
+	  <% end %>
+  </div>  
+</div>
+
+

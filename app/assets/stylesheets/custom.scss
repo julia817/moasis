@@ -4,7 +4,7 @@
 // variables
 $light-gray: #777;
 $gray-medium-light: #eaeaea;
-$white: #fff;
+$black: #000;
 
 //mixins
 @mixin box_sizing {
@@ -15,9 +15,9 @@ $white: #fff;
 
 // Universal
 
-body {
-	padding-top: 100px;
-}
+// body {
+// 	padding-top: 80px;
+// }
 
 section {
 	overflow: auto;
@@ -35,7 +35,7 @@ textarea {
 }
 
 
-// typography
+/* typography */
 
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1;
@@ -48,7 +48,7 @@ h1 {
 	text-align: center;
 }
 
-h2 {
+h3 {
 	font-size: 1.2em;
 	letter-spacing: -1px;
 	margin-bottom: 30px;
@@ -62,45 +62,50 @@ p {
 	line-height: 1.7em;
 }
 
-// header
+
+/* header */
+.navbar {
+	margin-top: 0;
+}
 
 #logo {
 	float: left;
 	margin-right: 10px;
-	font-size: 1.7em;
-	color: $white;
-	text-transform: uppercase;
-	letter-spacing: -1px;
+	margin-left: 15px;
 	padding-top: 9px;
-	font-weight: bold;
-	&:hover {
-		color: $white;
-	text-decoration: none;
-	}
 }
 
-.search-form {
-	padding-top: 10px;
+.navbar-form {
+	padding-top: 7px;
 }
 
 
 // footer
 footer {
+	// position: absolute;
 	margin-top: 45px;
-	padding-top: 5px;
+	padding-top: 10px;
 	border-top: 1px solid $gray-medium-light;
 	color: $light-gray;
+	.copyright {
+		margin-left: 20px;
+		float: left;
+		color: #081c24;
+		img {
+			margin-right: 8px;
+		}
+	}
 	a {
 		color: #555;
 		&:hover {
 			color: #222;
 		}
 	}
-	small {
-		float: left;
-	}
 	ul {
+		// clear: both;
 		float: right;
+		margin-top: 10px;
+		margin-right: 20px;
 		list-style: none;
 		li {
 			float: left;
@@ -108,6 +113,68 @@ footer {
 		}
 	}
 }
+
+
+/* homepage */
+.hm-bg1 {
+	margin-top: 50px;
+	padding-top: 70px;
+	margin-bottom: 50px;
+	background: url("banner2.png") no-repeat;
+	background-size: 100% auto;
+	// background-size: cover;
+	p, h1, h3 {
+		color: #fff;
+	}
+	h3 {
+		font-size: 40px;
+		padding-bottom: 20px;
+	}
+	// img {
+	// 	margin-top: 20px;
+	// 	margin-bottom: 20px;
+	// }
+	.hm-buttons {
+		margin: 80px auto 60px auto;
+		// margin-top: 60px;
+		// margin-bottom: 60px;
+		a {
+			margin: auto 15px;
+		}
+	}
+}
+
+.info {
+	margin-top: 50px;
+	margin-bottom: 30px;
+	width: 70%;
+	p, h4 {
+		color: rgb(58, 171, 210);
+	}
+	h4 {
+		font-weight: bold;
+		font-size: 27px;
+	}
+	p {
+		padding-top: 10px;
+	}
+}
+
+.now-playing {
+	// padding: 50px 120px 50px 120px;
+	margin-top: 30px;
+	margin-bottom: 50px;
+	width: 80%;
+	h2 {
+		font-size: 50px;
+		margin-bottom: 10px;
+	}
+	.col-md-3 {
+		margin-left: 0;
+		margin-right: 0;
+	}
+}
+
 
 /* forms */
 

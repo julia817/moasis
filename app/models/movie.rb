@@ -16,7 +16,12 @@ class Movie < ApplicationRecord
 
 	def self.details id
 		base_uri "https://api.themoviedb.org/3/movie/#{id}"
-		get("", query: { append_to_response: "credits" } )
+		get("", query: { append_to_response: 'credits' } )
+	end
+
+	def self.now_playing
+		base_uri 'https://api.themoviedb.org/3/movie/now_playing'
+		get("", query: { region: "JP" })["results"]
 	end
 
 	def new
