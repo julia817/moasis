@@ -14,6 +14,7 @@
       <th>Action</th>
     </tr>
     <% @movie_results.each do |movie| %>
+      <% Movie.add(movie["id"]) unless Movie.exists?(movie["id"]) %>
       <tr>
         <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %></td>
         <td><%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %></td>

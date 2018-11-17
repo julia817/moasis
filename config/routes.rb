@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  get '/search', to: 'search#search_movies'
+  get '/search_movies', to: 'search#search_movies'
 
   resources :movies
   resources :movielists, only: [:create, :destroy]

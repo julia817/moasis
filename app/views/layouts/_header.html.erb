@@ -5,7 +5,7 @@
 									root_path, id: "logo" %>
 		</div>
 
-		<%= form_tag search_path, method: :get, class: "navbar-form navbar-left" do %>
+		<%= form_tag search_movies_path, method: :get, class: "navbar-form navbar-left" do %>
 			<div class="input-group">
 				<%= search_field_tag :looking_for, nil, placeholder: '映画タイトル', class: "form-control" %>
 				<div class="input-group-btn">

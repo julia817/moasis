@@ -40,9 +40,11 @@
         <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
 				<% if current_user?(User.find(@movielist.user_id)) %>
         	<td>
-        		<%= button_to "おすすめ",
-      										"/list_movies/create_recommend_from_other?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}",
-      										:class => "btn btn-info btn-md" %>
+        		<% unless recommend_check(movie["id"]) %>
+	        		<%= button_to "おすすめ",
+	      										"/list_movies/create_recommend_from_other?movielist_id=#{@movielist.id}&movie_id=#{movie["id"]}",
+	      										:class => "btn btn-info btn-md" %>
+	      		<% end %>
       			<%= button_to "削除", list_movies_destroy_path,
         									:method => "delete",
         									:class => "btn btn-md btn-danger",

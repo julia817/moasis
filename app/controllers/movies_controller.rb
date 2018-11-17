@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
 		else
 			@cast_range = @movie["credits"]["cast"].count
 		end
+		@trailers = Movie.trailers(params[:id])
 	end
 
 end

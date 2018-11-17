@@ -15,6 +15,10 @@ class ListMoviesController < ApplicationController
 		end
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
+			# record all users' watched number
+			movie = Movie.find(params[:movie_id])
+			movie.watched_num += 1
+			movie.save
 			flash[:success] = "リストに追加しました"
 			redirect_to :controller => "users", :action => "watched", :id => @user.id
 		else
@@ -51,6 +55,10 @@ class ListMoviesController < ApplicationController
 		end
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
+			# record all users' recommend times
+			movie = Movie.find(params[:movie_id])
+			movie.rec_num += 1
+			movie.save
 			flash[:success] = "リストに追加しました"
 			redirect_to :controller => "users", :action => "recommend", :id => @user.id
 		else
@@ -69,6 +77,10 @@ class ListMoviesController < ApplicationController
 		end
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
+			# record all users' recommend times
+			movie = Movie.find(params[:movie_id])
+			movie.rec_num += 1
+			movie.save
 			flash[:success] = "おすすめ映画リストに追加しました"
 		else
 			flash[:danger] = "おすすめ映画リストへの追加失敗しました"
@@ -86,6 +98,10 @@ class ListMoviesController < ApplicationController
 		end
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
+			# record all users' watched number
+			movie = Movie.find(params[:movie_id])
+			movie.watched_num += 1
+			movie.save
 			flash[:success] = "観た映画リストに追加しました"
 		else
 			flash[:danger] = "観た映画リストへの追加失敗しました"
@@ -110,18 +126,19 @@ class ListMoviesController < ApplicationController
 		redirect_to :back
 	end
 
-	# def destroy
-	# 	User.find(params[:id]).destroy
-	# 	flash[:success] = "ユーザを削除しました！"
-	# 	redirect_to users_url
-	# end
-
 	def destroy
 		# ListMovie.find_by(params[:movielist_id], params[:movie_id]).destroy
 		@list_movie.destroy
 		flash[:success] = "削除しました"
-		# byebug
-		# redirect_to root_path
+		# update watched/recommend numbers from movies table
+		if Movielist.find(@list_movie.movielist_id).listname == "watched"
+			movie = Movie.find(@list_movie.movie_id)
+			movie.watched_num -= 1
+		end
+		if Movielist.find(@list_movie.movielist_id).listname == "recommend"
+			movie = Movie.find(@list_movie.movie_id)
+			movie.rec_num -= 1
+		end
 		redirect_to :back
 	end
 

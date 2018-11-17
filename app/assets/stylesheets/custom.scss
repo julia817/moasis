@@ -178,6 +178,45 @@ footer {
 
 /* forms */
 
+/* movie info */
+.movie-show {
+	width: 85%;
+	margin-top: 50px;
+	.buttons {
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	td {
+		vertical-align: top;
+		padding-right: 60px;
+	}
+	table {
+		margin-bottom: 30px;
+	}
+	.trailers {
+		.col {
+			float: left;
+			margin-left: 15px;
+			margin-right: 10px;
+		}
+	}
+}
+// .movie-row {
+// 	.info-coll {
+// 		float: left;
+// 		// width: 20%;
+// 	}
+// 	.info-col2 {
+// 		float: left;
+// 		// margin-right: 20px;
+// 	}
+// }
+
+// .trailers {
+// 	overflow: auto;
+// 	clear: both;
+// }
+
 /* profile */
 .stats {
 	margin-left: 240px;
