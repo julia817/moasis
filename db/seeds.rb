@@ -14,7 +14,7 @@ User.create!(username: "julia",
 			 admin: true)
 
 25.times do |n|
-	username = Faker::StarWars.unique.character.gsub(" ", "")
+	username = Faker::StarWars.unique.character.gsub!(/[^0-9A-Za-z]/, '')
 	email = "#{username}@starwars.org"
 	password = "password"
 	User.create!(username: username,
@@ -23,7 +23,7 @@ User.create!(username: "julia",
 				 password_confirmation: password)
 end
 25.times do |n|
-	username = Faker::HarryPotter.unique.character.gsub(" ", "").gsub(/\(.*?\)/,"").gsub(".","")
+	username = Faker::HarryPotter.unique.character.gsub!(/[^0-9A-Za-z]/, '')
 	email = "#{username}@harrypotter.org"
 	password = "password"
 	User.create!(username: username,
@@ -32,7 +32,7 @@ end
 				 password_confirmation: password)
 end
 25.times do |n|
-	username = Faker::Pokemon.unique.name.gsub(" ", "").gsub(",","")
+	username = Faker::Pokemon.unique.name.gsub!(/[^0-9A-Za-z]/, '')
 	email = "#{username}@pokemon.org"
 	password = "password"
 	User.create!(username: username,
@@ -41,7 +41,7 @@ end
 				 password_confirmation: password)
 end
 25.times do |n|
-	username = Faker::Superhero.unique.name.gsub(" ", "")
+	username = Faker::Superhero.unique.name.gsub!(/[^0-9A-Za-z]/, '')
 	email = "#{username}@superhero.org"
 	password = "password"
 	User.create!(username: username,
