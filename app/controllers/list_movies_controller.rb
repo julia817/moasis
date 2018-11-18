@@ -131,9 +131,9 @@ class ListMoviesController < ApplicationController
 
 		# confirm the correct user
 		def correct_user
-			@movielist = current_user.movielists.find_by(id: params[:movielist_id])
+			list = current_user.movielists.find_by(id: params[:movielist_id])
 			@list_movie = ListMovie.find_by(movielist_id: params[:movielist_id], movie_id: params[:movie_id])
-			redirect_to(root_path) if @movielist.nil?
+			redirect_to(root_path) if list.nil?
 		end
 
 		# def movie_params

@@ -7,65 +7,72 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Users
-User.create!(username: "julia",
-			 email: "julia@example.com",
-			 password: "password",
-			 password_confirmation: "password",
-			 admin: true)
+User.create(username: "julia",
+					  email: "julia@example.com",
+					  password: "password",
+					  password_confirmation: "password",
+					  admin: true)
 
-25.times do |n|
+30.times do |n|
 	username = Faker::StarWars.unique.character.gsub!(/[^0-9A-Za-z]/, '')
 	if username.blank?
 		next
 	else
 		email = "#{username}@starwars.org"
 		password = "password"
-		User.create!(username: username,
-					 email: email,
-					 password: password,
-					 password_confirmation: password)
+		User.create(username: username,
+							  email: email,
+							  password: password,
+							  password_confirmation: password)
 	end
 end
-25.times do |n|
+30.times do |n|
 	username = Faker::HarryPotter.unique.character.gsub!(/[^0-9A-Za-z]/, '')
 	if username.blank?
 		next
 	else
 		email = "#{username}@harrypotter.org"
 		password = "password"
-		User.create!(username: username,
-					 email: email,
-					 password: password,
-					 password_confirmation: password)
+		User.create(username: username,
+					 		  email: email,
+							  password: password,
+							  password_confirmation: password)
 	end
 end
 
-25.times do |n|
+30.times do |n|
 	username = Faker::Pokemon.unique.name.gsub!(/[^0-9A-Za-z]/, '')
 	if username.blank?
 		next
 	else
 		email = "#{username}@pokemon.org"
 		password = "password"
-		User.create!(username: username,
-					 email: email,
-					 password: password,
-					 password_confirmation: password)
+		User.create(username: username,
+							  email: email,
+							  password: password,
+							  password_confirmation: password)
 	end
 end
 
-25.times do |n|
+30.times do |n|
 	username = Faker::Superhero.unique.name.gsub!(/[^0-9A-Za-z]/, '')
 	if username.blank?
 		next
 	else
 		email = "#{username}@superhero.org"
 		password = "password"
-		User.create!(username: username,
-					 email: email,
-					 password: password,
-					 password_confirmation: password)
+		User.create(username: username,
+							  email: email,
+							  password: password,
+							  password_confirmation: password)
 	end
+end
+
+# Create movielists
+User.all.each do |user|
+	Movielist.create(user_id: user.id, listname: "watched")
+	Movielist.create(user_id: user.id, listname: "want")
+	Movielist.create(user_id: user.id, listname: "recommend")
 end
 
 # Following relationships

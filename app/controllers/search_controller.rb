@@ -36,7 +36,7 @@ class SearchController < ApplicationController
 					end
 				end
 			end
-			@movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20)
+			@movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
 		end
   end
 
@@ -61,7 +61,7 @@ class SearchController < ApplicationController
 					end
 				end
 			end
-			@people_results = Kaminari.paginate_array(@people_results).page(params[:page]).per(20)
+			@people_results = Kaminari.paginate_array(@people_results).page(params[:page]).per(20) unless @people_results.blank?
 		end
 	end
 

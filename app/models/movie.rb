@@ -25,9 +25,9 @@ class Movie < ApplicationRecord
 	end
 
 
-	def self.now_playing
+	def self.now_playing(page=1)
 		base_uri 'https://api.themoviedb.org/3/movie/now_playing'
-		get("", query: { language: 'ja-JP', region: "JP" })["results"]
+		get("", query: { page: page, language: 'ja-JP', region: "JP" })["results"]
 	end
 
 	def self.people(term, page=1)
