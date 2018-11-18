@@ -231,10 +231,13 @@ footer {
 // }
 
 /* profile */
+.user {
+	width: 80%;
+}
 .stats {
-	margin-left: 240px;
-	margin-right: 240px;
-	// overflow: auto;
+	margin-left: 23%;
+	// margin-right: auto;
+	overflow: auto;
 	a {
 		float: left;
 		padding: 0 10px;

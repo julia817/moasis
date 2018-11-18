@@ -1,19 +1,22 @@
 <% provide(:title, "#{@user.username}のプロフィール") %>
-<h1>
-	<% if @user.picture? == false %>
-		<%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
-	<% else %>
-		<%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
-	<% end %>
-	<%= @user.username %>
-	<%= render 'follow_unfollow_button' if logged_in? %>
-</h1>
-<div class="stats">
-	<%= render 'shared/stats' if logged_in? %>
-</div>
 
-<div class="lists center">
-	<%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
-	<%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
-	<%= link_to "おすすめ映画のリスト", :controller => "users", :action => "recommend" %>
+<div class="container-fluid user">
+	<h1>
+		<% if @user.picture? == false %>
+			<%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+		<% else %>
+			<%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+		<% end %>
+		<%= @user.username %>
+		<%= render 'follow_unfollow_button' if logged_in? %>
+	</h1>
+	<div class="stats">
+		<%= render 'shared/stats' if logged_in? %>
+	</div>
+
+	<div class="lists center">
+		<%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
+		<%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
+		<%= link_to "おすすめ映画のリスト", :controller => "users", :action => "recommend" %>
+	</div>
 </div>

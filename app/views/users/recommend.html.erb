@@ -1,56 +1,81 @@
 <%= provide(:title, "#{@user.username}のおすすめリスト") %>
 
-<% if @movielist.nil? %>
-	<h2>おすすめ作品のリスト（0本）</h2>
-<% else %>
-	<h2>おすすめ作品のリスト（<%= @recommend.count %>本）</h2>
-<% end %>
+<div class="container-fluid user">
+  <div class="profile">
+    <h1>
+      <% if @user.picture? == false %>
+        <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+      <% else %>
+        <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+      <% end %>
+      <%= @user.username %>
+      <%= render 'follow_unfollow_button' if logged_in? %>
+    </h1>
+    <div class="stats">
+      <%= render 'shared/stats' if logged_in? %>
+    </div>
 
-<% if !@recommend.blank? %>
-  <div class="addthis_inline_share_toolbox"></div>
-	<table border="1">
-    <tr>
-			<th>Poster</th>
-			<th>Title</th>
-			<th>Release Date</th>
-			<th>Description</th>
-			<th>Add at</th>
-			<% if current_user?(User.find(@movielist.user_id)) %>
-				<th>Action</th>
-			<% end %>
-    </tr>
-    <% @recommend.each do |m| %>
-    	<% movie = Movie.details(m.movie_id) %>
-    	<tr>
-        <td>
-        	<%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
-        								:alt => "poster") %>
-        </td>
-        <td>
-        	<%= link_to movie["title"],
-        							controller: "movies", action: "show", id: "#{movie["id"]}" %>
-        </td>
-        <td><%= movie["release_date"] %></td>
-        <td>
-        	<% if movie["overview"].blank? %>
-            情報がありません
-          <% else %>
-        		<%= movie["overview"] %>
-        	<% end %>
-        </td>
-        <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
-				<% if current_user?(User.find(@movielist.user_id)) %>
-        	<td>
-            <%= button_to "削除", list_movies_destroy_path,
-                          :method => "delete",
-                          :class => "btn btn-md btn-danger",
-                          :data => { :confirm => "本当に削除しますか？" },
-                          :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %> 
-          </td>
-        <% end %>
-    	</tr>
+    <div class="lists center">
+      <%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
+      <%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
+      <%= link_to "おすすめ映画のリスト", :controller => "users", :action => "recommend" %>
+    </div>
+  </div>
+
+  <div class="list">
+    <% if @movielist.nil? %>
+    	<h2>おすすめ作品のリスト（0本）</h2>
+    <% else %>
+    	<h2>おすすめ作品のリスト（<%= @recommend.count %>本）</h2>
     <% end %>
-	</table>
-<% end %>
+
+    <% if !@recommend.blank? %>
+      <div class="addthis_inline_share_toolbox"></div>
+    	<table border="1">
+        <tr>
+    			<th>Poster</th>
+    			<th>Title</th>
+    			<th>Release Date</th>
+    			<th>Description</th>
+    			<th>Add at</th>
+    			<% if current_user?(User.find(@movielist.user_id)) %>
+    				<th>Action</th>
+    			<% end %>
+        </tr>
+        <% @recommend.each do |m| %>
+        	<% movie = Movie.details(m.movie_id) %>
+        	<tr>
+            <td>
+            	<%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
+            								:alt => "poster") %>
+            </td>
+            <td>
+            	<%= link_to movie["title"],
+            							controller: "movies", action: "show", id: "#{movie["id"]}" %>
+            </td>
+            <td><%= movie["release_date"] %></td>
+            <td>
+            	<% if movie["overview"].blank? %>
+                情報がありません
+              <% else %>
+            		<%= movie["overview"] %>
+            	<% end %>
+            </td>
+            <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
+    				<% if current_user?(User.find(@movielist.user_id)) %>
+            	<td>
+                <%= button_to "削除", list_movies_destroy_path,
+                              :method => "delete",
+                              :class => "btn btn-md btn-danger",
+                              :data => { :confirm => "本当に削除しますか？" },
+                              :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %> 
+              </td>
+            <% end %>
+        	</tr>
+        <% end %>
+    	</table>
+    <% end %>
+  </div>
+</div>
 
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befb8322ae303d6"></script>

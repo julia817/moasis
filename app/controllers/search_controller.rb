@@ -27,6 +27,7 @@ class SearchController < ApplicationController
 				@total_pages = response["total_pages"]
 				@movie_results = response["results"]
 				if @total_pages>1
+					@total_pages = @total_pages>20 ? 20 : @total_pages
 					(2..@total_pages).each do |page|
 						results = Movie.search(@search_term, page)["results"]
 						(0...results.count).each do |i|
