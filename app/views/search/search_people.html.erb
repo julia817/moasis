@@ -1,0 +1,36 @@
+<% provide(:title, "#{@search_term} - 検索") %>
+
+<div class="container-fluid search people-results">
+  <% if @people_results.blank? %>
+    <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
+
+  <% else %>
+    <p>[<%= @search_term %>]に関する映画人は<%= @total_results %>人があります</p>
+
+    <%= paginate @people_results %>
+    <% @people_results.each do |person| %>
+      <div class="row">
+        <div class="col-md-3">
+          <% if person["profile_path"].blank? %>
+            <%= image_tag("default credit.png", :alt => "profile") %>
+          <% else %>
+            <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}", :alt => "profile") %>
+          <% end %>
+        </div>
+        <div class="col-md-9">
+          <h3><strong><%= person["name"] %></strong></h3>
+          <p><strong>代表作：</strong></p>
+          <p>
+            <% person["known_for"].each do |movie| %>
+              <% if movie["media_type"] == "tv" %>
+                <% next %>
+              <% end %>
+              <%= movie["title"] %> (<%= movie["release_date"][0..3] %>)<br>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+    <%= paginate @people_results %>
+  <% end %>
+</div>

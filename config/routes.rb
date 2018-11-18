@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/search_movies', to: 'search#search_movies'
+  get '/search_people', to: 'search#search_people'
+  get '/search_users', to: 'search#search_users'
+  get '/search_filter', to: 'search#search_filter' # select search filter page
+  get '/search', to: 'search#discover'
 
   resources :movies
   resources :movielists, only: [:create, :destroy]

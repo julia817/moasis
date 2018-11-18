@@ -1,78 +1,80 @@
 <% provide(:title, "#{@search_term} - 検索") %>
 
-<% if @movie_results.blank? %>
-  <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
-<% else %>
-  <p>[<%= @search_term %>]に関する映画は<%= @total_results %>本があります</p>
-  <%= paginate @movie_results %>
-  <table border="1">
-    <tr>
-      <th>Poster</th>
-      <th>Title</th>
-      <th>Release Date</th>
-      <th>Description</th>
-      <th>Action</th>
-    </tr>
-    <% @movie_results.each do |movie| %>
-      <% Movie.add(movie["id"]) unless Movie.exists?(movie["id"]) %>
+<div class="container-fluid search movie-results">
+  <% if @movie_results.blank? %>
+    <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
+  <% else %>
+    <p>[<%= @search_term %>]に関する映画は<%= @total_results %>本があります</p>
+    <%= paginate @movie_results %>
+    <table border="1">
       <tr>
-        <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %></td>
-        <td><%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %></td>
-        <td><%= movie["release_date"] %></td>
-        <td>
-          <% if movie["overview"].blank? %>
-            情報がありません
-          <% else %>
-            <%= movie["overview"] %>
-          <% end %>
-        </td>
-        <td>       
-          <% if !logged_in? %>
-            <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
-            <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
-            <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
-            
-          <% else %>
-            <% if watched_check(movie["id"]) %>
-              <%= button_to "観た記録削除", list_movies_destroy_path,
-                            :method => "delete",
-                            :class => "btn btn-md btn-warning",
-                            :data => { :confirm => "本当に削除しますか？" },
-                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
-            <% else %>
-              <%= button_to "観た", "/list_movies/create_watched_from_other?movie_id=#{movie["id"]}",
-                  :class => "btn btn-info btn-md" %>
-            <% end %>
-
-            <% if watched_check(movie["id"]) %>
-              <%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
-            <% elsif want_check(movie["id"]) %>
-              <%= button_to "観たい記録削除", list_movies_destroy_path,
-                            :method => "delete",
-                            :class => "btn btn-md btn-warning",
-                            :data => { :confirm => "本当に削除しますか？" },
-                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
-            <% else %>
-              <%= button_to "観たい", "/list_movies/create_want_from_other?movie_id=#{movie["id"]}", 
-                  :class => "btn btn-info btn-md" %>
-            <% end %>
-
-            <% if !watched_check(movie["id"]) %>
-              <%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
-            <% elsif recommend_check(movie["id"]) %>
-              <%= button_to "おすすめ記録削除", list_movies_destroy_path,
-                            :method => "delete",
-                            :class => "btn btn-md btn-warning",
-                            :data => { :confirm => "本当に削除しますか？" },
-                            :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
-            <% else %>
-              <%= button_to "おすすめ", "/list_movies/create_recommend_from_other?movie_id=#{movie["id"]}",
-                  :class => "btn btn-info btn-md" %>
-            <% end %>
-          <% end %>
-        </td>
+        <th>Poster</th>
+        <th>Title</th>
+        <th>Release Date</th>
+        <th>Description</th>
+        <th>Action</th>
       </tr>
-    <% end %>
-  </table>
-  <%= paginate @movie_results %>
-<% end %>
+      <% @movie_results.each do |movie| %>
+        <% Movie.add(movie["id"]) unless Movie.exists?(movie["id"]) %>
+        <tr>
+          <td><%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %></td>
+          <td><%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %></td>
+          <td><%= movie["release_date"] %></td>
+          <td>
+            <% if movie["overview"].blank? %>
+              情報がありません
+            <% else %>
+              <%= movie["overview"] %>
+            <% end %>
+          </td>
+          <td>       
+            <% if !logged_in? %>
+              <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
+              <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
+              <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
+              
+            <% else %>
+              <% if watched_check(movie["id"]) %>
+                <%= button_to "観た記録削除", list_movies_destroy_path,
+                              :method => "delete",
+                              :class => "btn btn-md btn-warning",
+                              :data => { :confirm => "本当に削除しますか？" },
+                              :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
+              <% else %>
+                <%= button_to "観た", "/list_movies/create_watched_from_other?movie_id=#{movie["id"]}",
+                    :class => "btn btn-info btn-md" %>
+              <% end %>
+
+              <% if watched_check(movie["id"]) %>
+                <%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
+              <% elsif want_check(movie["id"]) %>
+                <%= button_to "観たい記録削除", list_movies_destroy_path,
+                              :method => "delete",
+                              :class => "btn btn-md btn-warning",
+                              :data => { :confirm => "本当に削除しますか？" },
+                              :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
+              <% else %>
+                <%= button_to "観たい", "/list_movies/create_want_from_other?movie_id=#{movie["id"]}", 
+                    :class => "btn btn-info btn-md" %>
+              <% end %>
+
+              <% if !watched_check(movie["id"]) %>
+                <%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
+              <% elsif recommend_check(movie["id"]) %>
+                <%= button_to "おすすめ記録削除", list_movies_destroy_path,
+                              :method => "delete",
+                              :class => "btn btn-md btn-warning",
+                              :data => { :confirm => "本当に削除しますか？" },
+                              :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
+              <% else %>
+                <%= button_to "おすすめ", "/list_movies/create_recommend_from_other?movie_id=#{movie["id"]}",
+                    :class => "btn btn-info btn-md" %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= paginate @movie_results %>
+  <% end %>
+</div>

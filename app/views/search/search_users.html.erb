@@ -1,0 +1,14 @@
+<% provide(:title, "#{@search_term} - 検索") %>
+
+<div class="container-fluid">
+  <% if @users.blank? %>
+    <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
+
+  <% else %>
+    <%= will_paginate @users %>
+    <ul>
+      <%= render @users %>
+    </ul>
+    <%= will_paginate @users %>
+  <% end %>
+</div>

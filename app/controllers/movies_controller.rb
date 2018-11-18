@@ -12,4 +12,14 @@ class MoviesController < ApplicationController
 		@trailers = Movie.trailers(params[:id])
 	end
 
+	def show_person
+		@person = Movie.person_details(params[:id])
+		@person["also_known_as"].each do |n|
+			if !(n =~ /(?:\p{Hiragana}|\p{Katakana}|[一-龠々])/).nil?
+				@name = n
+			end
+		end
+		@name = @name.nil? ? @person["name"] : @name
+	end
+
 end

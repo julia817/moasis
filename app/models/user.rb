@@ -71,6 +71,10 @@ class User < ApplicationRecord
 		following.include?(other_user)
 	end
 
+	def self.search(term)
+		User.where(['username LIKE ?', "%#{term}%"])
+	end
+
 	private
 		# validate the size of an uploaded picture
 		def picture_size

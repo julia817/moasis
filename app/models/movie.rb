@@ -30,6 +30,16 @@ class Movie < ApplicationRecord
 		get("", query: { language: 'ja-JP', region: "JP" })["results"]
 	end
 
+	def self.people(term, page=1)
+		base_uri 'https://api.themoviedb.org/3/search/person'
+		get("", query: { query: term, page: page, language: 'ja-JP' })
+	end
+
+	def self.person_details id
+		base_uri "https://api.themoviedb.org/3/person/#{id}"
+		get("", query: { language: 'ja-JP', append_to_response: 'movie_credits' })
+	end
+
 	def new
 	end
 
