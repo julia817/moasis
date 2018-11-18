@@ -15,39 +15,57 @@ User.create!(username: "julia",
 
 25.times do |n|
 	username = Faker::StarWars.unique.character.gsub!(/[^0-9A-Za-z]/, '')
-	email = "#{username}@starwars.org"
-	password = "password"
-	User.create!(username: username,
-				 email: email,
-				 password: password,
-				 password_confirmation: password)
+	if username.blank?
+		next
+	else
+		email = "#{username}@starwars.org"
+		password = "password"
+		User.create!(username: username,
+					 email: email,
+					 password: password,
+					 password_confirmation: password)
+	end
 end
 25.times do |n|
 	username = Faker::HarryPotter.unique.character.gsub!(/[^0-9A-Za-z]/, '')
-	email = "#{username}@harrypotter.org"
-	password = "password"
-	User.create!(username: username,
-				 email: email,
-				 password: password,
-				 password_confirmation: password)
+	if username.blank?
+		next
+	else
+		email = "#{username}@harrypotter.org"
+		password = "password"
+		User.create!(username: username,
+					 email: email,
+					 password: password,
+					 password_confirmation: password)
+	end
 end
+
 25.times do |n|
 	username = Faker::Pokemon.unique.name.gsub!(/[^0-9A-Za-z]/, '')
-	email = "#{username}@pokemon.org"
-	password = "password"
-	User.create!(username: username,
-				 email: email,
-				 password: password,
-				 password_confirmation: password)
+	if username.blank?
+		next
+	else
+		email = "#{username}@pokemon.org"
+		password = "password"
+		User.create!(username: username,
+					 email: email,
+					 password: password,
+					 password_confirmation: password)
+	end
 end
+
 25.times do |n|
 	username = Faker::Superhero.unique.name.gsub!(/[^0-9A-Za-z]/, '')
-	email = "#{username}@superhero.org"
-	password = "password"
-	User.create!(username: username,
-				 email: email,
-				 password: password,
-				 password_confirmation: password)
+	if username.blank?
+		next
+	else
+		email = "#{username}@superhero.org"
+		password = "password"
+		User.create!(username: username,
+					 email: email,
+					 password: password,
+					 password_confirmation: password)
+	end
 end
 
 # Following relationships
