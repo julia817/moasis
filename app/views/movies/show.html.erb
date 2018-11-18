@@ -50,10 +50,10 @@
 				<% end %>
 			<% end %>
 		</div>
-		
+
 		<% record = Movie.find(@movie["id"]) %>
 		<% if record.rec_num > 0 %> 
-			<strong>おすすめ度は<%= Movie.get_score(@movie["id"]) %>%</strong>
+			<p><strong>おすすめ度は<%= Movie.get_score(@movie["id"]) %>%</strong></p>
 			<p>この映画は<%= record.watched_num %>人が観ました</p>
 			<p>この映画は<%= record.rec_num %>人がお勧めします</p>
 		<% end %>
@@ -67,6 +67,8 @@
 		<% end %>
 
 		<p><strong>上映日：</strong><%= @movie["release_date"] %></p>
+
+		<p><strong>上映時間：</strong><%= @movie["runtime"] %>分</p>
 
 		<p>
 			<strong>ジャンル：</strong>
@@ -124,7 +126,11 @@
 							<%= image_tag("https://image.tmdb.org/t/p/w200#{@movie["credits"]["cast"][i]["profile_path"]}",
 														:size => "80x107", :alt => "profile") %>
 						<% end %>
-						<strong><%= @movie["credits"]["cast"][i]["name"] %>:  </strong>
+						<%= link_to controller: "movies",
+												action: "show_person", 
+												id: "#{@movie["credits"]["cast"][i]["id"]}" do %>
+							<strong><%= @movie["credits"]["cast"][i]["name"] %>:  </strong>
+						<% end %>
 						<%= @movie["credits"]["cast"][i]["character"] %> 役<br>
 					<% end %>
 				</td>
@@ -132,7 +138,12 @@
 					<strong>スタッフ：</strong><br>
 					<% @movie["credits"]["crew"].each do |crew| %>
 						<% if crew["job"]=="Director" || crew["department"]=="Writing" %>
-							<%= crew["job"] %>:  <%= crew["name"] %><br>
+							<%= crew["job"] %>:  
+							<%= link_to controller: "movies",
+												action: "show_person", 
+												id: "#{crew["id"]}" do %>
+								<%= crew["name"] %><br>
+							<% end %>
 						<% end %>
 					<% end %>
 				</td>

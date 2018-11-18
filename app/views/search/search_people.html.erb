@@ -11,10 +11,14 @@
     <% @people_results.each do |person| %>
       <div class="row">
         <div class="col-md-3">
-          <% if person["profile_path"].blank? %>
-            <%= image_tag("default credit.png", :alt => "profile") %>
-          <% else %>
-            <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}", :alt => "profile") %>
+          <%= link_to controller: "movies", action: "show_person", 
+                      params: { id: "#{person["id"]}" } do %>
+            <% if person["profile_path"].blank? %>
+              <%= image_tag("default credit.png", :alt => "profile") %>
+            <% else %>
+              <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}",
+                            :alt => "profile") %>
+            <% end %>
           <% end %>
         </div>
         <div class="col-md-9">
@@ -23,9 +27,11 @@
           <p>
             <% person["known_for"].each do |movie| %>
               <% if movie["media_type"] == "tv" %>
-                <% next %>
+                <%= movie["name"] %> (<%= movie["release_date"][0..3] %>)<br>
               <% end %>
-              <%= movie["title"] %> (<%= movie["release_date"][0..3] %>)<br>
+              <% if movie["media_type"] == "movie" %>
+                <%= movie["title"] %> (<%= movie["release_date"][0..3] %>)<br>
+              <% end %>
             <% end %>
           </p>
         </div>

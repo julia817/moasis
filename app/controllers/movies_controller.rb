@@ -17,9 +17,11 @@ class MoviesController < ApplicationController
 		@person["also_known_as"].each do |n|
 			if !(n =~ /(?:\p{Hiragana}|\p{Katakana}|[一-龠々])/).nil?
 				@name = n
+				break
 			end
 		end
 		@name = @name.nil? ? @person["name"] : @name
+		# @famous = ActiveSupport::JSON.decode(params[:known_for])
 	end
 
 end
