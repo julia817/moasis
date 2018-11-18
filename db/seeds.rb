@@ -25,7 +25,7 @@ User.create!(username: "julia",
 				 picture: picture)
 end
 25.times do |n|
-	username = Faker::HarryPotter.unique.character.gsub(" ", "")
+	username = Faker::HarryPotter.unique.character.gsub(" ", "").gsub(/\(.*?\)/,"")
 	email = "#{username}@harrypotter.org"
 	password = "password"
 	picture = Faker::Avatar.image
