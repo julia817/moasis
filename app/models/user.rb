@@ -15,7 +15,7 @@ class User < ApplicationRecord
 
 	mount_uploader :picture, PictureUploader
 
-	validates :username, presence: true, length: { maximum: 50 }
+	validates :username, presence: true, length: { maximum: 50 }, uniqueness: true
 
 	before_save { email.downcase! }
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

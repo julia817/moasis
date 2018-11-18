@@ -21,6 +21,9 @@ class UsersController < ApplicationController
 		if @user.save
 			log_in @user
 			flash[:success] = "アカウントを作成しました。　ムアシスへようこそ！"
+			Movielist.create(user_id: @user.id, listname: "watched")
+			Movielist.create(user_id: @user.id, listname: "want")
+			Movielist.create(user_id: @user.id, listname: "recommend")
 			redirect_to @user
 		else
 			render 'new'

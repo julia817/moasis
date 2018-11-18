@@ -8,11 +8,7 @@ class ListMoviesController < ApplicationController
 	# add watched movie to the database
 	def create_watched
 		@user = current_user
-		if @user.movielists.find_by(listname: "watched").nil?
-			@list = @user.movielists.create(listname: "watched")
-		else
-			@list = @user.movielists.find_by(listname: "watched")
-		end
+		@list = @user.movielists.find_by(listname: "watched")
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
 			# record all users' watched number
@@ -30,11 +26,7 @@ class ListMoviesController < ApplicationController
 	# add the movie that user wants to watch to the database
 	def create_want
 		@user = current_user
-		if @user.movielists.find_by(listname: "want").nil?
-			@list = @user.movielists.create(listname: "want")
-		else
-			@list = @user.movielists.find_by(listname: "want")
-		end
+		@list = @user.movielists.find_by(listname: "want")
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
 			flash[:success] = "リストに追加しました"
@@ -48,11 +40,7 @@ class ListMoviesController < ApplicationController
 	# add recommended movie to the database
 	def create_recommend
 		@user = current_user
-		if @user.movielists.find_by(listname: "recommend").nil?
-			@list = @user.movielists.create(listname: "recommend")
-		else
-			@list = @user.movielists.find_by(listname: "recommend")
-		end
+		@list = @user.movielists.find_by(listname: "recommend")
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
 			# record all users' recommend times
@@ -70,11 +58,7 @@ class ListMoviesController < ApplicationController
 	# add recommended movie from other list and without redirect
 	def create_recommend_from_other
 		@user = current_user
-		if @user.movielists.find_by(listname: "recommend").nil?
-			@list = @user.movielists.create(listname: "recommend")
-		else
-			@list = @user.movielists.find_by(listname: "recommend")
-		end
+		@list = @user.movielists.find_by(listname: "recommend")
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
 			# record all users' recommend times
@@ -91,11 +75,7 @@ class ListMoviesController < ApplicationController
 	# add watched movie from other list and without redirect
 	def create_watched_from_other
 		@user = current_user
-		if @user.movielists.find_by(listname: "watched").nil?
-			@list = @user.movielists.create(listname: "watched")
-		else
-			@list = @user.movielists.find_by(listname: "watched")
-		end
+		@list = @user.movielists.find_by(listname: "watched")
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
 			# record all users' watched number
@@ -112,11 +92,7 @@ class ListMoviesController < ApplicationController
 	# add want-to-watch movie from other list and without redirect
 	def create_want_from_other
 		@user = current_user
-		if @user.movielists.find_by(listname: "want").nil?
-			@list = @user.movielists.create(listname: "want")
-		else
-			@list = @user.movielists.find_by(listname: "want")
-		end
+		@list = @user.movielists.find_by(listname: "want")
 		@add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
 		if @add_movie.save
 			flash[:success] = "リストに追加しました"
