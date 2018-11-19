@@ -71,19 +71,19 @@ class UsersController < ApplicationController
 	def watched
 		@watched = listup("watched")
 		# @watched = Kaminari.paginate_array(@watched).page(params[:page]).per(20) unless @watched.blank?
-		@watched = ListMovie.paginate(page: params[:page])
+		# @watched = ListMovie.paginate(page: params[:page])
 	end
 
 	def want
 		@want = listup("want")
 		# @want = Kaminari.paginate_array(@want).page(params[:page]).per(20) unless @want.blank?
-		@want = ListMovie.paginate(page: params[:page])
+		# @want = ListMovie.paginate(page: params[:page])
 	end
 
 	def recommend
 		@recommend = listup("recommend")
 		# @recommend = Kaminari.paginate_array(@recommend).page(params[:page]).per(20) unless @recommend.blank?
-		@recommend = ListMovie.paginate(page: params[:page])
+		# @recommend = ListMovie.paginate(page: params[:page])
 	end	
 
 
