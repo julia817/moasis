@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 	def recommend
 		@recommend = listup("recommend")
 		# @recommend = Kaminari.paginate_array(@recommend).page(params[:page]).per(20) unless @recommend.blank?
-		@want = ListMovie.paginate(page: params[:page])
+		@recommend = ListMovie.paginate(page: params[:page])
 	end	
 
 
