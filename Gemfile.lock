@@ -95,6 +95,9 @@ GEM
     kaminari-activerecord (1.1.1)
       activerecord
       kaminari-core (= 1.1.1)
+    kaminari-bootstrap (3.0.1)
+      kaminari (>= 0.13.0)
+      rails
     kaminari-core (1.1.1)
     loofah (2.2.3)
       crass (~> 1.0.2)
@@ -140,6 +143,9 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-i18n (5.1.2)
+      i18n (>= 0.7, < 2)
+      railties (>= 5.0, < 6)
     railties (5.0.7)
       actionpack (= 5.0.7)
       activesupport (= 5.0.7)
@@ -207,11 +213,13 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   kaminari
+  kaminari-bootstrap
   mini_magick (= 4.7.0)
   pg (= 0.20.0)
   puma (~> 3.0)
   rails (~> 5.0.7)
   rails-controller-testing (= 1.0.2)
+  rails-i18n
   sass-rails (~> 5.0)
   sqlite3
   turbolinks (~> 5)

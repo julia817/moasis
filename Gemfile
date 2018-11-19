@@ -87,5 +87,9 @@ gem 'mini_magick', '4.7.0'
 
 # Paginate on array
 gem 'kaminari'
+gem 'kaminari-bootstrap'
+
+# Japanize
+gem 'rails-i18n'
 
 # gem 'json (~>2.0, ~>1.8)'

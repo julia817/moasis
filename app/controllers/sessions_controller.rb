@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
   		redirect_back_or user
   	else
   		# error message
-  		flash.now[:danger] = 'Invalid email/password combination'
+  		flash.now[:danger] = 'メールアドレスとパスワードの組み合わせは有効ではありません'
   		render 'new'
   	end
   end

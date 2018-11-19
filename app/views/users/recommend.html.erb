@@ -31,6 +31,7 @@
 
     <% if !@recommend.blank? %>
       <div class="addthis_inline_share_toolbox"></div>
+      <%= will_paginate @recommend %>
     	<table border="1">
         <tr>
     			<th>Poster</th>
@@ -74,6 +75,7 @@
         	</tr>
         <% end %>
     	</table>
+      <%= will_paginate @recommend %>
     <% end %>
   </div>
 </div>

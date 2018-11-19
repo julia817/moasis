@@ -30,6 +30,7 @@
 		<% end %>
 
 		<% if !@want.blank? %>
+			<%= will_paginate @want %>
 			<table border="1">
 		    <tr>
 				<th>Poster</th>
@@ -75,6 +76,7 @@
 		    	</tr>
 		    <% end %>
 			</table>
+			<%= will_paginate @want %>
 		<% end %>
 	</div>
 </div>
