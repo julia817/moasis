@@ -17,7 +17,8 @@ ja:
       previous: "&lsaquo; 前"
       truncate: "&hellip;"
 
+
     will_paginate:
-      previous_label: "&lsaquo; 前"
+      pevious_label: "&lsaquo; 前"
       next_label: "次 &rsaquo;"
       page_gap: "..."

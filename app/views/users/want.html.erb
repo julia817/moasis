@@ -17,19 +17,20 @@
 
     <div class="lists center">
       <%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
-      <%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
-      <%= link_to "おすすめ映画のリスト", :controller => "users", :action => "recommend" %>
+      <p>観たい映画のリスト</p>
+      <% if current_user?(@user) %>
+				<%= link_to "おすすめ映画のリスト", :action => "recommend" %>
+			<% else %>
+				<%= link_to "おすすめ映画のリスト",
+										{ :action => "recommend", :my_id => current_user.id } %>
+			<% end %>
     </div>
   </div>
 
   <div class="list">
-		<% if @movielist.nil? %>
-			<h2>観たい作品のリスト（0本）</h2>
-		<% else %>
-			<h2>観たい作品のリスト（<%= @want.count %>本）</h2>
-		<% end %>
+		<h2>観たい作品のリスト（<%= @count %>本）</h2>
 
-		<% if !@want.blank? %>
+		<% unless @list.blank? %>
 
 			<table border="1">
 		    <tr>
@@ -42,7 +43,7 @@
 					<th>Action</th>
 				<% end %>
 		    </tr>
-		    <% @want.each do |m| %>
+		    <% @list.each do |m| %>
 		    	<% movie = Movie.details(m.movie_id) %>
 		    	<tr>
 		        <td>

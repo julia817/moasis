@@ -69,23 +69,34 @@ class UsersController < ApplicationController
 	# movies related
 
 	def watched
-		@watched = listup("watched")
-		# @watched = Kaminari.paginate_array(@watched).page(params[:page]).per(20) unless @watched.blank?
-		# @watched = ListMovie.paginate(page: params[:page])
+		list = listup("watched")
+		paginate_list(list)
 	end
 
 	def want
-		@want = listup("want")
-		# @want = Kaminari.paginate_array(@want).page(params[:page]).per(20) unless @want.blank?
-		# @want = ListMovie.paginate(page: params[:page])
+		list = listup("want")
+		paginate_list(list)
 	end
 
 	def recommend
-		@recommend = listup("recommend")
-		# @recommend = Kaminari.paginate_array(@recommend).page(params[:page]).per(20) unless @recommend.blank?
-		# @recommend = ListMovie.paginate(page: params[:page])
+		list = listup("recommend")
+		paginate_list(list)
+		# current user's watched list
+		@my_watched = User.my_watched(@movielist.id, params[:my_id])
 	end	
 
+	
+	def my_watched
+		@list = listup("recommend")
+		@count = @list.count
+		@my_watched = User.my_watched(@movielist.id, params[:my_id])
+	end
+
+	def my_unwatched
+		@list = listup("recommend")
+		@count = @list.count
+		@my_unwatched = User.my_unwatched(@movielist.id, params[:my_id])
+	end
 
 	private
 		# strong params to restrict actions
@@ -100,6 +111,18 @@ class UsersController < ApplicationController
 				ListMovie.where(movielist_id: @movielist.id)
 			end
 		end
+
+		def paginate_list list
+			@count = list.count
+			unless list.blank?
+				@list = Array.new
+				list.each do |movie|
+					@list << movie
+				end
+				@list = Kaminari.paginate_array(@list).page(params[:page]).per(20)
+			end
+		end
+
 
 		# before filters
 

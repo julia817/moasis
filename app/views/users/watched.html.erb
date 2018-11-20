@@ -16,20 +16,24 @@
     </div>
 
     <div class="lists center">
-      <%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
+
+      <p>観た映画のリスト</p>
       <%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
-      <%= link_to "おすすめ映画のリスト", :controller => "users", :action => "recommend" %>
+      <% if current_user?(@user) %>
+				<%= link_to "おすすめ映画のリスト", :action => "recommend" %>
+			<% else %>
+				<%= link_to "おすすめ映画のリスト",
+										{ :action => "recommend", :my_id => current_user.id } %>
+			<% end %>
     </div>
   </div>
 
   <div class="list">
-		<% if @movielist.nil? %>
-			<h2>観た作品のリスト（0本）</h2>
-		<% else %>
-			<h2>観た作品のリスト（<%= @watched.count %>本）</h2>
-		<% end %>
+		<h2>観た作品のリスト（<%= @count %>本）</h2>
 
-		<% if !@watched.blank? %>
+		<% unless @list.blank? %>
+
+			<%= paginate @list %>
 
 			<table border="1">
 		    <tr>
@@ -38,11 +42,9 @@
 				<th>Release Date</th>
 				<th>Description</th>
 				<th>Add at</th>
-				<% if current_user?(User.find(@movielist.user_id)) %>
-					<th>Action</th>
-				<% end %>
+				<th>Action</th>
 		    </tr>
-		    <% @watched.each do |m| %>
+		    <% @list.each do |m| %>
 		    	<% movie = Movie.details(m.movie_id) %>
 		    	<tr>
 		        <td>
@@ -81,7 +83,7 @@
 		    	</tr>
 		    <% end %>
 			</table>
-
+			<%= paginate @list %>
 		<% end %>
 	</div>
 </div>

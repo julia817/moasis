@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+	# include SessionsHelper
+	# include ActionView::Helpers::SessionsHelper
+
 	has_many :movielists, dependent: :destroy
 
 	has_many :active_relationships, class_name: "Relationship",
@@ -80,8 +83,36 @@ class User < ApplicationRecord
 		following.include?(other_user)
 	end
 
+	# user search
+	# TO BE MODIFIED
 	def self.search(term)
 		User.where(['username LIKE ?', "%#{term}%"])
+	end
+
+	# compare given user's given list with current user's watched list to get current user's watched list
+	def self.my_watched(other_user_list_id, current_user_id)
+		current_user_movielist = User.find(current_user_id).movielists.find_by(listname: "watched")
+		other_user_list = ListMovie.where(movielist_id: other_user_list_id)
+		my_watched = Array.new
+		other_user_list.each do |movie|
+			if ListMovie.exists?(movielist_id: current_user_movielist.id, movie_id: movie.movie_id)
+				my_watched << movie
+			end
+		end
+		my_watched
+	end
+
+	# compare given user's given list with current user's watched list to get current user's unwatched list
+	def self.my_unwatched(other_user_list_id, current_user_id)
+		current_user_movielist = User.find(current_user_id).movielists.find_by(listname: "watched")
+		other_user_list = ListMovie.where(movielist_id: other_user_list_id)
+		my_unwatched = Array.new
+		other_user_list.each do |movie|
+			unless ListMovie.exists?(movielist_id: current_user_movielist.id, movie_id: movie.movie_id)
+				my_unwatched << movie
+			end
+		end
+		my_unwatched
 	end
 
 	private
@@ -91,4 +122,21 @@ class User < ApplicationRecord
 	  			errors.add(:picture, "should be less than 3MB")
 	  		end
 	  	end
+
+	  # return the current logged-in user (if any)
+		# def current_user
+			# if session[:user_id]
+			# 	@current_user ||= User.find_by(id: session[:user_id])
+			# end
+		# 	if (user_id = session[:user_id])
+		# 		@current_user ||= User.find_by(id: user_id)
+		# 	elsif (user_id = cookies.signed[:user_id])
+		# 		# raise # tests still pass, so this branch is currently untested
+		# 		user = User.find_by(id: user_id)
+		# 		if user && user.authenticated?(cookies[:remember_token])
+		# 			log_in user
+		# 			@current_user = user
+		# 		end
+		# 	end
+		# end
 end

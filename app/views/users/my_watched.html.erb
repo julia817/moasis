@@ -1,0 +1,69 @@
+<%= provide(:title, "#{@user.username}の観た映画リスト") %>
+
+<div class="container-fluid user">
+	<div class="profile">
+    <h1>
+      <% if @user.picture? == false %>
+        <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+      <% else %>
+        <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+      <% end %>
+      <%= @user.username %>
+      <%= render 'follow_unfollow_button' if logged_in? %>
+    </h1>
+    <div class="stats">
+      <%= render 'shared/stats' if logged_in? %>
+    </div>
+
+    <div class="lists center">
+      <%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
+      <%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
+      <p>おすすめ映画のリスト</p>
+    </div>
+  </div>
+
+  <div class="list">
+
+		<h2>観た作品のリスト</h2>
+
+		<%= link_to "全部(#{@count})", :action => "watched" %>
+		<p>自分が観たことのある映画(<%= @my_watched.count %>)</p>
+		<%= link_to "自分が観たことのない映画(#{@count-@my_watched.count})",
+								{ :action => "my_unwatched", :my_id => current_user.id } %>
+
+		<table border="1">
+	    <tr>
+			<th>Poster</th>
+			<th>Title</th>
+			<th>Release Date</th>
+			<th>Description</th>
+			<th>Add at</th>
+	    </tr>
+
+	    <% @my_watched.each do |m| %>
+	    	<% movie = Movie.details(m.movie_id) %>
+	    	<tr>
+	        <td>
+	        	<%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
+	        								:alt => "poster") %>
+	        </td>
+	        <td>
+	        	<%= link_to movie["title"],
+	        							controller: "movies", action: "show", id: "#{movie["id"]}" %>
+	        </td>
+	        <td><%= movie["release_date"] %></td>
+	        <td>
+	        	<% if movie["overview"].blank? %>
+	            情報がありません
+	          <% else %>
+	        		<%= movie["overview"] %>
+	        	<% end %>
+	        </td>
+	        <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
+
+	    	</tr>
+	    <% end %>
+		</table>
+
+	</div>
+</div>

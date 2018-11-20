@@ -15,8 +15,13 @@
 	</div>
 
 	<div class="lists center">
-		<%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
-		<%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
-		<%= link_to "おすすめ映画のリスト", :controller => "users", :action => "recommend" %>
+		<%= link_to "観た映画のリスト", :action => "watched" %>
+		<%= link_to "観たい映画のリスト", :action => "want" %>
+		<% if current_user?(@user) %>
+			<%= link_to "おすすめ映画のリスト", :action => "recommend" %>
+		<% else %>
+			<%= link_to "おすすめ映画のリスト",
+									{ :action => "recommend", :my_id => current_user.id } %>
+		<% end %>
 	</div>
 </div>
