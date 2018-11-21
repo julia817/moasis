@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-	# include SessionsHelper
-	# include ActionView::Helpers::SessionsHelper
 
 	has_many :movielists, dependent: :destroy
 
@@ -14,7 +12,7 @@ class User < ApplicationRecord
 																	 dependent: :destroy
 	has_many :followers, through: :passive_relationships, source: :follower
 
-	attr_accessor :remember_token
+	attr_accessor :remember_token, :reset_token
 
 	mount_uploader :picture, PictureUploader
 
@@ -24,7 +22,7 @@ class User < ApplicationRecord
 						uniqueness: true,
 						format: { with: /\A[a-z0-9]+\z/i }
 
-	before_save { email.downcase! }
+	before_save :downcase_email
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email,
 						presence: true,
@@ -58,10 +56,33 @@ class User < ApplicationRecord
 	end
 
 	# return true if the given token matches the digest
-	def authenticated?(remember_token)
-		return false if remember_digest.nil?
-		BCrypt::Password.new(remember_digest).is_password?(remember_token)
-	end
+	# def authenticated?(remember_token)
+	# 	return false if remember_digest.nil?
+	# 	BCrypt::Password.new(remember_digest).is_password?(remember_token)
+	# end
+	def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+	# set the password reset attributes.
+  def create_reset_digest
+    self.reset_token = User.new_token
+    # update_attribute(:reset_digest,  User.digest(reset_token))
+    # update_attribute(:reset_sent_at, Time.zone.now)
+    update_columns(reset_digest: User.digest(reset_token), reset_sent_at: Time.zone.now)
+  end
+
+  # send password reset email.
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
+  end
+
+  # return true if a password reset has expired.
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
 
 	# forget a user
 	def forget
@@ -116,6 +137,11 @@ class User < ApplicationRecord
 	end
 
 	private
+		# converts email to all lower-case.
+    def downcase_email
+      self.email = email.downcase
+    end
+
 		# validate the size of an uploaded picture
 		def picture_size
 	  		if picture.size > 3.megabytes

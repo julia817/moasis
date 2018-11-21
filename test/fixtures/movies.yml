@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-avengers:
-  title: "avengers"
-  date: "2018-05-05"
-  story: "an SF/action movie about superheros based on MARVEL universe"
+# avengers:
+#   title: "avengers"
+#   date: "2018-05-05"
+#   story: "an SF/action movie about superheros based on MARVEL universe"

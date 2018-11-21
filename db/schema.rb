@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181121020444) do
+ActiveRecord::Schema.define(version: 20181121075340) do
 
   create_table "list_movies", force: :cascade do |t|
     t.integer  "movielist_id"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20181121020444) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["movie_id"], name: "index_list_movies_on_movie_id"
-    t.index ["movielist_id", "movie_id"], name: "index_list_movies_on_movielist_id_and_movie_id", unique: true
+    t.index ["movielist_id", "movie_id", "created_at"], name: "index_list_movies_on_movielist_id_and_movie_id_and_created_at"
     t.index ["movielist_id"], name: "index_list_movies_on_movielist_id"
   end
 
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 20181121020444) do
     t.boolean  "admin",           default: false
     t.string   "picture"
     t.string   "remember_digest"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
 end
