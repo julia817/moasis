@@ -6,6 +6,6 @@ class CreateListMovies < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    add_index :list_movies, [:movielist_id, :movie_id, :created_at]
+    add_index :list_movies, [:movielist_id, :movie_id], unique: true
   end
 end
