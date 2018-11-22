@@ -92,4 +92,10 @@ gem 'kaminari-bootstrap'
 # Japanize
 gem 'rails-i18n'
 
+# SNS login
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+
 # gem 'json (~>2.0, ~>1.8)'

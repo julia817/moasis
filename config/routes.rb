@@ -45,9 +45,10 @@ Rails.application.routes.draw do
   post 'list_movies/create_want_from_other', to: 'list_movies#create_want_from_other'
   delete 'list_movies/destroy', to: 'list_movies#destroy'
 
-  # get 'users/:id/watched', to: 'users#watched'
-  # get 'users/:id/want', to: 'users#want'
-  # get 'users/:id/recommend', to: 'users#recommend'
+  # SNS log in
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  get '/auth/failure',            to: 'sessions#auth_failure'
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
