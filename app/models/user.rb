@@ -66,6 +66,27 @@ class User < ApplicationRecord
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  # if the user exists in the database, get the data; otherwise, create new user
+  def self.find_or_create_from_auth(auth)
+    provider = auth[:provider]
+    uid = auth[:uid]
+    if provider == 'twitter'
+    	name = auth[:info][:nickname]
+    else
+    	name = auth[:info][:name]
+    end
+    # email = auth[:info][:email]
+    image = auth[:info][:image]
+
+    self.find_or_create_by(provider: provider, uid: uid) do |user|
+    	user.provider = provider
+    	user.uid = uid
+    	# user.email = email
+      user.username = name
+      user.pic_url = image
+    end
+  end
+
 	# set the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token

@@ -30,26 +30,6 @@ class UsersController < ApplicationController
 		end
 	end
 
-	def self.find_or_create_from_auth(auth)
-    provider = auth[:provider]
-    uid = auth[:uid]
-    if provider == 'twitter'
-    	name = auth[:info][:nickname]
-    else
-    	name = auth[:info][:name]
-    end
-    # email = auth[:info][:email]
-    image = auth[:info][:image]
-
-    self.find_or_create_by(provider: provider, uid: uid) do |user|
-    	user.provider = provider
-    	user.uid = uid
-    	# user.email = email
-      user.username = name
-      user.pic_url = image
-    end
-  end
-
 	def edit
 		@user = User.find(params[:id])
 	end
