@@ -17,22 +17,22 @@ class User < ApplicationRecord
 	mount_uploader :picture, PictureUploader
 
 	validates :username,
-						presence: true,
+						presence: true, unless: :uid?, 
 						length: { maximum: 50 },
 						uniqueness: true,
 						format: { with: /\A[a-z0-9]+\z/i }
 
-	before_save :downcase_email
+	# before_save :downcase_email
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email,
-						presence: true,
+						presence: true, unless: :uid?, 
 						length: {maximum: 254}, 
 					  format: { with: VALID_EMAIL_REGEX },
 					  uniqueness: { case_sensitive: false }
 
-	has_secure_password
+	has_secure_password validations: false
 	validates :password,
-						presence: true,
+						presence: true, unless: :uid?,
 						length: { minimum: 6 }
 
 	validate :picture_size
@@ -79,8 +79,6 @@ class User < ApplicationRecord
     image = auth[:info][:image]
 
     self.find_or_create_by(provider: provider, uid: uid) do |user|
-    	user.provider = provider
-    	user.uid = uid
     	# user.email = email
       user.username = name
       user.pic_url = image
@@ -160,7 +158,7 @@ class User < ApplicationRecord
 	private
 		# converts email to all lower-case.
     def downcase_email
-      self.email = email.downcase
+      self.email = email.downcase unless self.email.nil?
     end
 
 		# validate the size of an uploaded picture
