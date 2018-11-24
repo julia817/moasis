@@ -23,7 +23,20 @@
 
 		<p>新しいユーザ？ <%= link_to "会員登録お願いします～", signup_path %></p>
 
-		<%= link_to 'Facebookアカウントでログイン', '/auth/facebook' %>
-		<%= link_to 'Twitterアカウントでログイン', '/auth/twitter' %>
+		<p>
+		<%= link_to '/auth/twitter', class: "btn btn-social btn-twitter" do %>
+			<span class="fa fa-twitter"></span> Twitterアカウントでログイン
+		<% end %>
+		</p>
+		<p>
+		<%= link_to '/auth/facebook', class: "btn btn-social btn-facebook" do %>
+			<span class="fa fa-facebook"></span> Facebookアカウントでログイン
+		<% end %>
+		</p>
+		<p>
+		<%= link_to '/auth/google_auth2', class: "btn btn-social btn-google" do %>
+			<span class="fa fa-google"></span> Googleアカウントでログイン
+		<% end %>
+		</p>
 	</div>
 </div>
