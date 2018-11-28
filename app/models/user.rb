@@ -22,7 +22,7 @@ class User < ApplicationRecord
 						uniqueness: true,
 						format: { with: /\A[a-z0-9]+\z/i }
 
-	# before_save :downcase_email
+	before_save :downcase_email
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :email,
 						presence: true, unless: :uid?, 

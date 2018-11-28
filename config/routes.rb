@@ -46,7 +46,8 @@ Rails.application.routes.draw do
   delete 'list_movies/destroy', to: 'list_movies#destroy'
 
   # SNS log in
-  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  # match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  get 'auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure',            to: 'sessions#auth_failure'
 
 

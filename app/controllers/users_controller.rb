@@ -82,7 +82,7 @@ class UsersController < ApplicationController
 		list = listup("recommend")
 		paginate_list(list)
 		# current user's watched list
-		@my_watched = User.my_watched(@movielist.id, params[:my_id])
+		@my_watched = User.my_watched(@movielist.id, params[:my_id]) unless params[:my_id] != @user.id
 	end	
 
 	

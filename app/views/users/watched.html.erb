@@ -20,7 +20,7 @@
       <p>観た映画のリスト</p>
       <%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
       <% if current_user?(@user) %>
-				<%= link_to "おすすめ映画のリスト", :action => "recommend" %>
+				<%= link_to "おすすめ映画のリスト", :action => "recommend", :my_id => @user.id %>
 			<% else %>
 				<%= link_to "おすすめ映画のリスト",
 										{ :action => "recommend", :my_id => current_user.id } %>

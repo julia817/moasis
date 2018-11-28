@@ -35,13 +35,15 @@
       <div class="addthis_inline_share_toolbox"></div>
 
       <div class="filter">
-        <% unless current_user?(User.find(@movielist.user_id)) %>
-          <% current_user_id = current_user.id %>
-          <p>全部(<%= @count %>)</p>
-          <%= link_to "自分が観たことのある映画(#{@my_watched.count})",
-                      { :action => "my_watched", :my_id => current_user_id } %>
-          <%= link_to "自分が観たことのない映画(#{@count-@my_watched.count})",
-                      { :action => "my_unwatched", :my_id => current_user.id } %>
+        <% if logged_in? %>
+          <% unless current_user?(User.find(@movielist.user_id)) %>
+            <% current_user_id = current_user.id %>
+            <p>全部(<%= @count %>)</p>
+            <%= link_to "自分が観たことのある映画(#{@my_watched.count})",
+                        { :action => "my_watched", :my_id => current_user_id } %>
+            <%= link_to "自分が観たことのない映画(#{@count-@my_watched.count})",
+                        { :action => "my_unwatched", :my_id => current_user.id } %>
+          <% end %>
         <% end %>
       </div>
 
@@ -52,6 +54,7 @@
     			<th>Release Date</th>
     			<th>Description</th>
     			<th>Add at</th>
+          <th>Action</th>
         </tr>
         <% @list.each do |m| %>
         	<% movie = Movie.details(m.movie_id) %>
@@ -73,15 +76,24 @@
             	<% end %>
             </td>
             <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
-    				<% if current_user?(User.find(@movielist.user_id)) %>
-            	<td>
-                <%= button_to "削除", list_movies_destroy_path,
-                              :method => "delete",
-                              :class => "btn btn-md btn-danger",
-                              :data => { :confirm => "本当に削除しますか？" },
-                              :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %> 
-              </td>
-
+            <% if !logged_in? %>
+              <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
+              <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
+              <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
+            <% else %>
+      				<% if current_user?(User.find(@movielist.user_id)) %>
+              	<td>
+                  <%= button_to "削除", list_movies_destroy_path,
+                                :method => "delete",
+                                :class => "btn btn-md btn-danger",
+                                :data => { :confirm => "本当に削除しますか？" },
+                                :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %> 
+                </td>
+              <% else %>
+                <td>
+                  <!-- TODO -->
+                </td>
+              <% end %>
             <% end %>
         	</tr>
         <% end %>
