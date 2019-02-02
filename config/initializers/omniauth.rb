@@ -6,4 +6,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   	{ display: 'page', image_size: 'normal' }
   provider :google_oauth2, ENV['GOOGLE_ID'], ENV['GOOGLE_SECRET'],
   	{ image_aspect_ratio: 'square', prompt: 'select_account' }
+  provider :line, ENV['LINE_ID'], ENV['LINE_SECRET']
 end

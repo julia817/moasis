@@ -30,6 +30,26 @@ class Movie < ApplicationRecord
 		get("", query: { page: page, language: 'ja-JP', region: "JP" })["results"]
 	end
 
+	def self.genre_list (id, page=1)
+		base_uri 'https://api.themoviedb.org/3/discover/movie'
+		get("", query: { page: page, language: 'ja-JP', with_genres: id })
+	end
+
+	def self.year_list (year, page=1)
+		base_uri 'https://api.themoviedb.org/3/discover/movie'
+		get("", query: { page: page, language: 'ja-JP', primary_release_year: year })
+	end
+
+	# def self.years90s_list (lower, upper, page=1)
+	# 	base_uri 'https://api.themoviedb.org/3/discover/movie'
+	# 	get("", query: { page: page, language: 'ja-JP', primary_release_date.gte: lower, primary_release_date.lte: upper })
+	# end
+
+	# def self.oldyears_list (upper, page=1)
+	# 	base_uri 'https://api.themoviedb.org/3/discover/movie'
+	# 	get("", query: { page: page, language: 'ja-JP', primary_release_date.lte: upper })
+	# end
+
 	def self.people(term, page=1)
 		base_uri 'https://api.themoviedb.org/3/search/person'
 		get("", query: { query: term, page: page, language: 'ja-JP' })

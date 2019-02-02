@@ -75,4 +75,51 @@ class SearchController < ApplicationController
 		end
 	end
 
+	def show_genre
+		response = Movie.genre_list(params[:id])
+		@total_pages = response["total_pages"]
+		@movie_results = response["results"]
+
+		@total_pages = @total_pages>30 ? 30 : @total_pages
+		(2..@total_pages).each do |page|
+			results = Movie.genre_list(params[:id], page)["results"]
+			(0...results.count).each do |i|
+				@movie_results << results[i]
+			end
+		end
+
+		@movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
+	end
+
+	def show_single_year
+		response = Movie.year_list(params[:year])
+		@total_pages = response["total_pages"]
+		@movie_results = response["results"]
+
+		@total_pages = @total_pages>30 ? 30 : @total_pages
+		(2..@total_pages).each do |page|
+			results = Movie.year_list(params[:year], page)["results"]
+			(0...results.count).each do |i|
+				@movie_results << results[i]
+			end
+		end
+
+		@movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
+	end
+
+	def show_90s
+		response = Movie.years90s_list(params[:lower], parmas[:upper])
+		@total_pages = response["total_pages"]
+		@movie_results = response["results"]
+
+		@total_pages = @total_pages>30 ? 30 : @total_pages
+		(2..@total_pages).each do |page|
+			results = Movie.years90s_list(params[:lower], parmas[:upper], page)["results"]
+			(0...results.count).each do |i|
+				@movie_results << results[i]
+			end
+		end
+
+		@movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
+	end
 end
