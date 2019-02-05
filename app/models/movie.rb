@@ -4,6 +4,9 @@ class Movie < ApplicationRecord
 	has_many :list_movies
 	has_many :movielists, through: :list_movies
 
+	has_many :comments
+	has_many :user, through: :comments
+
 	default_options.update(verify: false)
 	default_params api_key: 'eb5a81372c8971c7a1dc86b855e863ed'
 	format :json
@@ -73,7 +76,6 @@ class Movie < ApplicationRecord
 		movie.id = id
 		movie.save
 	end
-
 
 	private
 		

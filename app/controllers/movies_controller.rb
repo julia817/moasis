@@ -1,4 +1,5 @@
 class MoviesController < ApplicationController
+	include MoviesHelper
 
 	def show
 		# @movie = Movie.find(params[:id])
@@ -10,6 +11,15 @@ class MoviesController < ApplicationController
 			@cast_range = @movie["credits"]["cast"].count
 		end
 		@trailers = Movie.trailers(params[:id])
+
+		# get current user's comment
+		@current_user_comment = Comment.find_by(user_id: current_user.id, movie_id: @movie["id"])
+		# create new comment
+		@comment = Comment.new if logged_in? && watched_check(@movie["id"])
+		# find movie object from database
+		@movie_db = Movie.find(@movie["id"])
+		# paginate all of the movie's comments
+		@comments = @movie_db.comments.paginate(page: params[:page])
 	end
 
 	def show_person

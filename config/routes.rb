@@ -32,9 +32,13 @@ Rails.application.routes.draw do
   get '/genres', to: 'search#show_genre'
   get '/years', to: 'search#show_single_year'
 
+  # resources :movies do
+  #   resources :comments, only: [:create, :destroy]
+  # end
   resources :movies
   resources :movielists, only: [:create, :destroy]
   resources :list_movies
+  resources :comments, only: [:create, :destroy]
 
   get '/person', to: "movies#show_person"
   
