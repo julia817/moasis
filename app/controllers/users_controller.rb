@@ -126,14 +126,6 @@ class UsersController < ApplicationController
 
 		# before filters
 
-		# confirm a logged-in user
-		def logged_in_user
-			unless logged_in?
-				store_location
-				flash[:danger] = "ログインしてください。"
-				redirect_to login_path
-			end
-		end
 
 		# confirm the correct user
 		def correct_user

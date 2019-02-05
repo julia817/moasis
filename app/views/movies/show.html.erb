@@ -57,7 +57,21 @@
 			<p>この映画は<%= record.watched_num %>人が観ました</p>
 			<p>この映画は<%= record.rec_num %>人がお勧めします</p>
 		<% end %>
+
+		<aside>
+			<% if watched_check(@movie["id"]) %>
+				<% if !@current_user_comment.nil? %>
+					<h5>あなたのコメント・感想：</h5>
+					<p><%= @current_user_comment.content %></p>
+				<% else %>
+					<%= render 'comment_form' %>
+				<% end %>
+			<% end %>
+		</aside>
+
+
 	</div>
+
 
 	<div class="col-md-8">
 		<h1><%= @movie["title"] %></h1>
@@ -168,4 +182,14 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="container-fluid area-width">
+	<% if @movie_db.comments.any? %>
+		<h3 align="left">コメント・感想（<%= @movie_db.comments.count %>件）</h3>
+		<ol class="comments">
+			<%= render @comments %>
+		</ol>
+		<%= will_paginate @comments %>
+	<% end %>
 </div>

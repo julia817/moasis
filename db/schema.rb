@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181122113757) do
+
+ActiveRecord::Schema.define(version: 20190203065913) do
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "movie_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_comments_on_movie_id"
+    t.index ["user_id", "movie_id", "created_at"], name: "index_comments_on_user_id_and_movie_id_and_created_at", unique: true
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "list_movies", force: :cascade do |t|
     t.integer  "movielist_id"
