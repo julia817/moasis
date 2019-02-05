@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/search_users', to: 'search#search_users'
   get '/search_filter', to: 'search#search_filter' # select search filter page
   get '/search', to: 'search#discover'
+  get '/adv_search', to: 'search#advanced_search'
   get '/genres', to: 'search#show_genre'
   get '/years', to: 'search#show_single_year'
 
