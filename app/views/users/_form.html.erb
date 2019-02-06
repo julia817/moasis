@@ -1,36 +1,36 @@
 <%= form_for(@user) do |f| %>
-	<%= render 'shared/error_messages', object: f.object %>
+  <%= render 'shared/error_messages', object: f.object %>
 
-	<%= f.label :ユーザ名 %>
-	<span class="form-condition">※必須項目；英数字の組み合わせで50字以内</span>
-	<%= f.text_field :username, class: 'form-control' %>
+  <%= f.label :ユーザ名 %>
+  <span class="form-condition">※必須項目；英数字の組み合わせで50字以内</span>
+  <%= f.text_field :username, class: 'form-control' %>
 
-	<%= f.label :メールアドレス %>
-	<span class="form-condition">※必須項目</span>
-	<%= f.email_field :email, class: 'form-control' %>
+  <%= f.label :メールアドレス %>
+  <span class="form-condition">※必須項目</span>
+  <%= f.email_field :email, class: 'form-control' %>
 
-	<%= f.label :パスワード %>
-	<span class="form-condition">※必須項目；最低6文字</span>
-	<%= f.password_field :password, class: 'form-control' %>
+  <%= f.label :パスワード %>
+  <span class="form-condition">※必須項目；最低6文字</span>
+  <%= f.password_field :password, class: 'form-control' %>
 
-	<%= f.label :パスワード再入力 %>
-	<span class="form-condition">※必須項目；パスワード確認用</span>
-	<%= f.password_field :password_confirmation, class: 'form-control' %>
+  <%= f.label :パスワード再入力 %>
+  <span class="form-condition">※必須項目；パスワード確認用</span>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-	<!-- <span class="picture"> -->
-		<%= f.label :プロファイル写真 %>
-		<span>※3M以内のjpg/gif/pngファイルのみ</span>
-		<%= f.file_field :picture, accept: 'image/jpg, image/jpeg, image/gif, image/png' %>
-	<!-- </span> -->
+  <!-- <span class="picture"> -->
+    <%= f.label :プロファイル写真 %>
+    <span>※3M以内のjpg/gif/pngファイルのみ</span>
+    <%= f.file_field :picture, accept: 'image/jpg, image/jpeg, image/gif, image/png' %>
+  <!-- </span> -->
 
-	<%= f.submit yield(:button_text), class: 'btn btn-primary' %>
+  <%= f.submit yield(:button_text), class: 'btn btn-primary' %>
 <% end %>
 
 <script type="text/javascript">
-	$('#user_picture').bind('change', function() {
-		var size_in_megabytes = this.files[0].size/1024/1024;
-		if (size_in_megabytes > 3) {
-			alert('3MBを超えた画像ファイルをアップロード出来ません。もっと小さいファイルを選んでください。');
-		}
-	});
+  $('#user_picture').bind('change', function() {
+    var size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 3) {
+      alert('3MBを超えた画像ファイルをアップロード出来ません。もっと小さいファイルを選んでください。');
+    }
+  });
 </script>

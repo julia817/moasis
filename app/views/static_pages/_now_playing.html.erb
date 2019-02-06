@@ -1,0 +1,56 @@
+<div class="container-fluid now-playing">
+  <h2 class="center"><strong>上映中</strong></h2>
+  <div class="row">
+    <% @movies[0..3].each do |m| %>
+      <% Movie.add(m["id"]) unless Movie.exists?(m["id"]) %>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
+            <%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
+                          class: "img-responsive",
+                          alt: "movie pic" %>
+            <div class="caption">
+              <p><%= m["title"] %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <% @movies[4..7].each do |m| %>
+      <% Movie.add(m["id"]) unless Movie.exists?(m["id"]) %>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
+            <%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
+                          class: "img-responsive",
+                          alt: "movie pic" %>
+            <div class="caption">
+              <p><%= m["title"] %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <% @movies[8...12].each do |m| %>
+      <% Movie.add(m["id"]) unless Movie.exists?(m["id"]) %>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
+            <%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
+                          class: "img-responsive",
+                          alt: "movie pic" %>
+            <div class="caption">
+              <p><%= m["title"] %></p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>  
+</div>

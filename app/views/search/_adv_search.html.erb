@@ -1,0 +1,37 @@
+<%= button_tag("高度な映画検索", :data => { :toggle => "collapse", :target => "#advanced" }, :class => "btn btn-info btn-md") %>
+<div id="advanced" class="collapse">
+  <%= form_tag adv_search_path, method: :get, class: 'search-form form-group' do %>
+    <div class="form-group">
+      <div class="form-inline">
+        <label>上映年</label>
+        <%= text_field :year, params[:year], class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-inline">
+        <label>俳優・製作スタッフ</label>
+        <%= text_field :person1, params[:person1], class: "form-control" %>
+        <%= text_field :person2, params[:person2], class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-inline">
+        <label>ジャンル</label>
+        <%= text_field :genre, params[:genre], class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-inline">
+        <label>キーワード</label>
+        <%= text_field :word, params[:word], class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="input-group-btn">
+        <%= button_tag(type: 'submit', class: "btn btn-default") do %>
+          <span class="glyphicon glyphicon-search"></span> 検索
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

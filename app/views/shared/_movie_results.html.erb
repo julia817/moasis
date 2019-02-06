@@ -61,7 +61,7 @@
                           :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
           <% else %>
             <%= button_to "おすすめ", "/list_movies/create_recommend_from_other?movie_id=#{movie["id"]}",
-                :class => "btn btn-info btn-md" %>
+                          :class => "btn btn-info btn-md" %>
           <% end %>
         <% end %>
       </td>

@@ -1,21 +1,21 @@
 <% provide(:title, "#{@user}の#{@title}") %>
 <h1>
-	<% if @user.picture? == false %>
-		<%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
-	<% else %>
-		<%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
-	<% end %>
-	<%= @user.username %>
-	<%= render 'follow_unfollow_button' if logged_in? %>
+  <% if @user.picture? == false %>
+    <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+  <% else %>
+    <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+  <% end %>
+  <%= @user.username %>
+  <%= render 'follow_unfollow_button' if logged_in? %>
 </h1>
 <div class="stats">
-	<%= render 'shared/stats' if logged_in? %>
+  <%= render 'shared/stats' if logged_in? %>
 </div>
 <h3><%= @title %></h3>
 <% if @users.any? %>
-	<%= will_paginate %>
-	<ul class="users follow">
-		<%= render @users %>
-	</ul>
-	<%= will_paginate %>
+  <%= will_paginate %>
+  <ul class="users follow">
+    <%= render @users %>
+  </ul>
+  <%= will_paginate %>
 <% end %>

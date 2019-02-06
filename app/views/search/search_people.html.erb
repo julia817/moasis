@@ -11,13 +11,11 @@
     <% @people_results.each do |person| %>
       <div class="row">
         <div class="col-md-3">
-          <%= link_to controller: "movies", action: "show_person", 
-                      params: { id: "#{person["id"]}" } do %>
+          <%= link_to controller: "movies", action: "show_person", params: { id: "#{person["id"]}" } do %>
             <% if person["profile_path"].blank? %>
               <%= image_tag("default credit.png", :alt => "profile") %>
             <% else %>
-              <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}",
-                            :alt => "profile") %>
+              <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}", :alt => "profile") %>
             <% end %>
           <% end %>
         </div>

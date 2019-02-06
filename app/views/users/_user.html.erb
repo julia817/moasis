@@ -1,11 +1,11 @@
 <li>
-	<% if user.picture? == false %>
-		<%= image_tag("panda.png", :size => "50x50", :alt => "profile") %>
-	<% else %>
-		<%= image_tag(user.picture, :size => "50x50", :alt => "profile pic") %>
-	<% end %>
-	<%= link_to user.username, user %>
-	<% if current_user.admin? && !current_user?(user) %>
-		| <%= link_to "delete", user, method: :delete, data: { confirm: "本当に削除しますか?" } %>
-	<% end %>
+  <% if user.picture? == false %>
+    <%= image_tag("panda.png", :size => "50x50", :alt => "profile") %>
+  <% else %>
+    <%= image_tag(user.picture, :size => "50x50", :alt => "profile pic") %>
+  <% end %>
+  <%= link_to user.username, user %>
+  <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete, data: { confirm: "本当に削除しますか?" } %>
+  <% end %>
 </li>

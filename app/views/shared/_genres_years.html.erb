@@ -1,61 +1,28 @@
 <div>
-	<h3>ジャンル</h3>
-	<p>
-		<%= link_to "アクション", :controller => "search", :action => "show_genre", :id => "28" %>
-		<%= link_to "冒険", :controller => "search", :action => "show_genre", :id => "12" %>
-		<%= link_to "コメディ", :controller => "search", :action => "show_genre", :id => "35" %>
-		<%= link_to "アニメーション", :controller => "search", :action => "show_genre", :id => "16" %>
-		<%= link_to "犯罪", :controller => "search", :action => "show_genre", :id => "80" %>
-		<%= link_to "ドラマ", :controller => "search", :action => "show_genre", :id => "18" %>
-		<%= link_to "ファミリー", :controller => "search", :action => "show_genre", :id => "10751" %>
-		<%= link_to "ファンタジー", :controller => "search", :action => "show_genre", :id => "14" %>
-		<%= link_to "歴史", :controller => "search", :action => "show_genre", :id => "36" %>
-	</p>
-	<p>
-		<%= link_to "ホラー", :controller => "search", :action => "show_genre", :id => 27 %>
-		<%= link_to "音楽", :controller => "search", :action => "show_genre", :id => 10402 %>
-		<%= link_to "ミステリー", :controller => "search", :action => "show_genre", :id => 9648 %>
-		<%= link_to "SF", :controller => "search", :action => "show_genre", :id => 878 %>
-		<%= link_to "ロマンス", :controller => "search", :action => "show_genre", :id => 10749 %>
-		<%= link_to "戦争", :controller => "search", :action => "show_genre", :id => 10752 %>
-		<%= link_to "スリラー", :controller => "search", :action => "show_genre", :id => 53 %>
-		<%= link_to "ドキュメンタリー", :controller => "search", :action => "show_genre", :id => 99 %>
-		<%= link_to "西部劇", :controller => "search", :action => "show_genre", :id => 37 %>
-	</p>
+  <h2>ジャンル</h2>
+  <p>
+    <% @genres.each do |key, value| %>
+      <%= link_to key, :action => "show_genre", :id => value %>
+    <% end %>
+  </p>
 </div>
 
 <hr>
 
 <div>
-	<h3>上映年</h3>
-	<p>
-		<%= link_to "2019", :controller => "search", :action => "show_single_year", :year => 2019 %>
-		<%= link_to "2018", :controller => "search", :action => "show_single_year", :year => 2018 %>
-		<%= link_to "2017", :controller => "search", :action => "show_single_year", :year => 2017 %>
-		<%= link_to "2016", :controller => "search", :action => "show_single_year", :year => 2016 %>
-		<%= link_to "2015", :controller => "search", :action => "show_single_year", :year => 2015 %>
-		<%= link_to "2014", :controller => "search", :action => "show_single_year", :year => 2014 %>
-		<%= link_to "2013", :controller => "search", :action => "show_single_year", :year => 2013 %>
-		<%= link_to "2012", :controller => "search", :action => "show_single_year", :year => 2012 %>
-		<%= link_to "2011", :controller => "search", :action => "show_single_year", :year => 2011 %>
-		<%= link_to "2010", :controller => "search", :action => "show_single_year", :year => 2010 %>
-	</p>
-	<p>
-		<%= link_to "2009", :controller => "search", :action => "show_single_year", :year => 2009 %>
-		<%= link_to "2008", :controller => "search", :action => "show_single_year", :year => 2008 %>
-		<%= link_to "2007", :controller => "search", :action => "show_single_year", :year => 2007 %>
-		<%= link_to "2006", :controller => "search", :action => "show_single_year", :year => 2006 %>
-		<%= link_to "2005", :controller => "search", :action => "show_single_year", :year => 2005 %>
-		<%= link_to "2004", :controller => "search", :action => "show_single_year", :year => 2004 %>
-		<%= link_to "2003", :controller => "search", :action => "show_single_year", :year => 2003 %>
-		<%= link_to "2002", :controller => "search", :action => "show_single_year", :year => 2002 %>
-		<%= link_to "2001", :controller => "search", :action => "show_single_year", :year => 2001 %>
-		<%= link_to "2000", :controller => "search", :action => "show_single_year", :year => 2000 %>
-	</p>
-	<p>
-		<%= link_to "90年代", "#", 
-												 :upper => "1999-12-31", :lower => "1990-01-01" %>
-		<%= link_to "90年代以前", "#", 
-														:upper => "1989-12-31" %>
-	</p>
+  <h2>上映年</h2>
+  <p>
+    <% 2019.downto(2010) do |year| %>
+      <%= link_to year, :action => "show_single_year", :year => year %>
+    <% end %>
+  </p>
+  <p>
+    <% 2009.downto(2000) do |year| %>
+      <%= link_to year, :action => "show_single_year", :year => year %>
+    <% end %>
+  </p>
+  <p>
+    <%= link_to "90年代", "#", :upper => "1999-12-31", :lower => "1990-01-01" %>
+    <%= link_to "90年代以前", "#", :upper => "1989-12-31" %>
+  </p>
 </div>

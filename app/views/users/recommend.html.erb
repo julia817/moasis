@@ -24,10 +24,10 @@
 
   <div class="list">
     <% if @list.blank? %>
-    	<h2>おすすめ作品のリスト（0本）</h2>
+      <h2>おすすめ作品のリスト（0本）</h2>
     <% else %>
       <% if current_user?(User.find(@movielist.user_id)) %>
-    	  <h2>おすすめ作品のリスト（<%= @count %>）</h2>
+        <h2>おすすめ作品のリスト（<%= @count %>）</h2>
       <% else %>
         <h2>おすすめ作品のリスト</h2>
       <% end %>
@@ -47,42 +47,44 @@
         <% end %>
       </div>
 
-    	<table border="1">
+      <table border="1">
         <tr>
-    			<th>Poster</th>
-    			<th>Title</th>
-    			<th>Release Date</th>
-    			<th>Description</th>
-    			<th>Add at</th>
+          <th>Poster</th>
+          <th>Title</th>
+          <th>Release Date</th>
+          <th>Description</th>
+          <th>Add at</th>
           <th>Action</th>
         </tr>
         <% @list.each do |m| %>
-        	<% movie = Movie.details(m.movie_id) %>
-        	<tr>
+          <% movie = Movie.details(m.movie_id) %>
+          <tr>
             <td>
-            	<%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
-            								:alt => "poster") %>
+              <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
+                            :alt => "poster") %>
             </td>
             <td>
-            	<%= link_to movie["title"],
-            							controller: "movies", action: "show", id: "#{movie["id"]}" %>
+              <%= link_to movie["title"],
+                          controller: "movies", action: "show", id: "#{movie["id"]}" %>
             </td>
             <td><%= movie["release_date"] %></td>
             <td>
-            	<% if movie["overview"].blank? %>
+              <% if movie["overview"].blank? %>
                 情報がありません
               <% else %>
-            		<%= movie["overview"] %>
-            	<% end %>
+                <%= movie["overview"] %>
+              <% end %>
             </td>
             <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
             <% if !logged_in? %>
-              <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
-              <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
-              <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
+              <td>
+                <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
+                <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
+                <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
+              </td>
             <% else %>
-      				<% if current_user?(User.find(@movielist.user_id)) %>
-              	<td>
+              <% if current_user?(User.find(@movielist.user_id)) %>
+                <td>
                   <%= button_to "削除", list_movies_destroy_path,
                                 :method => "delete",
                                 :class => "btn btn-md btn-danger",
@@ -95,9 +97,9 @@
                 </td>
               <% end %>
             <% end %>
-        	</tr>
+          </tr>
         <% end %>
-    	</table>
+      </table>
 
     <% end %>
   </div>
