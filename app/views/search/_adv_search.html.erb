@@ -17,13 +17,7 @@
     <div class="form-group">
       <div class="form-inline">
         <label>ジャンル</label>
-        <%= text_field :genre, params[:genre], class: "form-control" %>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="form-inline">
-        <label>キーワード</label>
-        <%= text_field :word, params[:word], class: "form-control" %>
+        <%= select_tag :genre, options_for_select(@genres) %>
       </div>
     </div>
     <div class="form-group">

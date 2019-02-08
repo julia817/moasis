@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
     @trailers = Movie.trailers(params[:id])
 
     # get current user's comment
-    @current_user_comment = Comment.find_by(user_id: current_user.id, movie_id: @movie["id"])
+    @current_user_comment = Comment.find_by(user_id: current_user.id, movie_id: @movie["id"]) if logged_in?
     # create new comment
     @comment = Comment.new if logged_in? && watched_check(@movie["id"])
     # find movie object from database

@@ -18,10 +18,9 @@ class Movie < ApplicationRecord
   end
 
   # def self.discover (year='', people='', genre='', word='', page=1)
-  def self.discover (year='', genre='', page=1)
+  def self.discover (year='', genre='', people='', page=1)
     base_uri 'https://api.themoviedb.org/3/discover/movie'
-    # get("", query: { language: 'ja-JP', year: year, with_people: people, with_genres: genre, with_keywords: word })
-    get("", query: { page: page, language: 'ja-JP', year: year, with_genres: genre })
+    get("", query: { page: page, language: 'ja-JP', year: year, with_people: people, with_genres: genre })
   end
 
   def self.details id
