@@ -33,6 +33,10 @@ class Movie < ApplicationRecord
     get("", query: {})["results"]
   end
 
+  def self.collection id
+    base_uri "https://api.themoviedb.org/3/collection/#{id}"
+    get("", query: { language: 'ja-JP' })
+  end
 
   def self.now_playing(page=1)
     base_uri 'https://api.themoviedb.org/3/movie/now_playing'

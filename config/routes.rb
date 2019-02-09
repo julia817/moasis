@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
 
   get '/person', to: "movies#show_person"
+  get '/collections', to: "movies#show_collection"
   
   post 'list_movies/create', to: 'list_movies#create'
   post 'list_movies/create_watched', to: 'list_movies#create_watched'

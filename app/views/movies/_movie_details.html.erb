@@ -98,4 +98,13 @@
       <% end %>
     </div>
   </div>
+
+  <% unless @movie["belongs_to_collection"].nil? %>
+    <div class="collection">
+      <strong>コレクション：</strong>
+      <%= link_to @movie["belongs_to_collection"]["name"], 
+                  controller: "movies", action: "show_collection", id: "#{@movie["belongs_to_collection"]["id"]}" %>
+    </div>
+  <% end %>
+
 </div>

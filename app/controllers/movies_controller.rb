@@ -11,6 +11,7 @@ class MoviesController < ApplicationController
       @cast_range = @movie["credits"]["cast"].count
     end
     @trailers = Movie.trailers(params[:id])
+    # @collection = Movie.collection(@movie["belongs_to_collection"]["id"])
 
     # get current user's comment
     @current_user_comment = Comment.find_by(user_id: current_user.id, movie_id: @movie["id"]) if logged_in?
@@ -20,6 +21,12 @@ class MoviesController < ApplicationController
     @movie_db = Movie.find(@movie["id"])
     # paginate all of the movie's comments
     @comments = @movie_db.comments.paginate(page: params[:page])
+  end
+
+  def show_collection
+    @collection = Movie.collection(params[:id])
+    @parts = @collection["parts"]
+    @parts.sort_by! { |a| a["release_date"] }
   end
 
   def show_person

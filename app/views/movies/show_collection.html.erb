@@ -1,0 +1,15 @@
+<%= provide(:title, "#{@collection["name"]}") %>
+
+<h1><%= @collection["name"] %></h1>
+<div class="container-fluid area-width collections">
+  <% @parts.each do |movie| %>
+    <div class="movies">
+      <%= image_tag "https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", class: "img-responsive", alt: "poster" %>
+      <p>
+        <strong><%= movie["title"] %></strong><br>
+        <%= movie["release_date"] %><br>
+        <%= movie["overview"] %>
+      </p>
+    </div>
+  <% end %>
+</div>
