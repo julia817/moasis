@@ -2,7 +2,7 @@
   <h2>ジャンル</h2>
   <p>
     <% @genres.each do |key, value| %>
-      <%= link_to key, :action => "show_genre", :id => value %>
+      <%= link_to key, :action => "show_genre", :id => value, :name => key %>
     <% end %>
   </p>
 </div>

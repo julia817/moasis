@@ -101,6 +101,9 @@ class SearchController < ApplicationController
   end
 
   def show_genre
+    @name = params[:name]
+    @genres = GENRES
+
     response = Movie.genre_list(params[:id])
     @total_pages = response["total_pages"]
     @movie_results = response["results"]
@@ -117,6 +120,9 @@ class SearchController < ApplicationController
   end
 
   def show_single_year
+    @year = params[:year]
+    @genres = GENRES
+    
     response = Movie.year_list(params[:year])
     @total_pages = response["total_pages"]
     @movie_results = response["results"]
