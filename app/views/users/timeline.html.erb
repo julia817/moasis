@@ -1,0 +1,37 @@
+<% provide(:title, 'Timeline') %>
+
+<div class="container-fluid area-width">
+  <% if @feed_items.blank? %>
+    <p>ユーザアクティビティがありません。</p>
+  <% else %>
+
+    <% @feed_items.each do |item| %>
+      <% if item.is_a?(Comment) %>
+        <%= image_tag(profile_pic(item.user), :size => "50x50", :alt => "profile", :class => "profile") %>
+        <span class="info"><%= link_to item.user.username, item.user, :target => "new" %>が
+                           <%= link_to item.movie.title, item.movie, :target => "new" %>をコメントしました</span>
+        <span class="content"><%= item.content %></span>
+        <span class="date"><%= item.created_at %></span>
+        <%= image_tag "https://image.tmdb.org/t/p/w200#{item.movie.poster_path}", class: "img-responsive poster", alt: "poster" %>
+
+      <% else %>
+        <% user = item.movielist.user %>
+        <%= image_tag(profile_pic(user), :size => "50x50", :alt => "profile", :class => "profile") %>
+        <% if item.movielist.listname == "watched" %>
+          <span class="info"><%= link_to user.username, user, :target => "new" %>が
+                             <%= link_to item.movie.title, item.movie, :target => "new" %>を観しました</span>
+        <% elsif item.movielist.listname == "want" %>
+          <span class="info"><%= link_to user.username, user, :target => "new" %>が
+                             <%= link_to item.movie.title, item.movie, :target => "new" %>を観たいとマークしました</span>
+        <% else %>
+          <span class="info"><%= link_to user.username, user, :target => "new" %>が
+                             <%= link_to item.movie.title, item.movie, :target => "new" %>をおすすめしました</span>
+        <% end %>
+        <span class="date"><%= item.created_at %></span>
+        <%= image_tag "https://image.tmdb.org/t/p/w200#{item.movie.poster_path}", class: "img-responsive poster", alt: "poster" %>
+      <% end %>
+    <% end %>
+
+    <%= paginate @feed_items %>
+  <% end %>
+</div>

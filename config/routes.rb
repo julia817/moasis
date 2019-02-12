@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
 	resources :users do
     member do
-      get :following, :followers, :watched, :want, :recommend, :my_watched, :my_unwatched
+      get :following, :followers, :watched, :want, :recommend, :my_watched, :my_unwatched, :timeline
     end
   end
   resources :relationships, only: [:create, :destroy]
@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 	get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  get '/timeline', to: 'users#timeline'
 
   get '/search_movies', to: 'search#search_movies'
   get '/search_people', to: 'search#search_people'

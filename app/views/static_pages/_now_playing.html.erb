@@ -2,7 +2,6 @@
   <h2 class="center"><strong>上映中</strong></h2>
   <div class="row">
     <% @movies[0..3].each do |m| %>
-      <% Movie.add(m["id"]) unless Movie.exists?(m["id"]) %>
       <div class="col-md-3">
         <div class="thumbnail">
           <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
@@ -20,7 +19,6 @@
 
   <div class="row">
     <% @movies[4..7].each do |m| %>
-      <% Movie.add(m["id"]) unless Movie.exists?(m["id"]) %>
       <div class="col-md-3">
         <div class="thumbnail">
           <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>
@@ -38,7 +36,6 @@
 
   <div class="row">
     <% @movies[8...12].each do |m| %>
-      <% Movie.add(m["id"]) unless Movie.exists?(m["id"]) %>
       <div class="col-md-3">
         <div class="thumbnail">
           <%= link_to controller: "movies", action: "show", id: "#{m["id"]}" do %>

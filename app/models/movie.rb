@@ -81,8 +81,8 @@ class Movie < ApplicationRecord
     (movie.rec_num.quo(movie.watched_num).to_f*100).round(1)
   end
 
-  def self.add id
-    movie = Movie.new(watched_num: 0, rec_num: 0)
+  def self.add (id, title, path, genres)
+    movie = Movie.new(watched_num: 0, rec_num: 0, title: title, poster_path: path, genres: genres)
     movie.id = id
     movie.save
   end

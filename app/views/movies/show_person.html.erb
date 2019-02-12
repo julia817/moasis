@@ -17,26 +17,22 @@
       <p><strong>役割：</strong><%= @person["known_for_department"] %></p>
 
       <!-- <button data-toggle="collapse" data-target="#demo">Collapsible</button> -->
-      <%= button_tag("全出演履歴", :data => { :toggle => "collapse", :target => "#history" }, :class => "btn btn-info btn-lg") %>
-      <div id="history" class="collapse">
-        <ul>
-          <% if @person["known_for_department"] == "Acting" %>
-            <% @person["movie_credits"]["cast"].each do |movie| %>
-              <% if movie["character"].blank? %>
-                <% next %>
-              <% end %>
-              <% Movie.add(movie["id"]) unless Movie.exists?(movie["id"]) %>
-              <li><%= movie["release_date"] %>  
+      <% unless @movie_credits.blank? %>
+        <%= button_tag("出演履歴", :data => { :toggle => "collapse", :target => "#history" }, :class => "btn btn-info btn-lg") %>
+        <div id="history" class="collapse">
+          <ul>
+            <% @movie_credits.each do |movie| %>
+              <li>
+                <%= movie["release_date"] %>  
                 <%= link_to controller: "movies", action: "show", id: "#{movie["id"]}" do %>
                   <strong><%= movie["title"] %></strong>  
                 <% end %>
-                <%= movie["character"] %> 役</li>
+                <%= movie["character"] %> 役
+              </li>
             <% end %>
-          <% else %>
-            <strong>工事中。。。</strong>
-          <% end %>
-        </ul>
-      </div>
+          </ul>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -28,6 +28,11 @@
           <% end %>
         </li>
         <% if logged_in? %>
+          <li>
+            <%= link_to timeline_path do %>
+              <i class="glyphicon glyphicon-time"></i> Timeline
+            <% end %>
+          </li>
           <li><%= link_to "Users", users_path %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">

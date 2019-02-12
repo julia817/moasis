@@ -66,6 +66,14 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
 
+  # following's status
+  def timeline
+    @feed_items = current_user.feed
+    puts current_user
+    puts @feed_items
+    @feed_items = Kaminari.paginate_array(@feed_items).page(params[:page]).per(20) unless @feed_items.blank?
+  end
+
   # movies related
 
   def watched

@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20190203065913) do
+ActiveRecord::Schema.define(version: 20190212065007) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -29,6 +28,7 @@ ActiveRecord::Schema.define(version: 20190203065913) do
     t.integer  "movie_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "history"
     t.index ["movie_id"], name: "index_list_movies_on_movie_id"
     t.index ["movielist_id", "movie_id"], name: "index_list_movies_on_movielist_id_and_movie_id", unique: true
     t.index ["movielist_id"], name: "index_list_movies_on_movielist_id"
@@ -48,6 +48,9 @@ ActiveRecord::Schema.define(version: 20190203065913) do
     t.datetime "updated_at",  null: false
     t.integer  "watched_num"
     t.integer  "rec_num"
+    t.string   "title"
+    t.string   "genres"
+    t.string   "poster_path"
   end
 
   create_table "relationships", force: :cascade do |t|

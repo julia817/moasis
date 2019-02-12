@@ -14,4 +14,17 @@ class ApplicationController < ActionController::Base
       redirect_to login_path
     end
   end
+
+  # add list-up movies to database
+  def add_movies_to_db movies
+    # genres = ""
+    movies.each do |m|
+      unless Movie.exists?(m["id"])
+        # m["genre_ids"].each do |id|
+        #   genres << GENRES.key(id)+',' unless m["genre_ids"].blank?
+        # end
+        Movie.add(m["id"], m["title"], m["poster_path"], m["genre_ids"])
+      end
+    end
+  end
 end

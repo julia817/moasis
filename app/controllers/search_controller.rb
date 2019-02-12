@@ -37,6 +37,7 @@ class SearchController < ApplicationController
           end
         end
       end
+      add_movies_to_db @movie_results
       @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
     end
   end
@@ -88,7 +89,6 @@ class SearchController < ApplicationController
     @total_pages = response["total_pages"]
     @movie_results = response["results"]
 
-
     @total_pages = @total_pages>30 ? 30 : @total_pages
     (2..@total_pages).each do |page|
       results = Movie.discover(@year, @genre_id, people, page)["results"]
@@ -96,7 +96,7 @@ class SearchController < ApplicationController
         @movie_results << results[i]
       end
     end
-
+    add_movies_to_db @movie_results
     @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
   end
 
@@ -115,14 +115,14 @@ class SearchController < ApplicationController
         @movie_results << results[i]
       end
     end
-
+    add_movies_to_db @movie_results
     @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
   end
 
   def show_single_year
     @year = params[:year]
     @genres = GENRES
-    
+
     response = Movie.year_list(params[:year])
     @total_pages = response["total_pages"]
     @movie_results = response["results"]
@@ -134,7 +134,7 @@ class SearchController < ApplicationController
         @movie_results << results[i]
       end
     end
-
+    add_movies_to_db @movie_results
     @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
   end
 

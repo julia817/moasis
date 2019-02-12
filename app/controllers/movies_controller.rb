@@ -27,6 +27,7 @@ class MoviesController < ApplicationController
     @collection = Movie.collection(params[:id])
     @parts = @collection["parts"]
     @parts.sort_by! { |a| a["release_date"] }
+    add_movies_to_db @parts
   end
 
   def show_person
@@ -39,6 +40,16 @@ class MoviesController < ApplicationController
     end
     @name = @name.nil? ? @person["name"] : @name
     # @famous = ActiveSupport::JSON.decode(params[:known_for])
+    @movie_credits = Array.new
+    if @person["known_for_department"] == "Acting"
+      @person["movie_credits"]["cast"].each do |movie|
+        if movie["character"].blank? || movie["release_date"].blank?
+          next
+        end
+        @movie_credits << movie
+      end
+    end
+    add_movies_to_db @movie_credits unless @movie_credits.blank?
   end
 
 end

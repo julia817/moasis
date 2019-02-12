@@ -127,6 +127,22 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def feed
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    movielists_ids = "SELECT movielist_id FROM movielists
+                     WHERE user_id IN (#{following_ids}) OR user_id = :user_id"
+    feed_items = []
+    Comment.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id).each do |comment|
+      feed_items << comment
+    end
+    ListMovie.where("movielist_id IN (#{movielists_ids})", user_id: id).each do |movie|
+      feed_items << movie
+    end
+    # puts feed_items
+    feed_items.sort_by!{ |a| a["created_at"] }.reverse!
+  end
+
   # user search
   # TO BE MODIFIED
   def self.search(term)

@@ -78,7 +78,7 @@ end
 # Following relationships
 users = User.all
 user = users.first
-following = users.sample(67)
-followers = users.sample(49)
+following = users[2..50]
+followers = users[20..65]
 following.each { |followed| user.follow(followed) }
 followers.each { |follower| follower.follow(user) }
