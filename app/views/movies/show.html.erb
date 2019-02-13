@@ -9,8 +9,8 @@
 
     <% if @movie_db.rec_num > 0 %> 
       <p><strong>おすすめ度は<%= Movie.get_score(@movie["id"]) %>%</strong></p>
-      <p>この映画は<%= record.watched_num %>人が観ました</p>
-      <p>この映画は<%= record.rec_num %>人がお勧めします</p>
+      <p>この映画は<%= @movie_db.watched_num %>人が観ました</p>
+      <p>この映画は<%= @movie_db.rec_num %>人がお勧めします</p>
     <% end %>
 
     <aside>
