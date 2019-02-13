@@ -18,6 +18,7 @@
         <% if !@current_user_comment.nil? %>
           <h5>あなたのコメント・感想：</h5>
           <p><%= @current_user_comment.content %></p>
+          <%= link_to "削除", @current_user_comment, method: :delete, data: { confirm: "本当に削除しますか？" } %>
         <% else %>
           <%= render 'comment_form' %>
         <% end %>
