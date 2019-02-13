@@ -2,8 +2,12 @@ class User < ApplicationRecord
 
   has_many :movielists, dependent: :destroy
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
   has_many :movies, through: :comments
+
+  has_many :likes, dependent: :destroy
+  # has_many :comments, through: :likes
+  has_many :liked_comments, through: :likes, source: :comment
 
 
   has_many :active_relationships, class_name: "Relationship",
@@ -173,6 +177,11 @@ class User < ApplicationRecord
       end
     end
     my_unwatched
+  end
+
+  # check if like-button has been clicked by the user
+  def already_liked?(comment)
+    self.likes.exists?(comment: comment)
   end
 
   private

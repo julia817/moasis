@@ -1,6 +1,7 @@
-<li id="comment-<%= comment.id %>">
+<li id="comment-<%= comment.id %>" data-comment-id="<%= comment.id %>">
   <%= image_tag(profile_pic(comment.user), :size => "50x50", :alt => "profile", :class => "profile") %>
   <span class="user"><%= link_to comment.user.username, comment.user %></span>
   <span class="date"><%= comment.created_at.strftime('%Y年%m月%d日') %></span>
   <span class="content"><%= comment.content %></span>
+  <%= render "likes/like", comment: comment %>
 </li>

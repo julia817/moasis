@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  # get 'likes/create'
+  # delete 'likes/destroy'
+
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -41,7 +44,11 @@ Rails.application.routes.draw do
   resources :movies
   resources :movielists, only: [:create, :destroy]
   resources :list_movies
+  # resources :comments, only: [:create, :destroy] do
+  #   resources :likes, only: [:create, :destroy]
+  # end
   resources :comments, only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
 
   get '/person', to: "movies#show_person"
   get '/collections', to: "movies#show_collection"

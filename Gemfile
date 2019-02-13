@@ -101,4 +101,7 @@ gem 'omniauth-line'
 gem 'bootstrap-social-rails'
 gem 'font-awesome-rails'
 
+# いいねcounter
+gem 'counter_culture', '~> 1.8'
+
 # gem 'json (~>2.0, ~>1.8)'
