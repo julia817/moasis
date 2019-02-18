@@ -1,10 +1,10 @@
 <% provide(:title, "#{@search_term} - 検索") %>
 
-<div class="container-fluid search movie-results">
+<div class="container-fluid area-width movie-results">
   <% if @movie_results.blank? %>
-    <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
+    <p class="results"><strong>【<%= @search_term %>】</strong>と一致する情報が見つかりませんでした</p>
   <% else %>
-    <p>[<%= @search_term %>]に関する映画は<%= @total_results %>本があります</p>
+    <p class="results"><strong>【<%= @search_term %>】</strong>に関する映画は<strong><%= @total_results %>本</strong>があります</p>
     <%= render 'shared/movie_results' %>
   <% end %>
 </div>

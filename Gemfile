@@ -104,4 +104,7 @@ gem 'font-awesome-rails'
 # いいねcounter
 gem 'counter_culture', '~> 1.8'
 
+# Graph
+gem "chartkick"
+
 # gem 'json (~>2.0, ~>1.8)'
