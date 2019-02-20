@@ -1,28 +1,41 @@
-<div>
+<div class="genre-year">
+
   <h2>ジャンル</h2>
-  <p>
     <% @genres.each do |key, value| %>
-      <%= link_to key, :action => "show_genre", :id => value, :name => key %>
+      <% if !@name.nil? && @name==key %>
+        <%= link_to key, {}, :class => "btn btn-danger disabled",
+                    :style => "color:#190710; font-weight:bold; margin-right:10px; margin-bottom: 10px;" %>
+      <% else %>
+        <%= link_to key, { :action => "show_genre", :id => value, :name => key },
+                    :class => "btn btn-default", :style => "margin-right:10px; margin-bottom: 10px;" %>
+      <% end %>
     <% end %>
-  </p>
-</div>
 
 <hr>
 
-<div>
   <h2>上映年</h2>
-  <p>
     <% 2019.downto(2010) do |year| %>
-      <%= link_to year, :action => "show_single_year", :year => year %>
+      <% if !@year.nil? && @year==year.to_s %>
+        <%= link_to year, {}, :class => "btn btn-danger disabled",
+                    :style => "color:#190710; font-weight:bold; margin-right:10px; margin-bottom: 10px;" %>
+      <% else %>
+        <%= link_to year, { :action => "show_single_year", :year => year },
+                    :class => "btn btn-default", :style => "margin-right:10px; margin-bottom: 10px;" %>
+      <% end %>
     <% end %>
-  </p>
-  <p>
+    <br>
     <% 2009.downto(2000) do |year| %>
-      <%= link_to year, :action => "show_single_year", :year => year %>
+      <% if !@year.nil? && @year==year.to_s %>
+        <%= link_to year, {}, :class => "btn btn-danger disabled",
+                    :style => "color:#190710; font-weight:bold; margin-right:10px; margin-bottom: 10px;" %>
+      <% else %>
+        <%= link_to year, { :action => "show_single_year", :year => year },
+                    :class => "btn btn-default", :style => "margin-right:10px; margin-bottom: 10px;" %>
+      <% end %>
     <% end %>
-  </p>
-  <p>
-    <%= link_to "90年代", "#", :upper => "1999-12-31", :lower => "1990-01-01" %>
-    <%= link_to "90年代以前", "#", :upper => "1989-12-31" %>
-  </p>
+    <br>
+    <%= link_to "90年代", "#",
+                :class => "btn btn-default disabled", :style => "margin-right:10px; margin-bottom: 10px;" %>
+    <%= link_to "90年代以前", "#",
+                :class => "btn btn-default disabled", :style => "margin-right:10px; margin-bottom: 10px;" %>
 </div>

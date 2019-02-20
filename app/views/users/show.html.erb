@@ -1,6 +1,6 @@
 <% provide(:title, "#{@user.username}のプロフィール") %>
 
-<div class="container-fluid user">
+<div class="container-fluid area-width user">
   <h1>
     <% if !@user.pic_url.blank? %>
       <%= image_tag(@user.pic_url, :size => "100x100", :alt => "profile") %>
@@ -16,15 +16,19 @@
     <%= render 'shared/stats' if logged_in? %>
   </div>
 
-  <div class="lists center">
-    <%= link_to "観た映画のリスト", :action => "watched" %>
-    <%= link_to "観たい映画のリスト", :action => "want" %>
+  <div class="lists">
+    <%= link_to "観た映画のリスト", { :action => "watched" }, :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
+    <%= link_to "観たい映画のリスト", { :action => "want" }, :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
     <% if current_user?(@user) %>
-      <%= link_to "おすすめ映画のリスト", :action => "recommend", :my_id => @user.id %>
+      <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => @user.id },
+                    :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
     <% elsif logged_in? %>
-      <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id } %>
+      <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id },
+                    :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
     <% else %>
-      <%= link_to "おすすめ映画のリスト", :action => "recommend" %>
+      <%= link_to "おすすめ映画のリスト", :action => "recommend",
+                    :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
     <% end %>
   </div>
+    
 </div>

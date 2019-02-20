@@ -120,7 +120,7 @@ class SearchController < ApplicationController
   end
 
   def show_single_year
-    @year = params[:year]
+    @year = params[:year][0..3]
     @genres = GENRES
 
     response = Movie.year_list(params[:year])
