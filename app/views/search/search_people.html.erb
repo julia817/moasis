@@ -1,40 +1,46 @@
 <% provide(:title, "#{@search_term} - 検索") %>
 
-<div class="container-fluid area-width people-results">
-  <% if @people_results.blank? %>
-    <p>[<%= @search_term %>]と一致する情報が見つかりませんでした</p>
+<div class="container-fluid area-width people-results search-results">
+  <div class="results">
+    <% if @people_results.blank? %>
+      <p>【<%= @search_term %>】と一致する情報が見つかりませんでした</p>
+    <% else %>
+      <p>【<%= @search_term %>】に関する映画人は<%= @total_results %>人があります</p>
+    <% end %>
+  </div>
 
-  <% else %>
-    <p>[<%= @search_term %>]に関する映画人は<%= @total_results %>人があります</p>
-
-    <%= paginate @people_results %>
-    <% @people_results.each do |person| %>
+  <%= paginate @people_results %>
+  <% @people_results.each do |person| %>
+    
       <div class="row">
+        <%= link_to controller: "movies", action: "show_person", id: "#{person["id"]}" do %>
         <div class="col-md-3">
-          <%= link_to controller: "movies", action: "show_person", params: { id: "#{person["id"]}" } do %>
-            <% if person["profile_path"].blank? %>
-              <%= image_tag("default credit.png", :alt => "profile") %>
-            <% else %>
-              <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}", :alt => "profile") %>
-            <% end %>
+          <% if person["profile_path"].blank? %>
+            <%= image_tag("default credit.png", alt: "profile") %>
+          <% else %>
+            <%= image_tag("https://image.tmdb.org/t/p/w200#{person["profile_path"]}", alt: "profile", class: "img-responsive") %>
           <% end %>
         </div>
         <div class="col-md-9">
-          <h3><strong><%= person["name"] %></strong></h3>
-          <p><strong>代表作：</strong></p>
-          <p>
-            <% person["known_for"].each do |movie| %>
-              <% if movie["media_type"] == "tv" %>
-                <%= movie["name"] %> (<%= movie["release_date"][0..3] %>)<br>
+          <h4><strong><%= person["name"] %></strong></h4>
+          <% unless person["known_for"].blank? %>
+            <br>
+            <h5>代表作：</h5>
+            <p>
+              <% person["known_for"].each do |movie| %>
+                <% if movie["media_type"] == "tv" %>
+                  <%= movie["name"] %> (<%= movie["first_air_date"][0..3] %>)<br>
+                <% end %>
+                <% if movie["media_type"] == "movie" %>
+                  <%= movie["title"] %> (<%= movie["release_date"][0..3] %>)<br>
+                <% end %>
               <% end %>
-              <% if movie["media_type"] == "movie" %>
-                <%= movie["title"] %> (<%= movie["release_date"][0..3] %>)<br>
-              <% end %>
-            <% end %>
-          </p>
+            </p>
+          
         </div>
+        <% end %>
       </div>
     <% end %>
-    <%= paginate @people_results %>
   <% end %>
+  <%= paginate @people_results %>
 </div>

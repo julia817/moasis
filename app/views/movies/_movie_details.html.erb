@@ -2,91 +2,156 @@
   <h1><%= @movie["title"] %></h1>
 
   <% if @movie["origianl_language"] != "ja" %>
-    <h3 class="center">原題：<%= @movie["original_title"] %></h3>
+    <h2 class="center">原題：<%= @movie["original_title"] %></h2>
   <% end %>
 
-  <p><strong>上映日：</strong><%= @movie["release_date"] %></p>
+  <% unless @movie["belongs_to_collection"].nil? %>
+    <div class="collection">
+      <strong>コレクション：</strong>
+      <%= link_to @movie["belongs_to_collection"]["name"], 
+                  controller: "movies", action: "show_collection", id: "#{@movie["belongs_to_collection"]["id"]}" %>
+    </div>
+  <% end %>
 
-  <p><strong>上映時間：</strong><%= @movie["runtime"] %>分</p>
+  <div class="details">
+    <p><strong>上映日：</strong><%= @movie["release_date"] %></p>
 
-  <p>
-    <strong>ジャンル：</strong>
-    <% @movie["genres"].each do |genre| %>
-      <% if genre == @movie["genres"].last %>
-        <span><%= genre["name"] %></span>
-      <% else %>
-        <span><%= genre["name"] %>、</span>
-      <% end %>
-    <% end %>
-  </p>
+    <p><strong>上映時間：</strong><%= @movie["runtime"] %>分</p>
 
-  <p>
-    <strong>制作国：</strong>
-    <% @movie["production_countries"].each do |country| %>
-      <% if country == @movie["production_countries"].last %>
-        <span><%= country["name"] %></span>
-      <% else %>
-        <span><%= country["name"] %>、</span>
-      <% end %>
-    <% end %>
-  </p>
-
-  <p>
-    <strong>言語：</strong>
-    <% @movie["spoken_languages"].each do |language| %>
-      <% if language == @movie["spoken_languages"].last %>
-        <span><%= language["name"] %></span>
-      <% else %>
-        <span><%= language["name"] %>、</span>
-      <% end %>
-    <% end %>
-  </p>
-
-  <p>
-    <strong>ストーリ：</strong>
-    <% if @movie["overview"].blank? %>
-      <span>申し訳ございませんが、情報がありません。</span>
-    <% else %>
-      <span><%= @movie["overview"] %></span>
-    <% end %>
-  </p>
-
-  <table border="0">
-    <tr>
-      <td>
-        <strong>キャスト：</strong><br>
-        <% (0...@cast_range).each do |i| %>
-          <% if @movie["credits"]["cast"][i]["character"].blank? %>
-            <% break %>
-          <% end %>
-          <% if @movie["credits"]["cast"][i]["profile_path"].nil? %>
-            <%= image_tag("default credit.png", :alt => "default profile") %>
-          <% else %>
-            <%= image_tag("https://image.tmdb.org/t/p/w200#{@movie["credits"]["cast"][i]["profile_path"]}",
-                          :size => "80x107", :alt => "profile") %>
-          <% end %>
-          <%= link_to controller: "movies", action: "show_person", id: "#{@movie["credits"]["cast"][i]["id"]}" do %>
-            <strong><%= @movie["credits"]["cast"][i]["name"] %>:  </strong>
-          <% end %>
-          <%= @movie["credits"]["cast"][i]["character"] %> 役<br>
+    <p>
+      <strong>ジャンル：</strong>
+      <% @movie["genres"].each do |genre| %>
+        <% if genre == @movie["genres"].last %>
+          <span><%= genre["name"] %></span>
+        <% else %>
+          <span><%= genre["name"] %>、</span>
         <% end %>
-      </td>
-      <td>
-        <strong>スタッフ：</strong><br>
-        <% @movie["credits"]["crew"].each do |crew| %>
-          <% if crew["job"]=="Director" || crew["department"]=="Writing" %>
-            <%= crew["job"] %>:  
-            <%= link_to controller: "movies", action: "show_person", id: "#{crew["id"]}" do %>
-              <%= crew["name"] %><br>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>制作国：</strong>
+      <% @movie["production_countries"].each do |country| %>
+        <% if country == @movie["production_countries"].last %>
+          <span><%= country["name"] %></span>
+        <% else %>
+          <span><%= country["name"] %>、</span>
+        <% end %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>言語：</strong>
+      <% @movie["spoken_languages"].each do |language| %>
+        <% if language == @movie["spoken_languages"].last %>
+          <span><%= language["name"] %></span>
+        <% else %>
+          <span><%= language["name"] %>、</span>
+        <% end %>
+      <% end %>
+    </p>
+
+    <p>
+      <strong>ストーリ：</strong>
+      <% if @movie["overview"].blank? %>
+        <span>申し訳ございませんが、情報がありません。</span>
+      <% else %>
+        <span><%= @movie["overview"] %></span>
+      <% end %>
+    </p>
+  </div>
+
+  <p><strong>キャスト：</strong></p>
+  <div class="row">
+    <% (0...@cast_range).each do |i| %>
+      <% if @movie["credits"]["cast"][i]["character"].blank? %>
+        <% break %>
+      <% end %>
+        <div class="col-md-2 col-md-offset-0">
+          <div class="thumbnail">
+            <%= link_to controller: "movies", action: "show_person", id: "#{@movie["credits"]["cast"][i]["id"]}" do %>
+              <% if @movie["credits"]["cast"][i]["profile_path"].nil? %>
+                <%= image_tag("default credit.png", :alt => "default profile") %>
+              <% else %>
+                <%= image_tag("https://image.tmdb.org/t/p/w200#{@movie["credits"]["cast"][i]["profile_path"]}",
+                              :class => "img-responsive", :alt => "profile") %>
+              <% end %>
+              <div class="caption">
+                <strong><%= @movie["credits"]["cast"][i]["name"]%></strong>
+                <br>
+                <%= @movie["credits"]["cast"][i]["character"] %> 役<br>
+              </div>
             <% end %>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
-  </table>
+          </div>
+        </div>
+    <% end %>
+  </div>
+  
+  <p><strong>スタッフ：</strong></p>
+  <p>
+  <% unless @directors.blank? %>
+    <strong>監督：</strong>
+    <% count = 0 %>
+    <% @directors.each do |key, value| %>
+      <%= link_to key, action: "show_person", id: value %>
+      <% count += 1 %>
+      <% unless count == @directors_count %> / <% end %>
+    <% end %>
+    <br>
+  <% end %>
+  <% unless @writers.blank? %>
+    <strong>脚本：</strong>
+    <% count = 0 %>
+    <% @writers.each do |key, value| %>
+      <%= link_to key, action: "show_person", id: value %>
+      <% count += 1 %>
+      <% unless count == @writers_count %> / <% end %>
+    <% end %>
+    <br>
+  <% end %>
+  <% unless @screenplay.blank? %>
+    <strong>脚本：</strong>
+    <% count = 0 %>
+    <% @screenplay.each do |key, value| %>
+      <%= link_to key, action: "show_person", id: value %>
+      <% count += 1 %>
+      <% unless count == @screenplay_count %> / <% end %>
+    <% end %>
+    <br>
+  <% end %>
+  <% unless @story.blank? %>
+    <strong>原案：</strong>
+    <% count = 0 %>
+    <% @story.each do |key, value| %>
+      <%= link_to key, action: "show_person", id: value %>
+      <% count += 1 %>
+      <% unless count == @story_count %> / <% end %> 
+    <% end %>
+    <br>
+  <% end %>
+  <% unless @novel.blank? %>
+    <strong>原作：</strong>
+    <% count = 0 %>
+    <% @novel.each do |key, value| %>
+      <%= link_to key, action: "show_person", id: value %>
+      <% count += 1 %>
+      <% unless count == @novel_count %> / <% end %>
+    <% end %>
+    <br>
+  <% end %>
+  <% unless @music.blank? %>
+    <strong>作曲：</strong>
+    <% count = 0 %>
+    <% @music.each do |key, value| %>
+      <%= link_to key, action: "show_person", id: value %>
+      <% count += 1 %>
+      <% unless count == @music_count %> / <% end %>
+    <% end %>
+  <% end %>
+  </p>
 
   <div class="trailers">
-    <strong>予告動画：</strong>
+    <p><strong>予告動画：</strong></p>
     <div class="row">
       <% range = @trailers.count == 1 ? 0:1 %>
         
@@ -98,13 +163,5 @@
       <% end %>
     </div>
   </div>
-
-  <% unless @movie["belongs_to_collection"].nil? %>
-    <div class="collection">
-      <strong>コレクション：</strong>
-      <%= link_to @movie["belongs_to_collection"]["name"], 
-                  controller: "movies", action: "show_collection", id: "#{@movie["belongs_to_collection"]["id"]}" %>
-    </div>
-  <% end %>
 
 </div>
