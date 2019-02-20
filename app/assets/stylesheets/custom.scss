@@ -17,6 +17,18 @@ $moasis: #3aabd2;
   border-left: 8px solid $moasis;
   background-color: #E8FAFB;
 }
+@mixin movie_box {
+  border: 2px solid $gray-medium-light;
+  border-radius: 5px;
+  margin: 30px 5px;
+  padding: 30px 5px;
+  a {
+    color: black;
+  }
+  a:hover {
+    color: $moasis;
+  }
+}
 @mixin box_sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -131,6 +143,7 @@ footer {
 }
 
 
+
 /* homepage */
 .hm-bg1 {
   margin-top: 20px;
@@ -192,6 +205,7 @@ footer {
 }
 
 
+
 /* search */
 .search-page {
   h1 {
@@ -226,23 +240,11 @@ footer {
   }
 }
 .search-results {
-  /*.results {
-    font-size: 20px;
-  }*/
   p {
     font-size: 20px;
   }
   .row {
-    border: 2px solid $gray-medium-light;
-    border-radius: 5px;
-    margin: 30px 5px;
-    padding: 30px 5px;
-  }
-  a {
-    color: black;
-  }
-  a:hover {
-    color: $moasis;
+    @include movie_box
   }
   h4 {
     font-size: 30px;
@@ -410,9 +412,8 @@ footer {
 
 /* profile */
 .user {
-  width: 80%;
   .stats {
-    margin-left: 24%;
+    margin-left: 10%;
     /*margin-right: auto;*/
     overflow: auto;
     a {
@@ -433,8 +434,36 @@ footer {
     margin-top: 30px;
     text-align: center;
   }
+
+  /* list content */
+  h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    @include title;
+  }
+  .movie-box {
+    @include movie_box;
+    h3 {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      text-align: left;
+      color: black;
+    }
+    .btn-date {
+      margin-left: 0;
+      margin-top: 20px;
+      span {
+        color: $light-gray;
+      }
+    }
+  }
 }
 
+
+
+/* list page */
 
 
 

@@ -1,72 +1,77 @@
 <%= paginate @movie_results %>
 
 <% @movie_results.each do |movie| %>
-    <%= link_to controller: "movies", action: "show", id: "#{movie["id"]}" do %>
+    
       <div class="row">
-      
-        <div class="col-md-3">
-          <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %>
-        </div>
+        <%= link_to controller: "movies", action: "show", id: "#{movie["id"]}" do %>      
+          <div class="col-md-3">
+            <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %>
+          </div>
 
-        <div class="col-md-9">
-          <h4><%= movie["title"] %></h4>
-          <br>
-          <h5><%= movie["release_date"] %></h5>
-          <br>
-          <% unless movie["overview"].blank? %>
-            <%= movie["overview"] %>
-          <% end %>
+          <div class="col-md-9">
+            <h4><%= movie["title"] %></h4>
+            <br>
+            <h5><%= movie["release_date"] %></h5>
+            <br>
+            <% unless movie["overview"].blank? %>
+              <%= movie["overview"] %>
+            <% end %>
+          </div>
+        <% end %>
 
-          <div class="btn-toolbar">
+          <div class="col-md-9 btn-toolbar">
             <% if !logged_in? %>
-              <%= button_to "観た", "/list_movies/create", :class => "btn btn-info" %>
-              <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info" %>
-              <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info" %>
+              <%= button_to "観た", "/list_movies/create", :class => "btn btn-info", :style => "margin-right:10px;" %>
+              <%= button_to "観たい", "/list_movies/create", :class => "btn btn-info", :style => "margin-right:10px;" %>
+              <%= button_to "おすすめ", "/list_movies/create", :class => "btn btn-info", :style => "margin-right:10px;" %>
             
             <% else %>
               <% if watched_check(movie["id"]) %>
                 <%= button_to "観た記録削除", list_movies_destroy_path,
                               :method => "delete",
                               :class => "btn btn-md btn-warning",
+                              :style => "margin-right:10px;",
                               :data => { :confirm => "本当に削除しますか？" },
                               :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
               <% else %>
                 <%= button_to "観た", "/list_movies/create_watched_from_other?movie_id=#{movie["id"]}",
-                    :class => "btn btn-info btn-md" %>
+                              :class => "btn btn-info btn-md", :style => "margin-right:10px;" %>
               <% end %>
 
               <% if watched_check(movie["id"]) %>
-                <%= button_to "観たい", "", :disabled => true, :class => "btn btn-info disabled" %>
+                <%= button_to "観たい", "", :disabled => true,
+                              :class => "btn btn-info disabled", :style => "margin-right:10px;" %>
               <% elsif want_check(movie["id"]) %>
                 <%= button_to "観たい記録削除", list_movies_destroy_path,
                               :method => "delete",
                               :class => "btn btn-md btn-warning",
                               :data => { :confirm => "本当に削除しますか？" },
+                              :style => "margin-right:10px;",
                               :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
               <% else %>
                 <%= button_to "観たい", "/list_movies/create_want_from_other?movie_id=#{movie["id"]}", 
-                    :class => "btn btn-info btn-md" %>
+                              :class => "btn btn-info btn-md", :style => "margin-right:10px;" %>
               <% end %>
 
               <% if !watched_check(movie["id"]) %>
-                <%= button_to "おすすめ", "", :disabled => true, :class => "btn btn-info disabled" %>
+                <%= button_to "おすすめ", "", :disabled => true,
+                              :class => "btn btn-info disabled", :style => "margin-right:10px;" %>
               <% elsif recommend_check(movie["id"]) %>
                 <%= button_to "おすすめ記録削除", list_movies_destroy_path,
                               :method => "delete",
                               :class => "btn btn-md btn-warning",
                               :data => { :confirm => "本当に削除しますか？" },
+                              :style => "margin-right:10px;",
                               :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
               <% else %>
                 <%= button_to "おすすめ", "/list_movies/create_recommend_from_other?movie_id=#{movie["id"]}",
-                              :class => "btn btn-info btn-md" %>
+                              :class => "btn btn-info btn-md", :style => "margin-right:10px;" %>
               <% end %>
             <% end %>
           </div>
-          
-        </div>
       
     </div>
-  <% end %>
+  
 <% end %>
 
 <%= paginate @movie_results %>
