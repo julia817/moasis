@@ -64,7 +64,7 @@
         <%= render 'follow_unfollow_button' if logged_in? %>
       </h1>
       <div class="stats">
-        <%= render 'shared/stats' if logged_in? %>
+        <%= render 'shared/stats' %>
       </div>
 
       <div class="lists center">
@@ -74,8 +74,11 @@
         <% if current_user?(@user) %>
           <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => @user.id },
                       :class => "btn btn-default btn-block" %>
-        <% else %>
+        <% elsif logged_in? %>
           <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id },
+                      :class => "btn btn-default btn-block" %>
+        <% else %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend" },
                       :class => "btn btn-default btn-block" %>
         <% end %>
       </div>

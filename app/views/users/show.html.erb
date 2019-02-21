@@ -26,7 +26,7 @@
       <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id },
                     :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
     <% else %>
-      <%= link_to "おすすめ映画のリスト", :action => "recommend",
+      <%= link_to "おすすめ映画のリスト", { :action => "recommend" },
                     :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
     <% end %>
   </div>

@@ -463,8 +463,56 @@ footer {
 
 
 
-/* list page */
-
+/* Timeline */
+.timeline {
+  width: 60%;
+  h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    @include title;
+  }
+  .row {
+    padding: 20px 0;
+    margin: 0;
+    /*border-top: 1px solid #e8e8e8;*/
+  }
+  .profile {
+    float: left;
+    margin-right: 10px;
+  }
+  .info {
+    margin-top: 15px;
+    padding-top: 0;
+    font-size: 18px;
+  }
+  .date {
+    display: block;
+    color: $light-gray;
+    padding-left: 60px;
+    padding-top: 10px;
+  }
+  .content {
+    clear: both;
+    display: block;
+    margin: 20px 15px 10px 15px;
+    word-wrap: break-word;
+    border-left: 5px solid #D8D8D8;
+    padding-left: 10px; 
+    font-size: 15px;
+  }
+  .comment {
+    background-color: #EFFBF2;
+  }
+  .watched {
+    background-color: #EFF8FB;
+  }
+  .want {
+    background-color: #FBFBEF
+  }
+  .recommend {
+    background-color: #FBEFEF;
+  }
+}
 
 
 /* form */

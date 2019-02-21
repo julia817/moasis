@@ -1,34 +1,89 @@
 <% provide(:title, 'Timeline') %>
 
-<div class="container-fluid area-width">
+<div class="container-fluid timeline">
+  <h2>タイムライン</h2>
   <% if @feed_items.blank? %>
     <p>ユーザアクティビティがありません。</p>
   <% else %>
 
     <% @feed_items.each do |item| %>
+      <hr>
+
       <% if item.is_a?(Comment) %>
-        <%= image_tag(profile_pic(item.user), :size => "50x50", :alt => "profile", :class => "profile") %>
-        <span class="info"><%= link_to item.user.username, item.user, :target => "new" %>が
-                           <%= link_to item.movie.title, item.movie, :target => "new" %>をコメントしました</span>
-        <span class="content"><%= item.content %></span>
-        <span class="date"><%= item.created_at %></span>
-        <%= image_tag "https://image.tmdb.org/t/p/w200#{item.movie.poster_path}", class: "img-responsive poster", alt: "poster" %>
+        <div class="comment row">
+          <div class="col-md-10">
+            <%= link_to item.user, :target => "new" do %>
+              <%= image_tag(profile_pic(item.user), :size => "50x50", :alt => "profile", :class => "profile") %>
+            <% end %>
+            <span class="info"><%= link_to item.user.username, item.user, :target => "new" %> が
+                               <%= link_to item.movie.title, item.movie, :target => "new" %>をコメントしました</span>
+            <span class="date"><%= item.created_at.to_s[0..15] %></span>
+            <span class="content"><%= item.content %></span>
+          </div>
+          <div class="col-md-2">
+            <%= link_to item.movie, :target => "new" do %>
+              <%= image_tag("https://image.tmdb.org/t/p/w200#{item.movie.poster_path}",
+                            :class => "img-responsive poster", :size => "100x150", :alt => "poster") %>
+            <% end %>
+          </div>
+        </div>
 
       <% else %>
         <% user = item.movielist.user %>
-        <%= image_tag(profile_pic(user), :size => "50x50", :alt => "profile", :class => "profile") %>
         <% if item.movielist.listname == "watched" %>
-          <span class="info"><%= link_to user.username, user, :target => "new" %>が
-                             <%= link_to item.movie.title, item.movie, :target => "new" %>を観しました</span>
+          <div class="watched row">
+            <div class="col-md-10">
+              <%= link_to user, :target => "new" do %>
+                <%= image_tag(profile_pic(user), :size => "50x50", :alt => "profile", :class => "profile") %>
+              <% end %>
+              <span class="info"><%= link_to user.username, user, :target => "new" %> が
+                                 <%= link_to item.movie.title, item.movie, :target => "new" %>を観しました</span>
+              <span class="date"><%= item.created_at.to_s[0..15] %></span>
+            </div>
+            <div class="col-md-2">
+              <%= link_to item.movie, :target => "new" do %>
+                <%= image_tag("https://image.tmdb.org/t/p/w200#{item.movie.poster_path}",
+                              :class => "img-responsive poster", :size => "100x150", :alt => "poster") %>
+              <% end %>
+            </div>
+          </div>
+
         <% elsif item.movielist.listname == "want" %>
-          <span class="info"><%= link_to user.username, user, :target => "new" %>が
-                             <%= link_to item.movie.title, item.movie, :target => "new" %>を観たいとマークしました</span>
+          <div class="want row">
+            <div class="col-md-10">
+              <%= link_to user, :target => "new" do %>
+                <%= image_tag(profile_pic(user), :size => "50x50", :alt => "profile", :class => "profile") %>
+              <% end %>
+              <span class="info"><%= link_to user.username, user, :target => "new" %> が
+                                 <%= link_to item.movie.title, item.movie, :target => "new" %>を観たいとマークしました</span>
+              <span class="date"><%= item.created_at.to_s[0..15] %></span>
+            </div>
+            <div class="col-md-2">
+              <%= link_to item.movie, :target => "new" do %>
+                <%= image_tag("https://image.tmdb.org/t/p/w200#{item.movie.poster_path}",
+                              :class => "img-responsive poster", :size => "100x150", :alt => "poster") %>
+              <% end %>
+            </div>
+          </div>
+
         <% else %>
-          <span class="info"><%= link_to user.username, user, :target => "new" %>が
-                             <%= link_to item.movie.title, item.movie, :target => "new" %>をおすすめしました</span>
+          <div class="recommend row">
+            <div class="col-md-10">
+              <%= link_to user, :target => "new" do %>
+                <%= image_tag(profile_pic(user), :size => "50x50", :alt => "profile", :class => "profile") %>
+              <% end %>
+              <span class="info"><%= link_to user.username, user, :target => "new" %> が
+                                 <%= link_to item.movie.title, item.movie, :target => "new" %>をおすすめしました</span>
+              <span class="date"><%= item.created_at.to_s[0..15] %></span>
+            </div>
+            <div class="col-md-2">
+              <%= link_to item.movie, :target => "new" do %>
+                <%= image_tag("https://image.tmdb.org/t/p/w200#{item.movie.poster_path}",
+                              :class => "img-responsive poster", :size => "100x150", :alt => "poster") %>
+              <% end %>
+            </div>
+          </div>
         <% end %>
-        <span class="date"><%= item.created_at %></span>
-        <%= image_tag "https://image.tmdb.org/t/p/w200#{item.movie.poster_path}", class: "img-responsive poster", alt: "poster" %>
       <% end %>
     <% end %>
 
