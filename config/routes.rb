@@ -55,11 +55,9 @@ Rails.application.routes.draw do
   
   post 'list_movies/create', to: 'list_movies#create'
   post 'list_movies/create_watched', to: 'list_movies#create_watched'
+  post 'list_movies/create_watched_from_want', to: 'list_movies#create_watched_from_want'
   post 'list_movies/create_want', to: 'list_movies#create_want'
   post 'list_movies/create_recommend', to: 'list_movies#create_recommend'
-  post 'list_movies/create_recommend_from_other', to: 'list_movies#create_recommend_from_other'
-  post 'list_movies/create_watched_from_other', to: 'list_movies#create_watched_from_other'
-  post 'list_movies/create_want_from_other', to: 'list_movies#create_want_from_other'
   delete 'list_movies/destroy', to: 'list_movies#destroy'
 
   # SNS log in

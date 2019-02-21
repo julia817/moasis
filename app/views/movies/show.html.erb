@@ -7,7 +7,9 @@
                     :class => "img-responsive", :alt => "poster") %>
     </div>
 
-    <%= render 'buttons' %>
+    <div class="btn-toolbar">
+      <%= render 'shared/buttons', movie: @movie %>
+    </div>
 
     <div class="recommend-data">
       <% if @movie_db.rec_num > 0 %> 

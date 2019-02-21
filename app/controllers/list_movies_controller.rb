@@ -5,58 +5,58 @@ class ListMoviesController < ApplicationController
   def create
   end
 
-  # add watched movie to the database
-  def create_watched
-    @user = current_user
-    @list = @user.movielists.find_by(listname: "watched")
-    @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
-    if @add_movie.save
-      # record all users' watched number
-      movie = Movie.find(params[:movie_id])
-      movie.watched_num += 1
-      movie.save
-      flash[:success] = "リストに追加しました"
-      redirect_to :controller => "users", :action => "watched", :id => @user.id
-    else
-      flash[:danger] = "リストへの追加失敗しました"
-      redirect_to :back
-    end
-  end
+  # # add watched movie to the database
+  # def create_watched
+  #   @user = current_user
+  #   @list = @user.movielists.find_by(listname: "watched")
+  #   @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
+  #   if @add_movie.save
+  #     # record all users' watched number
+  #     movie = Movie.find(params[:movie_id])
+  #     movie.watched_num += 1
+  #     movie.save
+  #     flash[:success] = "リストに追加しました"
+  #     redirect_to :controller => "users", :action => "watched", :id => @user.id
+  #   else
+  #     flash[:danger] = "リストへの追加失敗しました"
+  #     redirect_to :back
+  #   end
+  # end
 
-  # add the movie that user wants to watch to the database
-  def create_want
-    @user = current_user
-    @list = @user.movielists.find_by(listname: "want")
-    @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
-    if @add_movie.save
-      flash[:success] = "リストに追加しました"
-      redirect_to :controller => "users", :action => "want", :id => @user.id
-    else
-      flash[:danger] = "リストへの追加失敗しました"
-      redirect_to :back
-    end
-  end
+  # # add the movie that user wants to watch to the database
+  # def create_want
+  #   @user = current_user
+  #   @list = @user.movielists.find_by(listname: "want")
+  #   @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
+  #   if @add_movie.save
+  #     flash[:success] = "リストに追加しました"
+  #     redirect_to :controller => "users", :action => "want", :id => @user.id
+  #   else
+  #     flash[:danger] = "リストへの追加失敗しました"
+  #     redirect_to :back
+  #   end
+  # end
 
-  # add recommended movie to the database
+  # # add recommended movie to the database
+  # def create_recommend
+  #   @user = current_user
+  #   @list = @user.movielists.find_by(listname: "recommend")
+  #   @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
+  #   if @add_movie.save
+  #     # record all users' recommend times
+  #     movie = Movie.find(params[:movie_id])
+  #     movie.rec_num += 1
+  #     movie.save
+  #     flash[:success] = "リストに追加しました"
+  #     redirect_to :controller => "users", :action => "recommend", :id => @user.id
+  #   else
+  #     flash[:danger] = "リストへの追加失敗しました"
+  #     redirect_to :back
+  #   end
+  # end
+
+  # add recommended movie without redirect
   def create_recommend
-    @user = current_user
-    @list = @user.movielists.find_by(listname: "recommend")
-    @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
-    if @add_movie.save
-      # record all users' recommend times
-      movie = Movie.find(params[:movie_id])
-      movie.rec_num += 1
-      movie.save
-      flash[:success] = "リストに追加しました"
-      redirect_to :controller => "users", :action => "recommend", :id => @user.id
-    else
-      flash[:danger] = "リストへの追加失敗しました"
-      redirect_to :back
-    end
-  end
-
-  # add recommended movie from other list and without redirect
-  def create_recommend_from_other
     @user = current_user
     @list = @user.movielists.find_by(listname: "recommend")
     @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
@@ -72,8 +72,8 @@ class ListMoviesController < ApplicationController
     redirect_to :back
   end
 
-  # add watched movie from other list and without redirect
-  def create_watched_from_other
+  # add watched movie without redirect
+  def create_watched
     @user = current_user
     @list = @user.movielists.find_by(listname: "watched")
     @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
@@ -89,8 +89,26 @@ class ListMoviesController < ApplicationController
     redirect_to :back
   end
 
-  # add want-to-watch movie from other list and without redirect
-  def create_want_from_other
+  # add watched movie from want-to-watch list
+  def create_watched_from_want
+    @user = current_user
+    @list = @user.movielists.find_by(listname: "watched")
+    @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
+    if @add_movie.save
+      # record all users' watched number
+      movie = Movie.find(params[:movie_id])
+      movie.watched_num += 1
+      movie.save
+      ListMovie.find_by(movielist_id: @user.movielists.find_by(listname: "want").id, movie_id: params[:movie_id]).destroy
+      flash[:success] = "観た映画リストに追加しました"
+    else
+      flash[:danger] = "観た映画リストへの追加失敗しました"
+    end
+    redirect_to :back
+  end
+
+  # add want-to-watch movie without redirect
+  def create_want
     @user = current_user
     @list = @user.movielists.find_by(listname: "want")
     @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])

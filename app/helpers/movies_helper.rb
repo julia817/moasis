@@ -36,9 +36,9 @@ module MoviesHelper
 		def check(movie_id, listname)
 			if logged_in?
 				user = current_user
-				@movielist = user.movielists.find_by(listname: listname)
-				unless @movielist.nil?
-					ListMovie.exists?(movielist_id: @movielist.id, movie_id: movie_id)
+				@movielist_check = user.movielists.find_by(listname: listname)
+				unless @movielist_check.nil?
+					ListMovie.exists?(movielist_id: @movielist_check.id, movie_id: movie_id)
 				end
 			end
 		end

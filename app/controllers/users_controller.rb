@@ -69,8 +69,6 @@ class UsersController < ApplicationController
   # following's status
   def timeline
     @feed_items = current_user.feed
-    puts current_user
-    puts @feed_items
     @feed_items = Kaminari.paginate_array(@feed_items).page(params[:page]).per(20) unless @feed_items.blank?
   end
 
@@ -90,7 +88,7 @@ class UsersController < ApplicationController
     list = listup("recommend")
     paginate_list(list)
     # current user's watched list
-    @my_watched = User.my_watched(@movielist.id, params[:my_id]) unless params[:my_id] != @user.id
+    @my_watched = User.my_watched(@movielist.id, params[:my_id]) if params[:my_id] != @user.id
   end 
 
   
@@ -98,12 +96,14 @@ class UsersController < ApplicationController
     @list = listup("recommend")
     @count = @list.count
     @my_watched = User.my_watched(@movielist.id, params[:my_id])
+    @my_watched = Kaminari.paginate_array(@my_watched).page(params[:page]).per(20) unless @my_watched.blank?
   end
 
   def my_unwatched
     @list = listup("recommend")
     @count = @list.count
     @my_unwatched = User.my_unwatched(@movielist.id, params[:my_id])
+    @my_unwatched = Kaminari.paginate_array(@my_unwatched).page(params[:page]).per(20) unless @my_unwatched.blank?
   end
 
   private

@@ -1,79 +1,81 @@
 <%= provide(:title, "#{@user.username}の観た映画リスト") %>
 
-<div class="container-fluid user">
-  <div class="profile">
-    <h1>
-      <% if @user.picture? == false %>
-        <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
-      <% else %>
-        <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+<div class="container-fluid container area-width user">
+  <div class="row">
+
+    <div class="col-md-9">
+      <h2>おすすめ映画のリスト（<%= @count %>本）</h2>
+
+      <div class="btn-group">
+        <%= link_to "全部(#{@count})",
+                    { :action => "recommend", :my_id => current_user.id}, :class => "btn btn-default" %>
+        <%= link_to "私が観たことのある映画(#{@count-@my_unwatched.count})",
+                    { :action => "my_watched", :my_id => current_user.id }, :class => "btn btn-default" %>
+        <%= link_to "私が観たことのない映画(#{@my_unwatched.count})", {}, :class => "btn btn-primary disabled" %>
+        
+      </div>
+
+      <% unless @my_unwatched.blank? %>
+
+        <%= paginate @my_unwatched %>
+
+        <% @my_unwatched.each do |m| %>
+          <% movie = Movie.details(m.movie_id) %>
+
+          <div class="row movie-box">
+            <%= link_to controller: "movies", action: "show", id: "#{movie["id"]}" do %>
+              <div class="col-md-3">           
+                <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
+                    :size => "165x247", :class=> "img-responsive", :alt => "poster") %>
+              </div>
+              
+              <div class="col-md-9">
+                <h3><%= movie["title"] %></h3>
+                <h5><%= movie["release_date"] %></h5>
+                <% unless movie["overview"].blank? %>
+                  <%= movie["overview"] %>
+                <% end %>
+              </div>
+            <% end %>
+          
+            <div class="col-md-3"> </div>
+            <div class="col-md-9">
+              <div class="row btn-date">
+                <div class="col-md-8 btn-toolbar">
+                  <%= render 'shared/buttons', movie: movie %>
+                </div>
+                <div class="col-md-4">
+                  <span style="text-align:right">追加日：<%= m.created_at.to_s[0..9] %></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <% end %>
+        <%= paginate @my_unwatched %>
       <% end %>
-      <%= @user.username %>
-      <%= render 'follow_unfollow_button' if logged_in? %>
-    </h1>
-    <div class="stats">
-      <%= render 'shared/stats' if logged_in? %>
     </div>
 
-    <div class="lists center">
-      <%= link_to "観た映画のリスト", :controller => "users", :action => "watched" %>
-      <%= link_to "観たい映画のリスト", :controller => "users", :action => "want" %>
-      <p>おすすめ映画のリスト</p>
+    <div class="col-md-3">
+      <h1>
+        <% if @user.picture? == false %>
+          <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+        <% else %>
+          <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+        <% end %>
+        <%= @user.username %>
+        <%= render 'follow_unfollow_button' if logged_in? %>
+      </h1>
+      <div class="stats">
+        <%= render 'shared/stats' %>
+      </div>
+
+      <div class="lists">
+        <%= link_to "観た映画のリスト", { :action => "watched" }, :class => "btn btn-default btn-block" %>
+        <%= link_to "観たい映画のリスト", { :action => "want" }, :class => "btn btn-default btn-block" %>
+        <%= link_to "おすすめ映画のリスト", {}, :class => "btn btn-primary btn-block disabled" %>
+      </div>
     </div>
-  </div>
-
-  <div class="list">
-
-    <h2>おすすめ作品のリスト</h2>
-
-    <%= link_to "全部(#{@count})", :action => "watched" %>
-    <%= link_to "自分が観たことのある映画", { :action => "my_watched", :my_id => current_user.id } %>
-    <p>自分が観たことのない映画(<%= @my_unwatched.count %>)</p>
-
-    <table border="1">
-      <tr>
-      <th>Poster</th>
-      <th>Title</th>
-      <th>Release Date</th>
-      <th>Description</th>
-      <th>Add at</th>
-      <th>Action</th>
-      </tr>
-
-      <% @my_unwatched.each do |m| %>
-        <% movie = Movie.details(m.movie_id) %>
-        <tr>
-          <td>
-            <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", :alt => "poster") %>
-          </td>
-          <td>
-            <%= link_to movie["title"], controller: "movies", action: "show", id: "#{movie["id"]}" %>
-          </td>
-          <td><%= movie["release_date"] %></td>
-          <td>
-            <% if movie["overview"].blank? %>
-              情報がありません
-            <% else %>
-              <%= movie["overview"] %>
-            <% end %>
-          </td>
-          <td><%= m["created_at"].strftime('%Y/%m/%d') %></td>
-          <td>
-            <% unless want_check(movie["id"]) %>
-              <% want_list = Movielist.find_by(user_id: current_user.id, listname: "want") %>
-              <%= button_to "観たい", list_movies_create_want_from_other_path,
-                            :class => "btn btn-info btn-md",
-                            :params => {:movielist_id => want_list.id, :movie_id => movie["id"]} %>
-            <% end %>
-            <% watched_list = Movielist.find_by(user_id: current_user.id, listname: "watched") %>
-            <%= button_to "観た", list_movies_create_watched_from_other_path,
-                          :class => "btn btn-info btn-md",
-                          :params => {:movielist_id => watched_list.id, :movie_id => movie["id"]} %>
-          </td>
-
-        </tr>
-      <% end %>
-    </table>
 
   </div>
 </div>
