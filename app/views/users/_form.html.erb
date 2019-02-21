@@ -5,25 +5,25 @@
   <span class="form-condition">※必須項目；英数字の組み合わせで50字以内</span>
   <%= f.text_field :username, class: 'form-control' %>
 
-  <%= f.label :メールアドレス %>
+  <%= f.label :メールアドレス, style: "margin-top: 10px;" %>
   <span class="form-condition">※必須項目</span>
   <%= f.email_field :email, class: 'form-control' %>
 
-  <%= f.label :パスワード %>
+  <%= f.label :パスワード, style: "margin-top: 10px;" %>
   <span class="form-condition">※必須項目；最低6文字</span>
   <%= f.password_field :password, class: 'form-control' %>
 
-  <%= f.label :パスワード再入力 %>
+  <%= f.label :パスワード再入力, style: "margin-top: 10px;" %>
   <span class="form-condition">※必須項目；パスワード確認用</span>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
   <!-- <span class="picture"> -->
-    <%= f.label :プロファイル写真 %>
+    <%= f.label :プロファイル写真, style: "margin-top: 10px;" %>
     <span>※3M以内のjpg/gif/pngファイルのみ</span>
     <%= f.file_field :picture, accept: 'image/jpg, image/jpeg, image/gif, image/png' %>
   <!-- </span> -->
 
-  <%= f.submit yield(:button_text), class: 'btn btn-primary' %>
+  <%= f.submit yield(:button_text), class: 'btn btn-primary', style: "margin-top:20px; margin-bottom:20px;" %>
 <% end %>
 
 <script type="text/javascript">

@@ -9,11 +9,11 @@
       <%= f.label :メールアドレス %>
       <%= f.email_field :email, class: 'form-control' %>
 
-      <%= f.label :パスワード %>
+      <%= f.label :パスワード, style: "margin-top: 10px;" %>
       <%= link_to "（パスワード忘れた？）", new_password_reset_path %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :remember_me, class: "checkbox inline" do %>
+      <%= f.label :remember_me, class: "checkbox", style: "margin-left: 20px;" do %>
         <%= f.check_box :remember_me %>
         <span>ログイン情報を記憶して次回省略する</span>
       <% end %>
@@ -21,7 +21,7 @@
       <%= f.submit "ログイン", class: "btn btn-primary" %>
     <% end %>
 
-    <p>新しいユーザ？ <%= link_to "会員登録お願いします～", signup_path %></p>
+    <p style="margin-top:10px;">新しいユーザ？ <%= link_to "会員登録お願いします～", signup_path %></p>
 
     <p>
       <%= link_to '/auth/twitter', class: "btn btn-social btn-twitter" do %>
