@@ -1,34 +1,40 @@
-<% provide(:title, "#{@user.username}のプロフィール") %>
+<%= provide(:title, "#{@user.username}のプロフィール") %>
 
-<div class="container-fluid area-width user">
-  <h1>
-    <% if !@user.pic_url.blank? %>
-      <%= image_tag(@user.pic_url, :size => "100x100", :alt => "profile") %>
-    <% elsif @user.picture? == false %>
-      <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
-    <% else %>
-      <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
-    <% end %>
-    <%= @user.username %>
-    <%= render 'follow_unfollow_button' if logged_in? %>
-  </h1>
-  <div class="stats">
-    <%= render 'shared/stats' if logged_in? %>
-  </div>
+<div class="container-fluid container area-width user">
+  <div class="row">
 
-  <div class="lists">
-    <%= link_to "観た映画のリスト", { :action => "watched" }, :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
-    <%= link_to "観たい映画のリスト", { :action => "want" }, :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
-    <% if current_user?(@user) %>
-      <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => @user.id },
-                    :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
-    <% elsif logged_in? %>
-      <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id },
-                    :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
-    <% else %>
-      <%= link_to "おすすめ映画のリスト", { :action => "recommend" },
-                    :class => "btn btn-info btn-md", :style => "margin-right:20px;" %>
-    <% end %>
+    <div class="col-md-9">
+      <h2>好きな映画のジャンル</h2>
+      <% unless current_user?(User.find(@user.id)) %>
+        <h2>私との共通趣味</h2>
+      <% end %>
+      <h2>コメント</h2> 
+    </div>
+
+    <div class="col-md-3">
+      <h1>
+        <% if @user.picture? == false %>
+          <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+        <% else %>
+          <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+        <% end %>
+        <%= @user.username %>
+        <%= render 'follow_unfollow_button' if logged_in? %>
+      </h1>
+      <div class="stats">
+        <%= render 'shared/stats' %>
+      </div>
+
+      <div class="lists">
+        <%= link_to "観た映画のリスト", { :action => "watched" }, :class => "btn btn-default btn-block" %>
+        <%= link_to "観たい映画のリスト", { :action => "want" }, :class => "btn btn-default btn-block" %>
+        <%= link_to "おすすめ映画のリスト", { :action => "recommend" }, :class => "btn btn-default btn-block" %>
+        <%= link_to "鑑賞履歴レポート", { :action => "report" }, :class => "btn btn-default btn-block" %>
+      </div>
+    </div>
+
   </div>
-    
 </div>
+
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befb8322ae303d6"></script>

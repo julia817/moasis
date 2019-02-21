@@ -1,0 +1,44 @@
+<%= provide(:title, "#{@user.username}の鑑賞記録") %>
+
+<div class="container-fluid container area-width user">
+  <div class="row">
+
+    <div class="col-md-9">
+      <h2>映画鑑賞レポート</h2>
+      <h4>ジャンル別グラフ</h4>
+      <%= bar_chart @chart, colors: ["#F781D8"] %>
+    </div>
+
+    <div class="col-md-3">
+      <h1>
+        <% if @user.picture? == false %>
+          <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
+        <% else %>
+          <%= image_tag(@user.picture, :size => "100x100", :alt => "profile pic") %>
+        <% end %>
+        <%= @user.username %>
+        <%= render 'follow_unfollow_button' if logged_in? %>
+      </h1>
+      <div class="stats">
+        <%= render 'shared/stats' %>
+      </div>
+
+      <div class="lists">
+        <%= link_to "観た映画のリスト", { :action => "watched" }, :class => "btn btn-default btn-block" %>
+        <%= link_to "観たい映画のリスト", { :action => "want" }, :class => "btn btn-default btn-block" %>
+        <% if current_user?(@user) %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => @user.id },
+                      :class => "btn btn-default btn-block" %>
+        <% elsif logged_in? %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id },
+                      :class => "btn btn-default btn-block" %>
+        <% else %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend" },
+                      :class => "btn btn-default btn-block" %>
+        <% end %>
+        <%= link_to "鑑賞履歴レポート", {}, :class => "btn btn-primary btn-block disabled" %>
+      </div>
+    </div>
+
+  </div>
+</div>

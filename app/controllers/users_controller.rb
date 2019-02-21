@@ -106,6 +106,27 @@ class UsersController < ApplicationController
     @my_unwatched = Kaminari.paginate_array(@my_unwatched).page(params[:page]).per(20) unless @my_unwatched.blank?
   end
 
+  # watching history graph report
+  def report
+    @user = User.find(params[:id])
+    list = listup("watched")
+    @chart = {}
+    list.each do |list|
+      movie = Movie.find(list.movie_id)
+      genres = movie.genres[1..-2].split(', ')
+      genres.each do |g|
+        if @chart[GENRES.key(g.to_i)].nil?
+          # puts GENRES.key(g)
+          @chart[GENRES.key(g.to_i)] = 1
+        else
+          @chart[GENRES.key(g.to_i)] += 1
+        end
+      end
+    end
+    # puts @chart
+  end
+
+
   private
     # strong params to restrict actions
     def user_params
