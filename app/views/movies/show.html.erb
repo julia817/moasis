@@ -11,13 +11,14 @@
       <%= render 'shared/buttons', movie: @movie %>
     </div>
 
-    <div class="recommend-data">
-      <% if @movie_db.rec_num > 0 %> 
+    
+    <% if @movie_db.rec_num > 0 %> 
+      <div class="recommend-data">
         <h5>おすすめ度：<%= Movie.get_score(@movie["id"]) %>%</h5>
         <p>この映画は<%= @movie_db.watched_num %>人が観ました</p>
         <p>この映画は<%= @movie_db.rec_num %>人がおすすめします</p>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
     <aside>
       <% if watched_check(@movie["id"]) %>

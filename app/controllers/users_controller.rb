@@ -110,20 +110,23 @@ class UsersController < ApplicationController
   def report
     @user = User.find(params[:id])
     list = listup("watched")
+
     @chart = {}
+    @posters = Array.new
     list.each do |list|
       movie = Movie.find(list.movie_id)
+      @posters << movie.poster_path unless movie.poster_path.blank?
       genres = movie.genres[1..-2].split(', ')
       genres.each do |g|
         if @chart[GENRES.key(g.to_i)].nil?
-          # puts GENRES.key(g)
           @chart[GENRES.key(g.to_i)] = 1
         else
           @chart[GENRES.key(g.to_i)] += 1
         end
       end
     end
-    # puts @chart
+    
+
   end
 
 

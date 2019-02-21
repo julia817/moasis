@@ -61,30 +61,32 @@
     </p>
   </div>
 
-  <p><strong>キャスト：</strong></p>
-  <div class="row">
-    <% (0...@cast_range).each do |i| %>
-      <% if @movie["credits"]["cast"][i]["character"].blank? %>
-        <% break %>
-      <% end %>
-        <div class="col-md-2 col-md-offset-0">
-          <div class="thumbnail">
-            <%= link_to controller: "movies", action: "show_person", id: "#{@movie["credits"]["cast"][i]["id"]}" do %>
-              <% if @movie["credits"]["cast"][i]["profile_path"].nil? %>
-                <%= image_tag("default credit.png", :alt => "default profile") %>
-              <% else %>
-                <%= image_tag("https://image.tmdb.org/t/p/w200#{@movie["credits"]["cast"][i]["profile_path"]}",
-                              :class => "img-responsive", :alt => "profile") %>
+  <div class="cast">
+    <p><strong>キャスト：</strong></p>
+    <div class="row" style="margin:0;">
+      <% (0...@cast_range).each do |i| %>
+        <% if @movie["credits"]["cast"][i]["character"].blank? %>
+          <% break %>
+        <% end %>
+          <div class="col-md-2 col-md-offset-0">
+            <div class="thumbnail">
+              <%= link_to controller: "movies", action: "show_person", id: "#{@movie["credits"]["cast"][i]["id"]}" do %>
+                <% if @movie["credits"]["cast"][i]["profile_path"].nil? %>
+                  <%= image_tag("default credit.png", :alt => "default profile") %>
+                <% else %>
+                  <%= image_tag("https://image.tmdb.org/t/p/w200#{@movie["credits"]["cast"][i]["profile_path"]}",
+                                :class => "img-responsive", :alt => "profile") %>
+                <% end %>
+                <div class="caption">
+                  <strong><%= @movie["credits"]["cast"][i]["name"]%></strong>
+                  <br>
+                  <%= @movie["credits"]["cast"][i]["character"] %> 役<br>
+                </div>
               <% end %>
-              <div class="caption">
-                <strong><%= @movie["credits"]["cast"][i]["name"]%></strong>
-                <br>
-                <%= @movie["credits"]["cast"][i]["character"] %> 役<br>
-              </div>
-            <% end %>
+            </div>
           </div>
-        </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
   
   <p><strong>スタッフ：</strong></p>

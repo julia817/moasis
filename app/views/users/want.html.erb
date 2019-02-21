@@ -14,7 +14,7 @@
           <% movie = Movie.details(m.movie_id) %>
 
           <div class="row movie-box">
-            <%= link_to controller: "movies", action: "show", id: "#{movie["id"]}" do %>
+            <%= link_to "/movies/#{movie["id"]}", :target => "new" do %>
               <div class="col-md-3">           
                 <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
                               :size => "165x247", :class => "img-responsive", :alt => "poster") %>

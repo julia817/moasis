@@ -79,7 +79,7 @@ h3 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: $light-gray;
+  /*color: $light-gray;*/
 }
 
 p {
@@ -383,16 +383,20 @@ footer {
 
 /* movie collections */
 .collections {
-  .movies {
-    border-top: 1px solid #e8e8e8;
+  width: 80%;
+  .row {
+    @include movie_box
   }
-  img {
-    float: left;
-    margin-right: 20px;
+  h1 {
+    color: $moasis;
+    border: 2px solid $moasis;
+    padding: 5px;
+    background-color: #E8FAFB;
+    /*margin-bottom: 20px;*/
   }
-  p {
-    /*display: block;*/
-    clear: both;
+  .btn-toolbar {
+    margin-top: 20px;
+    margin-left: 0;
   }
 }
 
@@ -430,9 +434,7 @@ footer {
     }
   }
   .lists {
-    clear: both;
     margin-top: 30px;
-    text-align: center;
   }
 
   /* recommend list filter */
@@ -454,7 +456,6 @@ footer {
       margin-top: 10px;
       margin-bottom: 20px;
       text-align: left;
-      color: black;
     }
     .btn-date {
       margin-left: 0;
@@ -463,6 +464,14 @@ footer {
         color: $light-gray;
       }
     }
+  }
+
+  /* report */
+  h4 {
+    margin-top: 30px;
+  }
+  hr {
+    margin-top: 35px;
   }
 }
 

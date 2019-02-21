@@ -7,6 +7,21 @@
       <h2>映画鑑賞レポート</h2>
       <h4>ジャンル別グラフ</h4>
       <%= bar_chart @chart, colors: ["#F781D8"] %>
+      <hr>
+      <h4>年代別グラフ</h4>
+      <p>工事中</p>
+      <hr>
+      <h4>地域別グラフ</h4>
+      <p>工事中</p>
+      <hr>
+      <h4>芝生グラフ</h4>
+      <p>工事中</p>
+      <hr>
+      <h4>ポスターコレクション</h4>
+      <% @posters.each do |poster| %>
+        <%= image_tag("https://image.tmdb.org/t/p/w200#{poster}",
+                      :class => "img-responsive poster", :alt => "poster", :style => "float:left; height:150px; width:auto;") %>
+      <% end %>
     </div>
 
     <div class="col-md-3">

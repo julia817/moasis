@@ -1,15 +1,36 @@
 <%= provide(:title, "#{@collection["name"]}") %>
 
-<h1><%= @collection["name"] %></h1>
-<div class="container-fluid area-width collections">
+
+<div class="container-fluid collections">
+
+  <h1><%= @collection["name"] %></h1>
+
   <% @parts.each do |movie| %>
-    <div class="movies">
-      <%= image_tag "https://image.tmdb.org/t/p/w200#{movie["poster_path"]}", class: "img-responsive", alt: "poster" %>
-      <p>
-        <strong><%= movie["title"] %></strong><br>
-        <%= movie["release_date"] %><br>
-        <%= movie["overview"] %>
-      </p>
-    </div>
+    
+    <div class="row">
+      <%= link_to "/movies/#{movie["id"]}", :target => "new" do %>      
+        <div class="col-md-3">
+          <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
+                        :class => "img-responsive", :alt => "poster") %>
+        </div>
+
+        <div class="col-md-9">
+          <h4><%= movie["title"] %></h4>
+          <br>
+          <h5><%= movie["release_date"] %></h5>
+          <br>
+          <% unless movie["overview"].blank? %>
+            <%= movie["overview"] %>
+          <% end %>
+        </div>
+      <% end %>
+
+        <div class="col-md-9 btn-toolbar">
+          <%= render 'shared/buttons', movie: movie %>
+        </div>
+    
+  </div>
+  
   <% end %>
+
 </div>
