@@ -1,14 +1,16 @@
 <% provide(:title, '全ユーザ') %>
 
-<div class="container-fluid user">
+<div class="container-fluid area-width user">
 
   <h1>全ユーザリスト</h1>
 
-  <%= paginate @users %>
+  <div>
+    <%= paginate @users %>
 
-  <ul>
-    <%= render @users %>
-  </ul>
+    <div>
+      <%= render @users %>
+    </div>
 
-  <%= paginate @users %>
+    <%= paginate @users %>
+  </div>
 </div>

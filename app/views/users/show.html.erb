@@ -5,10 +5,13 @@
 
     <div class="col-md-9">
       <h2>好きな映画のジャンル</h2>
+      <p>工事中</p>
       <% unless current_user?(User.find(@user.id)) %>
         <h2>私との共通趣味</h2>
+        <p>工事中</p>
       <% end %>
-      <h2>コメント</h2> 
+      <h2>コメント</h2>
+      <p>工事中</p>
     </div>
 
     <div class="col-md-3">
@@ -28,7 +31,16 @@
       <div class="lists">
         <%= link_to "観た映画のリスト", { :action => "watched" }, :class => "btn btn-default btn-block" %>
         <%= link_to "観たい映画のリスト", { :action => "want" }, :class => "btn btn-default btn-block" %>
-        <%= link_to "おすすめ映画のリスト", { :action => "recommend" }, :class => "btn btn-default btn-block" %>
+        <% if current_user?(@user) %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => @user.id },
+                      :class => "btn btn-default btn-block" %>
+        <% elsif logged_in? %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend", :my_id => current_user.id },
+                      :class => "btn btn-default btn-block" %>
+        <% else %>
+          <%= link_to "おすすめ映画のリスト", { :action => "recommend" },
+                      :class => "btn btn-default btn-block" %>
+        <% end %>
         <%= link_to "鑑賞履歴レポート", { :action => "report" }, :class => "btn btn-default btn-block" %>
       </div>
     </div>
