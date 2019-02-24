@@ -17,7 +17,7 @@ class StaticPagesController < ApplicationController
     end
     # @movies = @movies.sort_by{ |e| e["release_date"]}.reverse
     
-    add_movies_to_db @movies
+    # add_movies_to_db @movies
   end
 
   def about

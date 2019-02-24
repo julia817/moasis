@@ -76,6 +76,8 @@ class ListMoviesController < ApplicationController
   def create_watched
     @user = current_user
     @list = @user.movielists.find_by(listname: "watched")
+    movie = Movie.details(params[:movie_id])
+    add_movie_to_db movie
     @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
     if @add_movie.save
       # record all users' watched number
@@ -111,6 +113,8 @@ class ListMoviesController < ApplicationController
   def create_want
     @user = current_user
     @list = @user.movielists.find_by(listname: "want")
+    movie = Movie.details(params[:movie_id])
+    add_movie_to_db movie
     @add_movie = ListMovie.new(movielist_id: @list.id, movie_id: params[:movie_id])
     if @add_movie.save
       flash[:success] = "リストに追加しました"

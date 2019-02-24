@@ -116,8 +116,7 @@ class UsersController < ApplicationController
     list.each do |list|
       movie = Movie.find(list.movie_id)
       @posters << movie.poster_path unless movie.poster_path.blank?
-      genres = movie.genres[1..-2].split(', ')
-      genres.each do |g|
+      movie.genres.each do |g|
         if @chart[GENRES.key(g.to_i)].nil?
           @chart[GENRES.key(g.to_i)] = 1
         else

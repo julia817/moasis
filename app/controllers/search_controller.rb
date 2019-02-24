@@ -37,7 +37,7 @@ class SearchController < ApplicationController
           end
         end
       end
-      add_movies_to_db @movie_results
+      # add_movies_to_db @movie_results
       @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
     end
   end
@@ -96,7 +96,7 @@ class SearchController < ApplicationController
         @movie_results << results[i]
       end
     end
-    add_movies_to_db @movie_results
+    # add_movies_to_db @movie_results
     @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
   end
 
@@ -115,7 +115,7 @@ class SearchController < ApplicationController
         @movie_results << results[i]
       end
     end
-    add_movies_to_db @movie_results
+    # add_movies_to_db @movie_results
     @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
   end
 
@@ -134,7 +134,7 @@ class SearchController < ApplicationController
         @movie_results << results[i]
       end
     end
-    add_movies_to_db @movie_results
+    # add_movies_to_db @movie_results
     @movie_results = Kaminari.paginate_array(@movie_results).page(params[:page]).per(20) unless @movie_results.blank?
   end
 
