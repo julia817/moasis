@@ -12,7 +12,7 @@
     </div>
 
     
-    <% if @movie_db.rec_num > 0 %> 
+    <% if !@movie_db.nil? && @movie_db.rec_num > 0 %> 
       <div class="recommend-data">
         <h5>おすすめ度：<%= Movie.get_score(@movie["id"]) %>%</h5>
         <p>この映画は<%= @movie_db.watched_num %>人が観ました</p>
@@ -39,7 +39,7 @@
 </div>
 
 
-<% if @movie_db.comments.any? %>
+<% if !@movie_db.nil? && @movie_db.comments.any? %>
   <div class="container-fluid comments">
     <h5>コメント・感想（<%= @movie_db.comments.count %>件）</h5>
     <ol>
