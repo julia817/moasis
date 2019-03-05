@@ -8,15 +8,15 @@
   </div>
   <div class="form-group">
     <div class="form-inline">
-      <label>俳優・製作スタッフ</label>
-      <%= text_field :person1, params[:person1], class: "form-control" %>
-      <%= text_field :person2, params[:person2], class: "form-control" %>
+      <label>俳優・製作スタッフ(工事中)</label>
+      <%= text_field :person1, params[:person1], class: "form-control", disabled: true %>
+      <%= text_field :person2, params[:person2], class: "form-control", disabled: true %>
     </div>
   </div>
   <div class="form-group">
     <div class="form-inline">
       <label>ジャンル</label>
-      <%= select_tag :genre, options_for_select(@genres) %>
+      <%= select_tag :genre, options_for_select(@genres), include_blank: true %>
     </div>
   </div>
   <div class="form-group">

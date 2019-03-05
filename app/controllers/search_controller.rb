@@ -79,19 +79,19 @@ class SearchController < ApplicationController
 
   def advanced_search
     @year = params[:year][0]
-    @person1 = params[:person1][0]
-    @person2 = params[:person2][0]
-    people = @person2.empty? ? @person1 : "#{@person1},#{@person2}"
+    # @person1 = params[:person1][0]
+    # @person2 = params[:person2][0]
+    # people = @person2.empty? ? @person1 : "#{@person1},#{@person2}"
     @genres = GENRES
     @genre_id = params[:genre]
 
-    response = Movie.discover(@year, @genre_id, people)
+    response = Movie.discover(@year, @genre_id)
     @total_pages = response["total_pages"]
     @movie_results = response["results"]
 
     @total_pages = @total_pages>30 ? 30 : @total_pages
     (2..@total_pages).each do |page|
-      results = Movie.discover(@year, @genre_id, people, page)["results"]
+      results = Movie.discover(@year, @genre_id, page)["results"]
       (0...results.count).each do |i|
         @movie_results << results[i]
       end
