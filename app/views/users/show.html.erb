@@ -6,12 +6,32 @@
     <div class="col-md-9">
       <h2>好きな映画のジャンル</h2>
       <p>工事中</p>
+
       <% unless current_user?(User.find(@user.id)) %>
-        <h2>私との共通趣味</h2>
-        <p>工事中</p>
+        <h2>私との共通趣味 (<%= @num %>本)</h2>
+        <% @movies.each do |movie| %>
+          <%= image_tag("https://image.tmdb.org/t/p/w200#{movie.poster_path}",
+                        :class => "img-responsive poster", :alt => "poster",
+                        :style => "float:left; height:150px; width:auto; margin-right:10px; margin-bottom:30px;") %>
+        <% end %>
       <% end %>
+
       <h2>コメント</h2>
-      <p>工事中</p>
+      <% @comments.each do |comment| %>
+        <div class="comment row">
+          <div class="col-md-10">
+            <span class="info"><%= link_to comment.movie.title, comment.movie, :target => "new" %></span>
+            <span class="date"><%= comment.created_at.to_s[0..15] %></span>
+            <span class="content"><%= comment.content %></span>
+          </div>
+          <div class="col-md-2">
+            <%= link_to comment.movie, :target => "new" do %>
+              <%= image_tag("https://image.tmdb.org/t/p/w200#{comment.movie.poster_path}",
+                            :class => "img-responsive poster", :size => "100x150", :alt => "poster") %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
 
     <div class="col-md-3">
@@ -47,6 +67,3 @@
 
   </div>
 </div>
-
-
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5befb8322ae303d6"></script>

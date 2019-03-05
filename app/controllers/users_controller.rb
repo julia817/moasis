@@ -14,6 +14,35 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @comments = Comment.where(user: @user)
+
+    unless current_user?(@user)
+      user = current_user
+      user_list_watched = Movielist.find_by(user: @user, listname: "watched")
+      user_list_want = Movielist.find_by(user: @user, listname: "want")
+      current_list_watched = Movielist.find_by(user: user, listname: "watched")
+      current_list_want = Movielist.find_by(user: user, listname: "want")
+      user_watched = ListMovie.where(movielist: user_list_watched)
+      user_want = ListMovie.where(movielist: user_list_want)
+      current_watched = ListMovie.where(movielist: current_list_watched)
+      current_want = ListMovie.where(movielist: current_list_want)
+      @movies = Array.new
+      unless user_watched.nil? or current_watched.nil?
+        user_watched.each do |movie|
+          if current_watched.exists?(movie_id: movie.movie_id)
+            @movies << Movie.find(movie.movie_id)
+          end
+        end
+      end
+      unless user_want.nil? or current_want.nil?
+        user_want.each do |movie|
+          if current_want.exists?(movie_id: movie.movie_id)
+            @movie << Movie.find(movie.movie_id)
+          end
+        end
+      end
+      @num = @movies.count>5 ? 5 : @movies.count unless @movies.nil?
+    end 
   end
 
   def create

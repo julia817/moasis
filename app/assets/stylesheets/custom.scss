@@ -450,6 +450,7 @@ footer {
     font-size: 30px;
     margin-bottom: 20px;
     @include title;
+    clear: both;
   }
   .movie-box {
     @include movie_box;
@@ -475,6 +476,38 @@ footer {
   }
   hr {
     margin-top: 35px;
+  }
+
+  /* comments */
+  .comment {
+    border: solid 1px $gray-medium-light;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    .info {
+      margin-top: 15px;
+      /*padding-top: 0;*/
+      /*padding-left: 10px;*/
+      font-size: 18px;
+    }
+    .date {
+      display: block;
+      color: $light-gray;
+      /*padding-left: 10px;*/
+      padding-top: 10px;
+    }
+    .content {
+      clear: both;
+      display: block;
+      margin: 20px 15px 10px 0px;
+      word-wrap: break-word;
+      border-left: 5px solid #D8D8D8;
+      padding-left: 10px;
+      font-size: 15px;
+    }
+    .col-md-2 {
+      padding-top: 10px;
+    }
   }
 }
 
