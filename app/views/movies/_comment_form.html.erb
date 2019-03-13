@@ -4,42 +4,21 @@
     <%= f.hidden_field :movie_id, :value => params[:id] %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.label "コメント・感想" %>
-    <%= f.text_area :content, placeholder: "250文字以内で入力してください..." , :class=> "input-field" %>
-    <div class="input-field__count" data-count="250"></div>
+    <%= f.text_area :content, placeholder: "250文字以内で入力してください..." , onKeyUp: "countLength(value, 'textlength');",
+                    class: "input-field", style: "margin-bottom:0;" %>
+    <p id="textlength" style="text-align:right; margin-bottom:0;">0/250文字</p>
   </div>
   <%= f.submit "送信", class: "btn btn-primary" %>
 <% end %>
 
 <script type="text/javascript">
-  $(function(){
-    function countInputText(textarea) {
-      //文字数を表示する.input-field__countを取得
-      var counter = $(textarea).parents('.input-field').find(".input-field__count");
-
-      // データ属性(data-count)から最大文字数を取得
-      var maxLength = counter.data("count");
-
-      // 現在の文字数を取得
-      var currentLength = $(textarea).val().length;
-      var htmlVal = currentLength + " / " + maxLength;
-
-     // 現在の文字数と最大文字数を比較して、
-     // 現在の文字数が多ければ赤く表示する
-      if ( parseInt(currentLength) >= parseInt(maxLength) ) {
-        counter.html("<span style='color:red'>" + htmlVal + "</span>");
-      } else {
-        counter.html(htmlVal);
-      }
+  function countLength( text, field ) {
+    document.getElementById(field).innerHTML = text.length + "/250文字";
+    if (text.length>250) {
+      $('#textlength').css({
+          color:'#ff0000',
+          fontWeight:'bold'
+      });
     }
-
-    // ページ表示時に文字数をカウントして表示
-    $('text_area[name="content"]').each(function(){
-      countInputText($(this));
-    });
-
-    // フォーム入力時に文字数をカウントして表示
-    $('text_area[name="content"]').on('keydown keyup keypress change',function(){
-      countInputText($(this));
-    });
-  });
+  }
 </script>
