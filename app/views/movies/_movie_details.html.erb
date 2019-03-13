@@ -1,8 +1,10 @@
 <div class="col-md-8">
-  <h1><%= @movie["title"] %></h1>
-
-  <% if @movie["origianl_language"] != "ja" %>
+  
+  <% if @movie["original_language"] != "ja" %>
+    <h1><%= @movie["title"] %></h1>
     <h2 class="center">原題：<%= @movie["original_title"] %></h2>
+  <% else %>
+    <h1><%= @movie["original_title"] %></h1>
   <% end %>
 
   <% unless @movie["belongs_to_collection"].nil? %>
@@ -16,13 +18,15 @@
   <div class="details">
     <p><strong>上映日：</strong><%= @movie["release_date"] %></p>
 
-    <p><strong>上映時間：</strong><%= @movie["runtime"] %>分</p>
+    <% unless @movie["runtime"].blank? %>
+      <p><strong>上映時間：</strong><%= @movie["runtime"] %>分</p>
+    <% end %>
 
     <p>
       <strong>ジャンル：</strong>
       <% @movie["genres"].each do |genre| %>
         <% if genre == @movie["genres"].last %>
-          <span><%= genre["name"] %></span>
+          <span><%= GENRES.key(genre["id"]) %></span>
         <% else %>
           <span><%= genre["name"] %>、</span>
         <% end %>
@@ -152,18 +156,20 @@
   <% end %>
   </p>
 
-  <div class="trailers">
-    <p><strong>予告動画：</strong></p>
-    <div class="row">
-      <% range = @trailers.count == 1 ? 0:1 %>
-        
-      <% @trailers[0..range].each do |t| %>
-        <% iframe = content_tag(:iframe, '', width: 320, height: 177, 
-                                src: "https://www.youtube.com/embed/#{t["key"]}",
-                                frameborder: 0, allowfullscreen: true) %>
-        <%= content_tag(:div, iframe, class: "youtube-container col") %>
-      <% end %>
+  <% unless @trailers.blank? %>
+    <div class="trailers">
+      <p><strong>予告動画：</strong></p>
+      <div class="row">
+        <% range = @trailers.count == 1 ? 0:1 %>
+          
+        <% @trailers[0..range].each do |t| %>
+          <% iframe = content_tag(:iframe, '', width: 320, height: 177, 
+                                  src: "https://www.youtube.com/embed/#{t["key"]}",
+                                  frameborder: 0, allowfullscreen: true) %>
+          <%= content_tag(:div, iframe, class: "youtube-container col") %>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 </div>

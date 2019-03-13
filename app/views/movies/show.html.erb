@@ -1,4 +1,8 @@
-<%= provide(:title, "#{@movie["title"]}") %>
+<% if @movie["original_language"] != "ja" %>
+  <%= provide(:title, "#{@movie["title"]}") %>
+<% else %>
+  <%= provide(:title, "#{@movie["original_title"]}") %>
+<% end %>
 
 <div class="container-fluid area-width movie-info">
   <div class="col-md-4">

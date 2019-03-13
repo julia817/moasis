@@ -29,7 +29,11 @@
               </div>
               
               <div class="col-md-9">
-                <h3><%= movie["title"] %></h3>
+                <% if movie["original_language"] != "ja" %>
+                  <h3><%= movie["title"] %></h3>
+                <% else %>
+                  <h3><%= movie["original_title"] %></h3>
+                <% end %>
                 <h5><%= movie["release_date"] %></h5>
                 <% unless movie["overview"].blank? %>
                   <%= movie["overview"] %>
