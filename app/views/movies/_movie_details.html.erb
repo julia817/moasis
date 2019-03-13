@@ -163,10 +163,12 @@
         <% range = @trailers.count == 1 ? 0:1 %>
           
         <% @trailers[0..range].each do |t| %>
-          <% iframe = content_tag(:iframe, '', width: 320, height: 177, 
-                                  src: "https://www.youtube.com/embed/#{t["key"]}",
-                                  frameborder: 0, allowfullscreen: true) %>
-          <%= content_tag(:div, iframe, class: "youtube-container col") %>
+          <div class="col-md-6 col-sm-6">
+            <% iframe = content_tag(:iframe, '', width: 300, height: 166, 
+                                    src: "https://www.youtube.com/embed/#{t["key"]}",
+                                    frameborder: 0, allowfullscreen: true) %>
+            <%= content_tag(:div, iframe, class: "youtube-container") %>
+          </div>
         <% end %>
       </div>
     </div>
