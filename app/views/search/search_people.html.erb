@@ -1,7 +1,7 @@
 <% provide(:title, "#{@search_term} - 検索") %>
 
 <div class="container-fluid area-width people-results search-results">
-  <div class="results">
+  <div>
     <% if @people_results.blank? %>
       <p>【<%= @search_term %>】と一致する情報が見つかりませんでした</p>
     <% else %>

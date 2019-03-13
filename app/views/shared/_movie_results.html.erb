@@ -2,14 +2,14 @@
 
 <% @movie_results.each do |movie| %>
     
-      <div class="row">
+      <div class="row results">
         <%= link_to "/movies/#{movie["id"]}", :target => "new" do %>      
-          <div class="col-md-3">
+          <div class="col-md-3 col-sm-3">
             <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
                           :class => "img-responsive", :alt => "poster") %>
           </div>
 
-          <div class="col-md-9">
+          <div class="col-md-9 col-sm-9">
             <h4><%= movie["title"] %></h4>
             <br>
             <h5><%= movie["release_date"] %></h5>
@@ -20,9 +20,10 @@
           </div>
         <% end %>
 
-          <div class="col-md-9 btn-toolbar">
-            <%= render 'shared/buttons', movie: movie %>
-          </div>
+        <div class="col-md-3 col-sm-3"> </div>
+        <div class="col-md-9 col-sm-9 btn-toolbar">
+          <%= render 'shared/buttons', movie: movie %>
+        </div>
       
     </div>
   

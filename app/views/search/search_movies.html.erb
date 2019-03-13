@@ -2,9 +2,9 @@
 
 <div class="container-fluid area-width movie-results search-results">
   <% if @movie_results.blank? %>
-    <p class="results"><strong>【<%= @search_term %>】</strong>と一致する情報が見つかりませんでした</p>
+    <p><strong>【<%= @search_term %>】</strong>と一致する情報が見つかりませんでした</p>
   <% else %>
-    <p class="results"><strong>【<%= @search_term %>】</strong>に関する映画は<strong><%= @total_results %>本</strong>があります</p>
+    <p><strong>【<%= @search_term %>】</strong>に関する映画は<strong><%= @total_results %>本</strong>があります</p>
     <%= render 'shared/movie_results' %>
   <% end %>
 </div>

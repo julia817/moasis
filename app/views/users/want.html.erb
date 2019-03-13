@@ -1,9 +1,9 @@
 <%= provide(:title, "#{@user.username}の観たい映画リスト") %>
 
-<div class="container-fluid container area-width user">
+<div class="container-fluid area-width user">
   <div class="row">
     
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-9" style="padding-left:0;padding-right:40px;">
       <h2>観たい作品のリスト（<%= @count %>本）</h2>
 
       <% unless @list.blank? %>
@@ -15,12 +15,12 @@
 
           <div class="row movie-box">
             <%= link_to "/movies/#{movie["id"]}", :target => "new" do %>
-              <div class="col-md-3">           
+              <div class="col-md-3 col-sm-3">           
                 <%= image_tag("https://image.tmdb.org/t/p/w200#{movie["poster_path"]}",
                               :size => "165x247", :class => "img-responsive", :alt => "poster") %>
               </div>
               
-              <div class="col-md-9">
+              <div class="col-md-9 col-sm-9">
                 <% if movie["original_language"] != "ja" %>
                   <h3><%= movie["title"] %></h3>
                 <% else %>
@@ -33,10 +33,10 @@
               </div>
             <% end %>
           
-            <div class="col-md-3"> </div>
-            <div class="col-md-9">
+            <div class="col-md-3 col-sm-3"> </div>
+            <div class="col-md-9 col-sm-9" style="padding-left:0;">
               <div class="row btn-date">
-                <div class="col-md-8 btn-toolbar">
+                <div class="col-md-8 col-sm-6 btn-toolbar">
                   <% if current_user?(User.find(@movielist.user_id)) %>
                       <%= button_to "観た",
                                     { :controller => "list_movies", :action => "create_watched_from_want",
@@ -49,7 +49,7 @@
                                     :params => {:movielist_id => @movielist.id, :movie_id => movie["id"]} %>
                   <% end %>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                   <span style="text-align:right">追加日：<%= m.created_at.to_s[0..9] %></span>
                 </div>
               </div>
@@ -61,7 +61,7 @@
       <% end %>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-3" style="padding:0;">
       <h1>
         <% if @user.picture? == false %>
           <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
@@ -71,8 +71,11 @@
         <%= @user.username %>
         <%= render 'follow_unfollow_button' if logged_in? %>
       </h1>
-      <div class="stats">
-        <%= render 'shared/stats' %>
+      
+      <div class="row text-center">
+        <div class="stats col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+          <%= render 'shared/stats' %>
+        </div>
       </div>
 
       <div class="lists">

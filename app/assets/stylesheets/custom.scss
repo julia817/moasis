@@ -20,7 +20,7 @@ $moasis: #3aabd2;
 @mixin movie_box {
   border: 2px solid $gray-medium-light;
   border-radius: 5px;
-  margin: 30px 5px;
+  margin: 30px 0;
   padding: 30px 5px;
   a {
     color: black;
@@ -211,6 +211,7 @@ footer {
 
 /* search */
 .search-page {
+  padding: 0;
   h1 {
     margin-bottom: 50px;
   }
@@ -246,7 +247,7 @@ footer {
   p {
     font-size: 20px;
   }
-  .row {
+  .results {
     @include movie_box
   }
   h4 {
@@ -276,6 +277,7 @@ footer {
 
 /* movie info */
 .movie-info {
+  width: 85%;
   margin-top: 30px;
   .poster {
     img {
@@ -345,9 +347,11 @@ footer {
 
 /* comments */
 .comments {
-  width: 60%;
-  margin-top: 30px;
-  padding: 0;
+  clear: both;
+  /*margin-top: 30px;*/
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 40px;
   h5 {
     font-size: 22px;
     @include title;
@@ -419,8 +423,9 @@ footer {
 
 /* profile */
 .user {
+  padding: 0;
   .stats {
-    margin-left: 10%;
+    /*margin-left: 10%;*/
     /*margin-right: auto;*/
     overflow: auto;
     a {
@@ -515,7 +520,7 @@ footer {
 
 /* Timeline */
 .timeline {
-  width: 60%;
+  /*width: 75%;*/
   h2 {
     font-size: 30px;
     margin-bottom: 20px;

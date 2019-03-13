@@ -1,9 +1,9 @@
 <%= provide(:title, "#{@user.username}の鑑賞記録") %>
 
-<div class="container-fluid container area-width user">
+<div class="container-fluid area-width user">
   <div class="row">
 
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-9" style="padding-left:0;padding-right:40px;">
       <h2>映画鑑賞レポート</h2>
       <h4>ジャンル別グラフ</h4>
       <%= bar_chart @chart, colors: ["#F781D8"] %>
@@ -24,7 +24,7 @@
       <% end %>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-3" style="padding:0;">
       <h1>
         <% if @user.picture? == false %>
           <%= image_tag("panda.png", :size => "100x100", :alt => "profile") %>
@@ -34,8 +34,11 @@
         <%= @user.username %>
         <%= render 'follow_unfollow_button' if logged_in? %>
       </h1>
-      <div class="stats">
-        <%= render 'shared/stats' %>
+      
+      <div class="row text-center">
+        <div class="stats col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+          <%= render 'shared/stats' %>
+        </div>
       </div>
 
       <div class="lists">

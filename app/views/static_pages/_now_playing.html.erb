@@ -3,7 +3,7 @@
   <hr style="margin-bottom: 25px;">
   <div class="row">
     <% @movies[0..3].each do |m| %>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
           <%= link_to "/movies/#{m["id"]}", :target => "new" do %>
             <%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
@@ -20,7 +20,7 @@
 
   <div class="row">
     <% @movies[4..7].each do |m| %>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
           <%= link_to "/movies/#{m["id"]}", :target => "new" do %>
             <%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",
@@ -37,7 +37,7 @@
 
   <div class="row">
     <% @movies[8...12].each do |m| %>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
           <%= link_to "/movies/#{m["id"]}", :target => "new" do %>
             <%= image_tag "https://image.tmdb.org/t/p/w500#{m["backdrop_path"]}",

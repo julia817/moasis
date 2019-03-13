@@ -1,4 +1,4 @@
-<div class="col-md-8">
+<div class="col-md-8" style="padding-left:20px;padding-right:20px;">
   
   <% if @movie["original_language"] != "ja" %>
     <h1><%= @movie["title"] %></h1>
@@ -72,7 +72,7 @@
         <% if @movie["credits"]["cast"][i]["character"].blank? %>
           <% break %>
         <% end %>
-          <div class="col-md-2 col-md-offset-0">
+          <div class="col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0">
             <div class="thumbnail">
               <%= link_to controller: "movies", action: "show_person", id: "#{@movie["credits"]["cast"][i]["id"]}" do %>
                 <% if @movie["credits"]["cast"][i]["profile_path"].nil? %>

@@ -4,8 +4,8 @@
   <%= provide(:title, "#{@movie["original_title"]}") %>
 <% end %>
 
-<div class="container-fluid area-width movie-info">
-  <div class="col-md-4">
+<div class="container-fluid movie-info">
+  <div class="col-md-4" style="padding-left:20px;padding-right:20px;">
     <div class="poster">
       <%= image_tag("https://image.tmdb.org/t/p/original#{@movie["poster_path"]}",
                     :class => "img-responsive", :alt => "poster") %>
@@ -40,15 +40,16 @@
 
   <%= render 'movie_details' %>
 
+  <% if !@movie_db.nil? && @movie_db.comments.any? %>
+    <div class="container-fluid comments">
+      <h5>コメント・感想（<%= @movie_db.comments.count %>件）</h5>
+      <ol>
+        <%= render @comments %>
+      </ol>
+      <%= will_paginate @comments %>
+    </div>
+  <% end %>
+
 </div>
 
 
-<% if !@movie_db.nil? && @movie_db.comments.any? %>
-  <div class="container-fluid comments">
-    <h5>コメント・感想（<%= @movie_db.comments.count %>件）</h5>
-    <ol>
-      <%= render @comments %>
-    </ol>
-    <%= will_paginate @comments %>
-  </div>
-<% end %>
