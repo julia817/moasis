@@ -30,11 +30,13 @@ class ApplicationController < ActionController::Base
 
   def add_movie_to_db movie
     unless Movie.exists?(movie["id"])
-      ids = Array.new
+      ids_arr = Array.new
+      ids_str = movie["genres_ids"]
       movie["genres"].each do |genre|
-        ids << genre["id"]
+        ids_arr << genre["id"]
       end
-      Movie.add(movie["id"], movie["title"], movie["poster_path"], ids)
+      Movie.add(movie["id"], movie["title"], movie["poster_path"], ids_arr) unless ids_arr.nil?
+      Movie.add(movie["id"], movie["title"], movie["poster_path"], ids_str) unless ids_str.nil?
     end
   end
 end
